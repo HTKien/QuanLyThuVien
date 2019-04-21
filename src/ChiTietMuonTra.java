@@ -124,7 +124,7 @@ public class ChiTietMuonTra extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setText("Xuất file chi tiết");
+        jButton5.setText("In phiếu mượn trả");
 
         jButton6.setText("Refresh");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -164,7 +164,7 @@ public class ChiTietMuonTra extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jButton3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                                 .addComponent(jButton7)
                                 .addGap(52, 52, 52)
                                 .addComponent(jButton5)
