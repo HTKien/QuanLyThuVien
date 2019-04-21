@@ -53,6 +53,7 @@ public class TrangChu extends javax.swing.JFrame {
         jLabel1.setText("jLabel1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("HÀN TRUNG KIÊN 20162220");
 
         jPanel4.setBackground(new java.awt.Color(153, 153, 153));
 

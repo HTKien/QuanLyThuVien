@@ -72,6 +72,7 @@ public class ChiTietMuonTra extends javax.swing.JFrame {
         jButton8 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("HÀN TRUNG KIÊN 20162220");
 
         jLabel1.setText("Danh sách tất cả sách có mã mượn trả là: ");
 
@@ -124,7 +125,12 @@ public class ChiTietMuonTra extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setText("In phiếu mượn trả");
+        jButton5.setText("Xem phiếu mượn trả");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton6.setText("Refresh");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -160,15 +166,15 @@ public class ChiTietMuonTra extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(mamuontratt, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jButton3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                                 .addComponent(jButton7)
                                 .addGap(52, 52, 52)
                                 .addComponent(jButton5)
-                                .addGap(17, 17, 17)))))
+                                .addGap(17, 17, 17))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(mamuontratt, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -309,6 +315,12 @@ public class ChiTietMuonTra extends javax.swing.JFrame {
             
         }
     }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        new PhieuMuonTra().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -458,7 +470,7 @@ public class ChiTietMuonTra extends javax.swing.JFrame {
         int idSach= Integer.parseInt(s3); 
         
         
-        String sql1 = "delete from   chitietmuontra   where idMuonTra='" + idMuonTra + "' and idSach = '"+idSach+"';";
+        String sql1 = "delete from   chitietmuontra   where  idMuonTra='" + idMuonTra + "' and idSach = '"+idSach+"';";
 
         Statement statement = null;
 

@@ -54,6 +54,7 @@ public class ThongKeMuonTra extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("HÀN TRUNG KIÊN 20162220");
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
 

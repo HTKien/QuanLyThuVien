@@ -103,7 +103,7 @@ public class Sach extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Quản lý sách");
+        setTitle("HÀN TRUNG KIÊN 20162220");
 
         jButton5.setBackground(new java.awt.Color(102, 102, 102));
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/arrow-back-icon.png"))); // NOI18N

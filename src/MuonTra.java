@@ -95,7 +95,7 @@ public class MuonTra extends javax.swing.JFrame {
         jButton8 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Quản lý mượn trả");
+        setTitle("HÀN TRUNG KIÊN 20162220");
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -758,16 +758,16 @@ public class MuonTra extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JRadioButton madocgiachon;
     private javax.swing.JComboBox madocgiatimkiem;
-    private javax.swing.JTextField madocgiatt;
+    public static javax.swing.JTextField madocgiatt;
     private javax.swing.JRadioButton mamuontrachon;
     private javax.swing.JComboBox mamuontratimkien;
     public static javax.swing.JTextField mamuontratt;
     private javax.swing.JRadioButton manhanvienchon;
     private javax.swing.JComboBox manhanvientiemkiem;
-    private javax.swing.JTextField manhanvientt;
-    private com.toedter.calendar.JDateChooser ngayhentratt;
-    private com.toedter.calendar.JDateChooser ngaymuontt;
-    private javax.swing.JTextField tiencoctt;
+    public static javax.swing.JTextField manhanvientt;
+    public static com.toedter.calendar.JDateChooser ngayhentratt;
+    public static com.toedter.calendar.JDateChooser ngaymuontt;
+    public static javax.swing.JTextField tiencoctt;
     // End of variables declaration//GEN-END:variables
 
     private void loadData() {
@@ -891,14 +891,7 @@ public class MuonTra extends javax.swing.JFrame {
         statement = connection.createStatement();
         statement.executeUpdate(sql1);
     }
-    public static int docMaMuonTra(){
-        int maMuonTraDoc=0; 
-        maMuonTraDoc= Integer.parseInt(mamuontratt.getText());
-        
-        
-        System.out.println(maMuonTraDoc);
-        return maMuonTraDoc;
-    }
+    
 
     private void timKiemTheoMaMT() {
         bangmuontra.removeAll();
@@ -1040,6 +1033,42 @@ public class MuonTra extends javax.swing.JFrame {
             }
 
         });
+    }
+    public static int docMaMuonTra(){
+        int maMuonTraDoc=0; 
+        maMuonTraDoc= Integer.parseInt(mamuontratt.getText());
+        
+        
+        return maMuonTraDoc;
+    }
+    
+    public static int  docMaNhanVien(){
+        int maNhanVienDoc= Integer.parseInt(manhanvientt.getText()); 
+        
+        return maNhanVienDoc; 
+    }
+    public static int docMaDocGia(){
+        int maDocGiaDoc = Integer.parseInt(madocgiatt.getText()); 
+        
+        return maDocGiaDoc; 
+    }
+    public static String docNgayMuon(){
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        String ngayMuon = dateFormat.format(ngaymuontt.getDate());
+        
+        return ngayMuon; 
+    }
+    public static String docNgayHenTra(){
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        String ngayHenTra = dateFormat.format(ngayhentratt.getDate());
+        return ngayHenTra; 
+    }
+    public static Double docTienCoc(){
+        
+        Double tienCoc = Double.parseDouble(tiencoctt.getText());
+        return tienCoc; 
     }
         
 
