@@ -117,7 +117,7 @@ public class Menu extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jLabel4.setText("Email:");
+        jLabel4.setText("Username: ");
 
         jLabel5.setText("Mật khẩu: ");
 
@@ -338,6 +338,8 @@ public class Menu extends javax.swing.JFrame {
             if (rs.next() && !emaildn.getText().equals("") && !passworddn.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "Đăng nhập thành công!");
                 new TrangChu().setVisible(true);
+                        this.dispose();
+
             } else {
                 JOptionPane.showMessageDialog(this, "Sai Username hoặc mật khẩu!\nĐăng nhập thất bại!");
 

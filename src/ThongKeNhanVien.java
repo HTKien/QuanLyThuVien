@@ -3,6 +3,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -10,7 +11,6 @@ import javax.swing.table.DefaultTableModel;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author hantr
@@ -22,6 +22,7 @@ public class ThongKeNhanVien extends javax.swing.JFrame {
      */
     KetNoiQLTV ketNoiQLTV = null;
     Connection connection = null;
+
     public ThongKeNhanVien() {
         ketNoiQLTV = new KetNoiQLTV();
         connection = ketNoiQLTV.getJDBCConnection();
@@ -49,6 +50,7 @@ public class ThongKeNhanVien extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -126,6 +128,13 @@ public class ThongKeNhanVien extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jButton4.setText("Đăng xuất ");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -143,8 +152,10 @@ public class ThongKeNhanVien extends javax.swing.JFrame {
                 .addGap(63, 63, 63))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jButton2)
+                .addGap(181, 181, 181)
+                .addComponent(jButton3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton3))
+                .addComponent(jButton4))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -172,7 +183,8 @@ public class ThongKeNhanVien extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
-                    .addComponent(jButton3)))
+                    .addComponent(jButton3)
+                    .addComponent(jButton4)))
         );
 
         pack();
@@ -180,14 +192,14 @@ public class ThongKeNhanVien extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        if(tenchon.isSelected()){
+        if (tenchon.isSelected()) {
             thongKeTheoTen();
 
-        }else if(gtchon.isSelected()){
+        } else if (gtchon.isSelected()) {
             thongKeTheoGioiTinh();
-        }else if(namsinhchon.isSelected()){
+        } else if (namsinhchon.isSelected()) {
             thongKeTheoNamSinh();
-        } else if(diachichon.isSelected()){
+        } else if (diachichon.isSelected()) {
             thongKeTheoDiaChi();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -195,6 +207,8 @@ public class ThongKeNhanVien extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         new DocGia().setVisible(true);
+        this.dispose();
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void tenchonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tenchonActionPerformed
@@ -204,6 +218,17 @@ public class ThongKeNhanVien extends javax.swing.JFrame {
     private void namsinhchonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namsinhchonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_namsinhchonActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        int chose = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn đăng xuất không?", "Xác nhận", 0);
+        if (chose == 0) {
+            
+               new Menu().setVisible(true );
+        this.dispose();
+            
+            
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -248,6 +273,7 @@ public class ThongKeNhanVien extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
