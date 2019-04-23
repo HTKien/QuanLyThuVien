@@ -27,6 +27,7 @@ public class ThongKeMuonTra extends javax.swing.JFrame {
         ketNoiQLTV = new KetNoiQLTV();
         connection = ketNoiQLTV.getJDBCConnection();
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**

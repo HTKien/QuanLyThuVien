@@ -37,6 +37,7 @@ public class ChiTietMuonTra extends javax.swing.JFrame {
         ketNoiQLTV = new KetNoiQLTV();
         connection = ketNoiQLTV.getJDBCConnection();
         initComponents();
+        this.setLocationRelativeTo(null);
         a = MuonTra.docMaMuonTra();
         xemChiTiet();
 

@@ -40,6 +40,7 @@ public class Sach extends javax.swing.JFrame {
         ketNoiQLTV = new KetNoiQLTV();
         connection = ketNoiQLTV.getJDBCConnection();
         initComponents();
+        this.setLocationRelativeTo(null);
         //gọi hàm loadData trong phương thức Sach: 
         loadData();
         //timKiem();

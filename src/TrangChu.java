@@ -17,10 +17,11 @@ import javax.swing.JOptionPane;
 public class TrangChu extends javax.swing.JFrame {
 
     /**
-     * Creates new form trangchu_
+     * Creates new form 
      */
     public TrangChu() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
