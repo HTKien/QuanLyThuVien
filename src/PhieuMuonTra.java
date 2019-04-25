@@ -406,6 +406,7 @@ public class PhieuMuonTra extends javax.swing.JFrame {
                 vector.add(resultSet.getInt("idSach"));
                 vector.add(resultSet.getDate("ngayTra"));
                 vector.add(resultSet.getDouble("tienPhat"));
+                vector.add(getTenSach(resultSet.getInt("idSach")));
 
                 model.addRow(vector);
             }
@@ -417,5 +418,10 @@ public class PhieuMuonTra extends javax.swing.JFrame {
 
         
 
+    }
+    
+    public static String getTenSach(int maSach) {
+        
+        return ""; 
     }
 }

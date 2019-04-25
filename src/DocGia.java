@@ -16,9 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import jxl.Sheet;
-import jxl.Workbook;
-import jxl.read.biff.BiffException;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -674,17 +672,15 @@ public class DocGia extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        try {
-            // TODO add your handling code here:
-            themFileExcel();
-        } catch (IOException ex) {
-            Logger.getLogger(DocGia.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (BiffException ex) {
-            Logger.getLogger(DocGia.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(DocGia.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        loadData();
+//        try {
+//            // TODO add your handling code here:
+//            themFileExcel();
+//        } catch (IOException ex) {
+//            Logger.getLogger(DocGia.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (SQLException ex) {
+//            Logger.getLogger(DocGia.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        loadData();
         
     }//GEN-LAST:event_jButton8ActionPerformed
 
@@ -1086,71 +1082,71 @@ public class DocGia extends javax.swing.JFrame {
 
    
 
-    private void themFileExcel() throws FileNotFoundException, IOException, BiffException, SQLException {
-
-        File file = new File("D:\\java_netbean\\QuanLyThuVien\\Book1.xls");
-        Workbook wb = Workbook.getWorkbook(file);
-        Sheet sheet = wb.getSheet(0);
-        int rows = sheet.getRows();
-        int cols = sheet.getColumns();
-        
-        int idDocGia = 0;
-        String tenDocGia = "";
-        String gioiTinhDocGia = "";
-        String namSinhDocGia = "";
-        String sdtDocGia = "";
-        String diaChiDocGia = "";
-        String emailDocGia = "";
-        String ngheNghiepDocGia = "";
-
-        for (int row = 0; row < rows; row++) {
-            for (int col = 0; col < cols; col++) {
-                if (col == 0) {
-                    idDocGia = Integer.parseInt(sheet.getCell(col, row).getContents());
-                }
-                if (col == 1) {
-                    tenDocGia = sheet.getCell(col, row).getContents().toString();
-                }
-                if (col == 2) {
-                    gioiTinhDocGia = sheet.getCell(col, row).getContents().toString();
-                }
-                if (col == 3) {
-                    namSinhDocGia = sheet.getCell(col, row).getContents().toString();
-
-                }
-                if (col == 4) {
-                    sdtDocGia = sheet.getCell(col, row).getContents().toString();
-
-                }
-                if (col == 5) {
-                    diaChiDocGia = sheet.getCell(col, row).getContents().toString();
-
-                }
-                if (col == 6) {
-                    emailDocGia = sheet.getCell(col, row).getContents().toString();
-
-                }
-                if (col == 7) {
-                    ngheNghiepDocGia = sheet.getCell(col, row).getContents().toString();
-
-                }
-
-            }
-            String sql1 = "insert into quan_ly_thu_vien.docgia (idDocGia, tenDocGia, gioiTinhDocGia, namSinhDocGia, sdtDocGia, diaChiDocGia, emailDocGia,ngheNghiepDocGia) values ('" + idDocGia + "','" + tenDocGia + "', '" + gioiTinhDocGia + "', '" + namSinhDocGia + "', '" + sdtDocGia + "', '" + diaChiDocGia + "',' " + emailDocGia + "',' " + ngheNghiepDocGia + "');";
-            Statement statement = null;
-            ResultSet resultSet = null;
-
-            statement = connection.createStatement();
-            statement.executeUpdate(sql1);
-        }
-
-    /**
-     *
-     */
+//    private void themFileExcel() throws FileNotFoundException, IOException, BiffException, SQLException {
+//
+//        File file = new File("D:\\java_netbean\\QuanLyThuVien\\Book1.xls");
+//        Workbook wb = Workbook.getWorkbook(file);
+//        Sheet sheet = wb.getSheet(0);
+//        int rows = sheet.getRows();
+//        int cols = sheet.getColumns();
+//        
+//        int idDocGia = 0;
+//        String tenDocGia = "";
+//        String gioiTinhDocGia = "";
+//        String namSinhDocGia = "";
+//        String sdtDocGia = "";
+//        String diaChiDocGia = "";
+//        String emailDocGia = "";
+//        String ngheNghiepDocGia = "";
+//
+//        for (int row = 0; row < rows; row++) {
+//            for (int col = 0; col < cols; col++) {
+//                if (col == 0) {
+//                    idDocGia = Integer.parseInt(sheet.getCell(col, row).getContents());
+//                }
+//                if (col == 1) {
+//                    tenDocGia = sheet.getCell(col, row).getContents().toString();
+//                }
+//                if (col == 2) {
+//                    gioiTinhDocGia = sheet.getCell(col, row).getContents().toString();
+//                }
+//                if (col == 3) {
+//                    namSinhDocGia = sheet.getCell(col, row).getContents().toString();
+//
+//                }
+//                if (col == 4) {
+//                    sdtDocGia = sheet.getCell(col, row).getContents().toString();
+//
+//                }
+//                if (col == 5) {
+//                    diaChiDocGia = sheet.getCell(col, row).getContents().toString();
+//
+//                }
+//                if (col == 6) {
+//                    emailDocGia = sheet.getCell(col, row).getContents().toString();
+//
+//                }
+//                if (col == 7) {
+//                    ngheNghiepDocGia = sheet.getCell(col, row).getContents().toString();
+//
+//                }
+//
+//            }
+//            String sql1 = "insert into quan_ly_thu_vien.docgia (idDocGia, tenDocGia, gioiTinhDocGia, namSinhDocGia, sdtDocGia, diaChiDocGia, emailDocGia,ngheNghiepDocGia) values ('" + idDocGia + "','" + tenDocGia + "', '" + gioiTinhDocGia + "', '" + namSinhDocGia + "', '" + sdtDocGia + "', '" + diaChiDocGia + "',' " + emailDocGia + "',' " + ngheNghiepDocGia + "');";
+//            Statement statement = null;
+//            ResultSet resultSet = null;
+//
+//            statement = connection.createStatement();
+//            statement.executeUpdate(sql1);
+//        }
 
     /**
      *
      */
-    }
+
+    /**
+     *
+     */
+    
     
 }

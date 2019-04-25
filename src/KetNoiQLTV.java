@@ -8,12 +8,9 @@ public class KetNoiQLTV {
         final String password="12345678"; 
         final String user = "root"; 
         try {
-            Class.forName("com.mysql.jdbc.Driver"); 
+            Class.forName("com.mysql.cj.jdbc.Driver"); 
             return DriverManager.getConnection(url, user, password); 
-        } catch (ClassNotFoundException e) { 
-            e.printStackTrace(); 
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (ClassNotFoundException | SQLException e) {
         }
         return null; 
     }
