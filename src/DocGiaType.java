@@ -1,4 +1,5 @@
 
+import com.sun.org.apache.bcel.internal.generic.DCMPG;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,7 +18,6 @@ import java.util.ArrayList;
 public class DocGiaType {
 
     //cac thuoc tinh: 
-
     private int idDocGia;
     private String tenDocGia;
     private String gioiTinhDocGia;
@@ -28,11 +28,14 @@ public class DocGiaType {
     private String ngheNgiepDocGia;
     //cac phuong thuc khoi tao : 
 
-    public DocGiaType() {
-    }
-
-    private DocGiaType(int aInt, String string, String string0, String string1, String string2, String string3, String string4, String string5) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public DocGiaType(int idDocGia, String tenDocGia, String gioiTinhDocGia, String namSinhDocGia, String sdtDocGia, String diaChiDocGia, String emailDocGia, String string6) {
+        this.idDocGia = idDocGia;
+        this.tenDocGia = tenDocGia;
+        this.gioiTinhDocGia = gioiTinhDocGia;
+        this.namSinhDocGia = namSinhDocGia;
+        this.sdtDocGia = sdtDocGia;
+        this.diaChiDocGia = diaChiDocGia;
+        this.emailDocGia = emailDocGia;
     }
 
     public int getIdDocGia() {
@@ -99,17 +102,19 @@ public class DocGiaType {
         this.ngheNgiepDocGia = ngheNgiepDocGia;
     }
 
-    //hàm để load dữ liệu lên một  arraylist: 
+    public DocGiaType() {
+    }
 
-    public static  ArrayList<DocGiaType> loadListDocGia() throws SQLException {
-        ArrayList<DocGiaType> listDocGias = new ArrayList<>();
-        String sql = " select * from docgia ; ";
-        //ket noi database : 
-        Connection connection = new KetNoiQLTV().getJDBCConnection();
+    //hàm để load dữ liệu lên một  arraylist: 
+    public static ArrayList<DocGiaType> getList() throws ClassNotFoundException, SQLException {
+        String sql = "select * from docgia ; ";
+        ArrayList<DocGiaType> list = new ArrayList<>();
+        KetNoiQLTV ketNoiQLTV = new KetNoiQLTV();
+        Connection connection = ketNoiQLTV.getJDBCConnection();
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(sql);
         while (resultSet.next()) {
-            listDocGias.add(new DocGiaType(
+            list.add(new DocGiaType(
                     resultSet.getInt("idDocGia"),
                     resultSet.getString("tenDocGia"),
                     resultSet.getString("gioiTinhDocGia"),
@@ -117,12 +122,27 @@ public class DocGiaType {
                     resultSet.getString("sdtDocGia"),
                     resultSet.getString("diaChiDocGia"),
                     resultSet.getString("emailDocGia"),
-                    resultSet.getString("ngheNghiepDocGia")
-            ));
+                    resultSet.getString("ngheNghiepDocGia")));
+
         }
-        //dong ket noi 
         connection.close();
-        return listDocGias;
+        return list;
+
+    }
+    
+
+    public static void main(String[] args) throws ClassNotFoundException, SQLException {
+        ArrayList<DocGiaType> listDocGiaTypes = new ArrayList<>();
+        listDocGiaTypes = getList();
+        int a = listDocGiaTypes.size();
+        System.out.println(a);
+        System.out.println("Ten doc gia dau tien la :" + listDocGiaTypes.get(0).getTenDocGia());
+        System.out.println("id doc gia dau tien la: " + listDocGiaTypes.get(0).getIdDocGia());
+        System.out.println("ma doc gia cua  cua toan bo  danh sach la: ");
+        for (int i = 0; i < a; i++) {
+            System.out.println( listDocGiaTypes.get(i).getIdDocGia());
+
+        }
     }
 
 }

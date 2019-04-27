@@ -100,6 +100,12 @@ public class PhieuMuonTra extends javax.swing.JFrame {
 
         jLabel12.setText("Số tiền còn nợ: ");
 
+        mamuontra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mamuontraActionPerformed(evt);
+            }
+        });
+
         bangphieu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -226,6 +232,10 @@ public class PhieuMuonTra extends javax.swing.JFrame {
         new ChiTietMuonTra().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void mamuontraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mamuontraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mamuontraActionPerformed
 
     /**
      * @param args the command line arguments
@@ -391,7 +401,7 @@ public class PhieuMuonTra extends javax.swing.JFrame {
 
     private void loadBangPhieu() {
         bangphieu.removeAll();
-        String[] columns = {"Mã mượn trả","Mã sách", "Ngày trả", "Tiền phạt", "Tên sách"};
+        String[] columns = {"Mã mượn trả", "Mã sách", "Ngày trả", "Tiền phạt", "Tên sách"};
         DefaultTableModel model = new DefaultTableModel(columns, 0);
 
         String sql = "select * from chitietmuontra where idMuonTra =" + a + ";";
@@ -416,12 +426,26 @@ public class PhieuMuonTra extends javax.swing.JFrame {
         }
         bangphieu.setModel(model);
 
-        
-
     }
-    
-    public static String getTenSach(int maSach) {
-        
-        return ""; 
+
+    public String getTenSach(int maSach) {
+
+        String tenSach = "";
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String sql = "select tenSach from sach where idSach =' " + maSach + "'; ";
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                tenSach = resultSet.getString("tenSach");
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+
+        return tenSach;
     }
 }

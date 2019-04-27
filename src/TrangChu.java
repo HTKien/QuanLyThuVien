@@ -298,8 +298,14 @@ public class TrangChu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-        new MuonTra().setVisible(true );
+        try {
+            // TODO add your handling code here:
+            new MuonTra().setVisible(true );
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(TrangChu.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(TrangChu.class.getName()).log(Level.SEVERE, null, ex);
+        }
                 this.dispose();
 
     }//GEN-LAST:event_jButton5ActionPerformed

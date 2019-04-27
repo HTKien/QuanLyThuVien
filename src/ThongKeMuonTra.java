@@ -1,8 +1,11 @@
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -198,8 +201,14 @@ public class ThongKeMuonTra extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        new MuonTra().setVisible(true);
+        try {
+            // TODO add your handling code here:
+            new MuonTra().setVisible(true);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ThongKeMuonTra.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ThongKeMuonTra.class.getName()).log(Level.SEVERE, null, ex);
+        }
                 this.dispose();
 
     }//GEN-LAST:event_jButton2ActionPerformed
