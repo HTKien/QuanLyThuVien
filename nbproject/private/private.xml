@@ -5,11 +5,10 @@
         <group>
             <file>file:/D:/java_netbean/QuanLyThuVien/src/MuonTra.java</file>
             <file>file:/D:/java_netbean/QuanLyThuVien/src/PhieuMuonTra.java</file>
-            <file>file:/D:/java_netbean/QuanLyThuVien/src/ThongKeMuonTra.java</file>
-            <file>file:/D:/java_netbean/QuanLyThuVien/src/DocGiaType.java</file>
-            <file>file:/D:/java_netbean/QuanLyThuVien/src/NhanVienType.java</file>
-            <file>file:/D:/java_netbean/QuanLyThuVien/src/MuonTraType.java</file>
-            <file>file:/D:/java_netbean/QuanLyThuVien/src/TrangChu.java</file>
+            <file>file:/D:/java_netbean/QuanLyThuVien/src/Sach.java</file>
+            <file>file:/D:/java_netbean/QuanLyThuVien/src/SachType.java</file>
+            <file>file:/D:/java_netbean/QuanLyThuVien/src/Menu.java</file>
+            <file>file:/D:/java_netbean/QuanLyThuVien/src/ChiTietMuonTra.java</file>
         </group>
     </open-files>
 </project-private>

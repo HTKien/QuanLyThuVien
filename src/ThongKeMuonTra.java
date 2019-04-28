@@ -3,6 +3,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -48,8 +49,8 @@ public class ThongKeMuonTra extends javax.swing.JFrame {
         nhanvienchon = new javax.swing.JRadioButton();
         docgiachon = new javax.swing.JRadioButton();
         ngaymuonchon = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
-        jRadioButton5 = new javax.swing.JRadioButton();
+        thangmuonchon = new javax.swing.JRadioButton();
+        nammuonchon = new javax.swing.JRadioButton();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         bangthongke = new javax.swing.JTable();
@@ -84,6 +85,11 @@ public class ThongKeMuonTra extends javax.swing.JFrame {
 
         buttonGroup1.add(nhanvienchon);
         nhanvienchon.setText("Nhân viên");
+        nhanvienchon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nhanvienchonActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(docgiachon);
         docgiachon.setText("Độc giả");
@@ -91,11 +97,11 @@ public class ThongKeMuonTra extends javax.swing.JFrame {
         buttonGroup1.add(ngaymuonchon);
         ngaymuonchon.setText("Ngày mượn ");
 
-        buttonGroup1.add(jRadioButton4);
-        jRadioButton4.setText("Tháng");
+        buttonGroup1.add(thangmuonchon);
+        thangmuonchon.setText("Tháng");
 
-        buttonGroup1.add(jRadioButton5);
-        jRadioButton5.setText("Năm ");
+        buttonGroup1.add(nammuonchon);
+        nammuonchon.setText("Năm ");
 
         jButton1.setText("THỐNG KÊ ");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -155,9 +161,9 @@ public class ThongKeMuonTra extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                         .addComponent(ngaymuonchon)
                         .addGap(68, 68, 68)
-                        .addComponent(jRadioButton4)))
+                        .addComponent(thangmuonchon)))
                 .addGap(58, 58, 58)
-                .addComponent(jRadioButton5)
+                .addComponent(nammuonchon)
                 .addGap(41, 41, 41))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jButton2)
@@ -175,8 +181,8 @@ public class ThongKeMuonTra extends javax.swing.JFrame {
                     .addComponent(nhanvienchon)
                     .addComponent(docgiachon)
                     .addComponent(ngaymuonchon)
-                    .addComponent(jRadioButton4)
-                    .addComponent(jRadioButton5))
+                    .addComponent(thangmuonchon)
+                    .addComponent(nammuonchon))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -195,8 +201,12 @@ public class ThongKeMuonTra extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(nhanvienchon.isSelected()){
             thongKeTheoNhanVien();
+        }else if(docgiachon.isSelected()){
+            thongKeTheoDocGia(); 
         } else if(ngaymuonchon.isSelected()){
             thongKeTheoNgayMuon();
+        }else if(thangmuonchon.isSelected()){
+            thongKeTheoThang(); 
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -223,6 +233,10 @@ public class ThongKeMuonTra extends javax.swing.JFrame {
             
         }
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void nhanvienchonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nhanvienchonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nhanvienchonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -269,16 +283,16 @@ public class ThongKeMuonTra extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton jRadioButton4;
-    private javax.swing.JRadioButton jRadioButton5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JRadioButton nammuonchon;
     private javax.swing.JRadioButton ngaymuonchon;
     private javax.swing.JRadioButton nhanvienchon;
+    private javax.swing.JRadioButton thangmuonchon;
     // End of variables declaration//GEN-END:variables
 
     private void thongKeTheoNhanVien() {
         bangthongke.removeAll();
-        String[] columns = {"Mã nhân viên", "Số lượng hóa đơn", "Tên nhân viên"};
+        String[] columns = {"Mã nhân viên", "Tên nhân viên","Số lượng hóa đơn" };
         DefaultTableModel model = new DefaultTableModel(columns, 0);
         String sql = "SELECT COUNT(idNhanVien), idNhanVien FROM muon_tra GROUP BY idNhanVien;";
         Statement statement = null;
@@ -290,16 +304,12 @@ public class ThongKeMuonTra extends javax.swing.JFrame {
             resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
                 Vector vector = new Vector();
-                vector.add(resultSet.getString("idNhanVien"));
+                vector.add(resultSet.getInt("idNhanVien")); 
+                
+                vector.add(getTenNhanVien(resultSet.getInt("idNhanVien"))); 
                 vector.add(resultSet.getInt("COUNT(idNhanVien)"));
 
-//                resultSet1 = statement.executeQuery("select tenNhanVien from nhanvien where idNhanVien='" + resultSet.getString("idNhanVien") + "'");
-//                while (resultSet1.next()) {
-//                    //Vector vector = new Vector();
-//                    vector.add(resultSet1.getString("tenNhanVien"));
-//
-//                    //model.addRow(vector);
-//                }
+
 
                 model.addRow(vector);
             }
@@ -335,5 +345,102 @@ public class ThongKeMuonTra extends javax.swing.JFrame {
         }
         bangthongke.setModel(model);
         
+    }
+    public  String getTenNhanVien(int idNhanVien) {
+
+        String tenNhanVien = "";
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String sql = "select tenNhanVien from nhanvien where idNhanVien =' " + idNhanVien + "'; ";
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                tenNhanVien = resultSet.getString("tenNhanVien");
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+
+        return tenNhanVien;
+    }
+
+    private void thongKeTheoDocGia() {
+        bangthongke.removeAll();
+        String[] columns = {"Mã độc giả", "Tên độc giả","Số lượng hóa đơn" };
+        DefaultTableModel model = new DefaultTableModel(columns, 0);
+        String sql = "SELECT COUNT(idDocGia), idDocGia FROM muon_tra GROUP BY idDocGia;";
+        Statement statement = null;
+        ResultSet resultSet = null;
+        ResultSet resultSet1 = null;
+
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                Vector vector = new Vector();
+                vector.add(resultSet.getInt("idDocGia")); 
+                
+                vector.add(getTenDocGia(resultSet.getInt("idDocGia"))); 
+                vector.add(resultSet.getInt("COUNT(idDocGia)"));
+
+
+
+                model.addRow(vector);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        bangthongke.setModel(model);
+
+    }
+    public  String getTenDocGia(int idDocGia) {
+
+        String tenDocGia = "";
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String sql = "select tenDocGia from docgia where idDocGia =' " + idDocGia + "'; ";
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                tenDocGia = resultSet.getString("tenDocGia");
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+
+        return tenDocGia;
+    }
+
+    private void thongKeTheoThang() {
+
+        bangthongke.removeAll();
+        String[] columns = {"Tháng", "Số lượng hóa đơn"};
+        DefaultTableModel model = new DefaultTableModel(columns, 0);
+        String sql = "SELECT count(idMuonTra), ngayMuon FROM muon_tra GROUP BY ngayMuon ORDER BY ngayMuon DESC;";
+        Statement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                Vector vector = new Vector();
+                vector.add(resultSet.getString("ngayMuon"));
+                vector.add(resultSet.getInt("count(idMuonTra)"));
+
+
+
+                model.addRow(vector);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        bangthongke.setModel(model);
     }
 }

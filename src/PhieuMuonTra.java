@@ -1,9 +1,12 @@
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -228,8 +231,14 @@ public class PhieuMuonTra extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        new ChiTietMuonTra().setVisible(true);
+        try {
+            // TODO add your handling code here:
+            new ChiTietMuonTra().setVisible(true);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PhieuMuonTra.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(PhieuMuonTra.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -401,7 +410,7 @@ public class PhieuMuonTra extends javax.swing.JFrame {
 
     private void loadBangPhieu() {
         bangphieu.removeAll();
-        String[] columns = {"Mã mượn trả", "Mã sách", "Ngày trả", "Tiền phạt", "Tên sách"};
+        String[] columns = {"Mã mượn trả", "Mã sách", "Tên sách", "Ngày trả", "Tiền phạt"};
         DefaultTableModel model = new DefaultTableModel(columns, 0);
 
         String sql = "select * from chitietmuontra where idMuonTra =" + a + ";";
@@ -414,9 +423,9 @@ public class PhieuMuonTra extends javax.swing.JFrame {
                 Vector vector = new Vector();
                 vector.add(resultSet.getInt("idMuonTra"));
                 vector.add(resultSet.getInt("idSach"));
+                vector.add(getTenSach(resultSet.getInt("idSach")));
                 vector.add(resultSet.getDate("ngayTra"));
                 vector.add(resultSet.getDouble("tienPhat"));
-                vector.add(getTenSach(resultSet.getInt("idSach")));
 
                 model.addRow(vector);
             }

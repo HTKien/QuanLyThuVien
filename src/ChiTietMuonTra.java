@@ -4,10 +4,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -32,14 +34,17 @@ public class ChiTietMuonTra extends javax.swing.JFrame {
     KetNoiQLTV ketNoiQLTV = null;
     Connection connection = null;
     int a;
+    ArrayList<SachType> listSachs = new ArrayList<>() ;
 
-    public ChiTietMuonTra() {
+    public ChiTietMuonTra() throws ClassNotFoundException, SQLException {
         ketNoiQLTV = new KetNoiQLTV();
         connection = ketNoiQLTV.getJDBCConnection();
         initComponents();
         this.setLocationRelativeTo(null);
         a = MuonTra.docMaMuonTra();
         xemChiTiet();
+        listSachs=SachType.getList() ;
+        combbbMaSach();
 
     }
 
@@ -52,6 +57,7 @@ public class ChiTietMuonTra extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jComboBox1 = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
         mamuontratt = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -60,7 +66,6 @@ public class ChiTietMuonTra extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        masachtt = new javax.swing.JTextField();
         ngaytratt = new com.toedter.calendar.JDateChooser();
         tienphattt = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
@@ -71,6 +76,9 @@ public class ChiTietMuonTra extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
+        masachcombb = new javax.swing.JComboBox();
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("HÀN TRUNG KIÊN 20162220");
@@ -173,9 +181,7 @@ public class ChiTietMuonTra extends javax.swing.JFrame {
                                 .addGap(52, 52, 52)
                                 .addComponent(jButton5)
                                 .addGap(17, 17, 17))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(mamuontratt, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                            .addComponent(mamuontratt, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,9 +201,9 @@ public class ChiTietMuonTra extends javax.swing.JFrame {
                                 .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(masachtt)
                             .addComponent(ngaytratt, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
-                            .addComponent(tienphattt))))
+                            .addComponent(tienphattt)
+                            .addComponent(masachcombb, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jButton4)
@@ -216,7 +222,7 @@ public class ChiTietMuonTra extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(masachtt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(masachcombb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel4))
                     .addComponent(ngaytratt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -262,7 +268,6 @@ public class ChiTietMuonTra extends javax.swing.JFrame {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
-        masachtt.setText("");
         ngaytratt.setDate(null);
         tienphattt.setText("");
     }//GEN-LAST:event_jButton7ActionPerformed
@@ -359,7 +364,13 @@ public class ChiTietMuonTra extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ChiTietMuonTra().setVisible(true);
+                try {
+                    new ChiTietMuonTra().setVisible(true);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(ChiTietMuonTra.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ChiTietMuonTra.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
             }
         });
@@ -376,6 +387,7 @@ public class ChiTietMuonTra extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
+    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -383,7 +395,7 @@ public class ChiTietMuonTra extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField mamuontratt;
-    private javax.swing.JTextField masachtt;
+    private javax.swing.JComboBox masachcombb;
     private com.toedter.calendar.JDateChooser ngaytratt;
     private javax.swing.JTextField tienphattt;
     // End of variables declaration//GEN-END:variables
@@ -418,8 +430,16 @@ public class ChiTietMuonTra extends javax.swing.JFrame {
 
             public void valueChanged(ListSelectionEvent e) {
                 if (bangchitiet.getSelectedRow() >= 0) {
+                    //ma nhan vien : 
+                    String maSachString = bangchitiet.getValueAt(bangchitiet.getSelectedRow(), 0).toString();
+                    int maSachInt = Integer.parseInt(maSachString);                    
+                    for (int i = 0; i < listSachs.size(); i++) {
+                        if (maSachInt == listSachs.get(i).getIdSach()) {
+                            masachcombb.setSelectedIndex(i);
+                        }
+                    }
                     
-                    masachtt.setText(bangchitiet.getValueAt(bangchitiet.getSelectedRow(), 0).toString());
+                    
                     ngaytratt.setDate((Date) bangchitiet.getValueAt(bangchitiet.getSelectedRow(), 1));
                     tienphattt.setText(bangchitiet.getValueAt(bangchitiet.getSelectedRow(), 2).toString());
 
@@ -434,7 +454,8 @@ public class ChiTietMuonTra extends javax.swing.JFrame {
         String s1 = mamuontratt.getText();
         int idMuonTra = Integer.parseInt(s1); 
         
-        String s3 = masachtt.getText()  ; 
+                String s3 = masachcombb.getSelectedItem().toString()  ; 
+
         int idSach= Integer.parseInt(s3); 
         
         String ngayTra = dateFormat.format(ngaytratt.getDate());
@@ -454,7 +475,8 @@ public class ChiTietMuonTra extends javax.swing.JFrame {
         String s1 = mamuontratt.getText();
         int idMuonTra = Integer.parseInt(s1); 
         
-        String s3 = masachtt.getText()  ; 
+                String s3 = masachcombb.getSelectedItem().toString()  ; 
+
         int idSach= Integer.parseInt(s3); 
         
         String ngayTra = dateFormat.format(ngaytratt.getDate());
@@ -473,7 +495,7 @@ public class ChiTietMuonTra extends javax.swing.JFrame {
         String s1 = mamuontratt.getText();
         int idMuonTra = Integer.parseInt(s1); 
         
-        String s3 = masachtt.getText()  ; 
+        String s3 = masachcombb.getSelectedItem().toString()  ; 
         int idSach= Integer.parseInt(s3); 
         
         
@@ -483,5 +505,13 @@ public class ChiTietMuonTra extends javax.swing.JFrame {
 
         statement = connection.createStatement();
         statement.executeUpdate(sql1);
+    }
+    private void combbbMaSach(){
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        for (int i = 0; i < listSachs.size(); i++) {
+            model.addElement(listSachs.get(i).getIdSach());
+            
+        }
+        masachcombb.setModel(model);
     }
 }

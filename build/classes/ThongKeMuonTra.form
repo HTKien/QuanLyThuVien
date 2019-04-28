@@ -48,11 +48,11 @@
                       <EmptySpace pref="67" max="32767" attributes="0"/>
                       <Component id="ngaymuonchon" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
-                      <Component id="jRadioButton4" min="-2" max="-2" attributes="0"/>
+                      <Component id="thangmuonchon" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
-              <Component id="jRadioButton5" min="-2" max="-2" attributes="0"/>
+              <Component id="nammuonchon" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
@@ -73,8 +73,8 @@
                   <Component id="nhanvienchon" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="docgiachon" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="ngaymuonchon" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jRadioButton4" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jRadioButton5" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="thangmuonchon" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="nammuonchon" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jButton1" min="-2" max="-2" attributes="0"/>
@@ -136,6 +136,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Nh&#xe2;n vi&#xea;n"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nhanvienchonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="docgiachon">
       <Properties>
@@ -153,7 +156,7 @@
         <Property name="text" type="java.lang.String" value="Ng&#xe0;y m&#x1b0;&#x1ee3;n "/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JRadioButton" name="jRadioButton4">
+    <Component class="javax.swing.JRadioButton" name="thangmuonchon">
       <Properties>
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="buttonGroup1"/>
@@ -161,7 +164,7 @@
         <Property name="text" type="java.lang.String" value="Th&#xe1;ng"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JRadioButton" name="jRadioButton5">
+    <Component class="javax.swing.JRadioButton" name="nammuonchon">
       <Properties>
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="buttonGroup1"/>
