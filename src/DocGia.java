@@ -497,6 +497,7 @@ public class DocGia extends javax.swing.JFrame {
         jButton9.setBackground(new java.awt.Color(102, 102, 102));
         jButton9.setText("Xuất ra 1 file ");
 
+        jButton6.setBackground(new java.awt.Color(102, 102, 102));
         jButton6.setText("Thống kê ");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -528,6 +529,7 @@ public class DocGia extends javax.swing.JFrame {
                 .addGap(16, 16, 16))
         );
 
+        jButton11.setBackground(new java.awt.Color(102, 102, 102));
         jButton11.setText("Đăng xuất ");
         jButton11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

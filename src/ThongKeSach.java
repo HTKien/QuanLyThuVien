@@ -109,6 +109,7 @@ public class ThongKeSach extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setBackground(new java.awt.Color(102, 102, 102));
         jButton2.setText("THỐNG KÊ");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -129,6 +130,7 @@ public class ThongKeSach extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(bangtk);
 
+        jButton3.setBackground(new java.awt.Color(102, 102, 102));
         jButton3.setText("Quay lại ");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -136,8 +138,10 @@ public class ThongKeSach extends javax.swing.JFrame {
             }
         });
 
+        jButton4.setBackground(new java.awt.Color(102, 102, 102));
         jButton4.setText("Xuất file thống kê");
 
+        jButton6.setBackground(new java.awt.Color(102, 102, 102));
         jButton6.setText("Đăng xuất ");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

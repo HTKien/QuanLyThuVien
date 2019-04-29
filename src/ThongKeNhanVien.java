@@ -78,7 +78,7 @@ public class ThongKeNhanVien extends javax.swing.JFrame {
         buttonGroup1.add(diachichon);
         diachichon.setText("Địa chỉ ");
 
-        jButton1.setBackground(new java.awt.Color(153, 153, 153));
+        jButton1.setBackground(new java.awt.Color(102, 102, 102));
         jButton1.setText("THỐNG KÊ ");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -99,6 +99,7 @@ public class ThongKeNhanVien extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(bangthongke);
 
+        jButton2.setBackground(new java.awt.Color(102, 102, 102));
         jButton2.setText("Quay lại ");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -106,6 +107,7 @@ public class ThongKeNhanVien extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setBackground(new java.awt.Color(102, 102, 102));
         jButton3.setText("Xuất file thống kê");
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
@@ -130,6 +132,7 @@ public class ThongKeNhanVien extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jButton4.setBackground(new java.awt.Color(102, 102, 102));
         jButton4.setText("Đăng xuất ");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

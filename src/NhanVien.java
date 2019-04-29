@@ -340,6 +340,7 @@ public class NhanVien extends javax.swing.JFrame {
 
         gioitinhtt.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nam", "Nữ" }));
 
+        jButton10.setBackground(new java.awt.Color(102, 102, 102));
         jButton10.setText("Reset");
         jButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -474,6 +475,7 @@ public class NhanVien extends javax.swing.JFrame {
         jButton9.setBackground(new java.awt.Color(102, 102, 102));
         jButton9.setText("Xuất ra 1 file ");
 
+        jButton11.setBackground(new java.awt.Color(102, 102, 102));
         jButton11.setText("Thống kê ");
         jButton11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -508,6 +510,7 @@ public class NhanVien extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jButton3.setBackground(new java.awt.Color(102, 102, 102));
         jButton3.setText("Đăng xuất");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

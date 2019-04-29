@@ -156,6 +156,7 @@ public class MuonTra extends javax.swing.JFrame {
             }
         });
 
+        jButton5.setBackground(new java.awt.Color(102, 102, 102));
         jButton5.setText("Tìm kiếm ");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -268,6 +269,7 @@ public class MuonTra extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setBackground(new java.awt.Color(102, 102, 102));
         jButton1.setText("Thêm ");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -275,6 +277,7 @@ public class MuonTra extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setBackground(new java.awt.Color(102, 102, 102));
         jButton2.setText("Sửa");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -282,6 +285,7 @@ public class MuonTra extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setBackground(new java.awt.Color(102, 102, 102));
         jButton3.setText("Xóa ");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -289,6 +293,7 @@ public class MuonTra extends javax.swing.JFrame {
             }
         });
 
+        jButton4.setBackground(new java.awt.Color(102, 102, 102));
         jButton4.setText("Xem Chi Tiết ");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -296,6 +301,7 @@ public class MuonTra extends javax.swing.JFrame {
             }
         });
 
+        jButton12.setBackground(new java.awt.Color(102, 102, 102));
         jButton12.setText("Reset");
         jButton12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -457,6 +463,7 @@ public class MuonTra extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jButton6.setBackground(new java.awt.Color(102, 102, 102));
         jButton6.setText("Quay lại ");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -464,6 +471,7 @@ public class MuonTra extends javax.swing.JFrame {
             }
         });
 
+        jButton7.setBackground(new java.awt.Color(102, 102, 102));
         jButton7.setText("Hiển thị toàn bộ danh sách");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -473,10 +481,13 @@ public class MuonTra extends javax.swing.JFrame {
 
         jPanel7.setBackground(new java.awt.Color(204, 204, 204));
 
+        jButton9.setBackground(new java.awt.Color(102, 102, 102));
         jButton9.setText("Thêm vào 1 file ");
 
+        jButton10.setBackground(new java.awt.Color(102, 102, 102));
         jButton10.setText("Xuất ra 1 file ");
 
+        jButton11.setBackground(new java.awt.Color(102, 102, 102));
         jButton11.setText("Thống kê ");
         jButton11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -508,6 +519,7 @@ public class MuonTra extends javax.swing.JFrame {
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
+        jButton8.setBackground(new java.awt.Color(102, 102, 102));
         jButton8.setText("Đăng xuất ");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
