@@ -8,10 +8,12 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.control.Cell;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -48,7 +50,6 @@ public class DocGia extends javax.swing.JFrame {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    
     @SuppressWarnings("unchecked")
 
     //ham doc du lieu ra bang : 
@@ -83,7 +84,7 @@ public class DocGia extends javax.swing.JFrame {
         }
         bangdocgia.setModel(model);
         bangdocgia.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-          
+
             public void valueChanged(ListSelectionEvent e) {
                 if (bangdocgia.getSelectedRow() >= 0) {
                     madocgiatt.setText(bangdocgia.getValueAt(bangdocgia.getSelectedRow(), 0).toString());
@@ -100,8 +101,6 @@ public class DocGia extends javax.swing.JFrame {
 
         });
     }
-                
-                
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -112,6 +111,8 @@ public class DocGia extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -148,9 +149,6 @@ public class DocGia extends javax.swing.JFrame {
         jButton10 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        bangdocgia = new javax.swing.JTable();
         jButton5 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
@@ -158,6 +156,21 @@ public class DocGia extends javax.swing.JFrame {
         jButton9 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        bangdocgia = new javax.swing.JTable();
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("HÀN TRUNG KIÊN 20162220");
@@ -446,26 +459,6 @@ public class DocGia extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        bangdocgia.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        bangdocgia.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                bangdocgiaMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(bangdocgia);
-
-        jScrollPane2.setViewportView(jScrollPane1);
-
         jButton5.setBackground(new java.awt.Color(102, 102, 102));
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/arrow-back-icon.png"))); // NOI18N
         jButton5.setText("Quay lại");
@@ -521,7 +514,7 @@ public class DocGia extends javax.swing.JFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap(19, Short.MAX_VALUE)
-                .addComponent(jButton8)
+                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -537,28 +530,41 @@ public class DocGia extends javax.swing.JFrame {
             }
         });
 
+        bangdocgia.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(bangdocgia);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jButton5)
                 .addGap(234, 234, 234)
                 .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(281, 281, 281)
                 .addComponent(jButton11))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -573,13 +579,13 @@ public class DocGia extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton11)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton5)
-                        .addComponent(jButton7))
-                    .addComponent(jButton11, javax.swing.GroupLayout.Alignment.TRAILING)))
+                        .addComponent(jButton7))))
         );
 
         pack();
@@ -593,7 +599,7 @@ public class DocGia extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
         new TrangChu().setVisible(true);
-                this.dispose();
+        this.dispose();
 
 
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -636,7 +642,7 @@ public class DocGia extends javax.swing.JFrame {
                 Logger.getLogger(Sach.class.getName()).log(Level.SEVERE, null, ex);
             }
             loadData();
-                JOptionPane.showMessageDialog(this, "Xóa độc giả thành công!");
+            JOptionPane.showMessageDialog(this, "Xóa độc giả thành công!");
         }
 
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -653,11 +659,6 @@ public class DocGia extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void bangdocgiaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bangdocgiaMouseClicked
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_bangdocgiaMouseClicked
-
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
         madocgiatt.setText("");
@@ -669,43 +670,61 @@ public class DocGia extends javax.swing.JFrame {
         diachitt.setText("");
         emailtt.setText("");
         nghenghieptt.setText("");
-        
+
 
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-//        try {
-//            // TODO add your handling code here:
-//            themFileExcel();
-//        } catch (IOException ex) {
-//            Logger.getLogger(DocGia.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (SQLException ex) {
-//            Logger.getLogger(DocGia.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        loadData();
-        
+        JFileChooser jFileChooser = new JFileChooser();
+        if (jFileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File file = jFileChooser.getSelectedFile();
+            String type = file.getName().substring(file.getName().lastIndexOf(".") + 1);
+                    System.out.println(type);
+
+            if (type.equals("xls") || type.equals("xlsx")) {
+                try {
+                    ArrayList<DocGiaType> list = ExcelHelper.readDocGias(file); 
+                    int re = -1;
+                    for (DocGiaType o : list) {
+                        re = DocGiaType.add(o);
+                        if (re != 1) {
+                            break;
+                        }
+                    }
+                    if (re == 1) {
+                        loadData();
+                        JOptionPane.showMessageDialog(null, "Thêm thành công");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Thêm thất bại");
+                    }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Thêm thất bại");
+                    Logger.getLogger(DocGia.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         try {
             // TODO add your handling code here:
-            new  ThongKeDocGia().setVisible(true);
+            new ThongKeDocGia().setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(DocGia.class.getName()).log(Level.SEVERE, null, ex);
         }
-                this.dispose();
+        this.dispose();
 
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         // TODO add your handling code here:
-         int chose = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn đăng xuất không?", "Xác nhận", 0);
+        int chose = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn đăng xuất không?", "Xác nhận", 0);
         if (chose == 0) {
-            
-               new Menu().setVisible(true );
-        this.dispose();
-            
-            
+
+            new Menu().setVisible(true);
+            this.dispose();
+
         }
     }//GEN-LAST:event_jButton11ActionPerformed
 
@@ -782,6 +801,7 @@ public class DocGia extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
     private javax.swing.JRadioButton madocgiachon;
     private javax.swing.JTextField madocgiatt;
     private javax.swing.JRadioButton namsinhchon;
@@ -1082,8 +1102,6 @@ public class DocGia extends javax.swing.JFrame {
         statement.executeUpdate(sql1);
     }
 
-   
-
 //    private void themFileExcel() throws FileNotFoundException, IOException, BiffException, SQLException {
 //
 //        File file = new File("D:\\java_netbean\\QuanLyThuVien\\Book1.xls");
@@ -1141,15 +1159,10 @@ public class DocGia extends javax.swing.JFrame {
 //            statement = connection.createStatement();
 //            statement.executeUpdate(sql1);
 //        }
-
     /**
      *
      */
-
     /**
      *
      */
-    
-    
-    
 }

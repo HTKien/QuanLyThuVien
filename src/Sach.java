@@ -1,6 +1,7 @@
 //các phần import: 
 
 import java.awt.Color;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.JDBCType;
 import java.sql.ResultSet;
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -93,15 +95,14 @@ public class Sach extends javax.swing.JFrame {
         jButton11 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        bangsach = new javax.swing.JTable();
         jButton7 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        bangsach = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("HÀN TRUNG KIÊN 20162220");
@@ -413,26 +414,6 @@ public class Sach extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        bangsach.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        bangsach.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                bangsachMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(bangsach);
-
-        jScrollPane2.setViewportView(jScrollPane1);
-
         jButton7.setBackground(new java.awt.Color(102, 102, 102));
         jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Programming-Show-Property-icon.png"))); // NOI18N
         jButton7.setText("Hiển thị toàn bộ sách");
@@ -446,6 +427,11 @@ public class Sach extends javax.swing.JFrame {
 
         jButton8.setBackground(new java.awt.Color(102, 102, 102));
         jButton8.setText("Thêm vào 1 file ");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         jButton9.setBackground(new java.awt.Color(102, 102, 102));
         jButton9.setText("Xuất ra 1 file ");
@@ -491,10 +477,34 @@ public class Sach extends javax.swing.JFrame {
             }
         });
 
+        bangsach.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        bangsach.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bangsachMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(bangsach);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jButton5)
+                .addGap(235, 235, 235)
+                .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(274, 274, 274)
+                .addComponent(jButton6))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -504,15 +514,9 @@ public class Sach extends javax.swing.JFrame {
                             .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jButton5)
-                .addGap(229, 229, 229)
-                .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(280, 280, 280)
-                .addComponent(jButton6))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -527,15 +531,12 @@ public class Sach extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton7))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton6))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton7)
+                    .addComponent(jButton6)))
         );
 
         pack();
@@ -549,7 +550,7 @@ public class Sach extends javax.swing.JFrame {
             Logger.getLogger(Sach.class.getName()).log(Level.SEVERE, null, ex);
         }
         loadData();
-        JOptionPane.showMessageDialog(this,"Sửa thông tin sách thành công!");
+        JOptionPane.showMessageDialog(this, "Sửa thông tin sách thành công!");
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -562,7 +563,7 @@ public class Sach extends javax.swing.JFrame {
                 Logger.getLogger(Sach.class.getName()).log(Level.SEVERE, null, ex);
             }
             loadData();
-                JOptionPane.showMessageDialog(this, "Xóa sách thành công!");
+            JOptionPane.showMessageDialog(this, "Xóa sách thành công!");
         }
 
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -582,7 +583,7 @@ public class Sach extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
         new TrangChu().setVisible(true);
-                this.dispose();
+        this.dispose();
 
 
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -615,8 +616,8 @@ public class Sach extends javax.swing.JFrame {
 
     private void bangsachMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bangsachMouseClicked
         // TODO add your handling code here:
-        
-        
+
+
     }//GEN-LAST:event_bangsachMouseClicked
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -639,7 +640,7 @@ public class Sach extends javax.swing.JFrame {
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
         new ThongKeSach().setVisible(true);
-                this.dispose();
+        this.dispose();
 
     }//GEN-LAST:event_jButton10ActionPerformed
 
@@ -647,13 +648,42 @@ public class Sach extends javax.swing.JFrame {
         // TODO add your handling code here:
         int chose = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn đăng xuất không?", "Xác nhận", 0);
         if (chose == 0) {
-            
-               new Menu().setVisible(true );
-        this.dispose();
-            
-            
+
+            new Menu().setVisible(true);
+            this.dispose();
+
         }
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        JFileChooser jFileChooser = new JFileChooser();
+        if (jFileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File file = jFileChooser.getSelectedFile();
+            String type = file.getName().substring(file.getName().lastIndexOf(".") + 1);
+
+            if (type.equals("xls") || type.equals("xlsx")) {
+                try {
+                    ArrayList<SachType> list = ExcelHelper.readSachs(file);
+                    int re = -1;
+                    for (SachType o : list) {
+                        re = SachType.add(o);
+                        if (re != 1) {
+                            break;
+                        }
+                    }
+                    if (re == 1) {
+                        loadData();
+                        JOptionPane.showMessageDialog(null, "Thêm thành công");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Thêm thất bại");
+                    }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Thêm thất bại");
+                    Logger.getLogger(DocGia.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton8ActionPerformed
 
     /**
      *
@@ -728,7 +758,6 @@ public class Sach extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JRadioButton masachchon;
     private javax.swing.JTextField masachtt;
     private javax.swing.JRadioButton namxuatbanchon;
@@ -775,8 +804,8 @@ public class Sach extends javax.swing.JFrame {
 
         }
         bangsach.setModel(model);
-         bangsach.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-          
+        bangsach.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
             public void valueChanged(ListSelectionEvent e) {
                 if (bangsach.getSelectedRow() >= 0) {
                     masachtt.setText(bangsach.getValueAt(bangsach.getSelectedRow(), 0).toString());
@@ -866,7 +895,6 @@ public class Sach extends javax.swing.JFrame {
     }
 
     //ham them sach: 
-
     private void themSach() throws SQLException {
         //doc id
         String sId = "";
@@ -916,7 +944,6 @@ public class Sach extends javax.swing.JFrame {
     }
 
     //ham tim kiem theo nam xuat ban
-
     private void timKiemTheoNamXuatBan() {
         bangsach.removeAll();
         String namXuatBanNhapVao = timkiem.getText();
@@ -951,7 +978,6 @@ public class Sach extends javax.swing.JFrame {
     }
 
     //tim kiem theo the loai 
-
     private void timKiemTheoTheLoai() {
         bangsach.removeAll();
         String theLoaiNhapVao = timkiem.getText();
@@ -986,7 +1012,6 @@ public class Sach extends javax.swing.JFrame {
     }
 
     //tim kiem theo tac gia
-
     private void timKiemTheoTacGia() {
         bangsach.removeAll();
         String tacGiaNhapVao = timkiem.getText();
@@ -1018,12 +1043,9 @@ public class Sach extends javax.swing.JFrame {
         }
         bangsach.setModel(model);
 
-        
-
     }
 
     //tim kiem theo nha san xuat
-
     private void timKiemTheoNhaXuatBan() {
         bangsach.removeAll();
         String nhaXuatBanNhapVao = timkiem.getText();
@@ -1055,11 +1077,9 @@ public class Sach extends javax.swing.JFrame {
         }
         bangsach.setModel(model);
 
-
     }
 
     //ham xoa sach 
-
     private void xoaSach() throws SQLException {
         String sId = "";
         sId = masachtt.getText();
@@ -1089,8 +1109,7 @@ public class Sach extends javax.swing.JFrame {
 //        //doc so luong 
 //        String ssoluong = soluongtt.getText();
 //        int soLuong = Integer.parseInt(ssoluong);
-
-        String sql1 = "delete from quan_ly_thu_vien.sach where idSach = "+idSach;
+        String sql1 = "delete from quan_ly_thu_vien.sach where idSach = " + idSach;
         Statement statement = null;
         ResultSet resultSet = null;
 //        try {
@@ -1107,10 +1126,9 @@ public class Sach extends javax.swing.JFrame {
 
     }
     //ham click vao table: 
-    
-    
+
     //ham sua du lieu 
-    private void suaDuLieu() throws SQLException{
+    private void suaDuLieu() throws SQLException {
         //doc id
         String sId = "";
         sId = masachtt.getText();
@@ -1140,13 +1158,12 @@ public class Sach extends javax.swing.JFrame {
         //doc so luong 
         String ssoluong = soluongtt.getText();
         int soLuong = Integer.parseInt(ssoluong);
-        String sql1 = "update  sach set   tenSach='"+tenSach+"', theLoaiSach='"+theLoaiSach+"',namXuatBanSach='"+namXuatBanSach+"',nhaXuatBanSach='"+  nhaXuatBanSach+"',tenTacGia='"+ tenTacGia+"',giaTien='"+giaTien+"',soLuong='"+ soLuong +"'  where idSach='"+idSach+"';";
+        String sql1 = "update  sach set   tenSach='" + tenSach + "', theLoaiSach='" + theLoaiSach + "',namXuatBanSach='" + namXuatBanSach + "',nhaXuatBanSach='" + nhaXuatBanSach + "',tenTacGia='" + tenTacGia + "',giaTien='" + giaTien + "',soLuong='" + soLuong + "'  where idSach='" + idSach + "';";
         Statement statement = null;
         ResultSet resultSet = null;
 
         statement = connection.createStatement();
         statement.executeUpdate(sql1);
 
-        
     }
 }

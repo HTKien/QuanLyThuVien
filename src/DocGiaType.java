@@ -129,7 +129,6 @@ public class DocGiaType {
         return list;
 
     }
-    
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         ArrayList<DocGiaType> listDocGiaTypes = new ArrayList<>();
@@ -140,9 +139,35 @@ public class DocGiaType {
         System.out.println("id doc gia dau tien la: " + listDocGiaTypes.get(0).getIdDocGia());
         System.out.println("ma doc gia cua  cua toan bo  danh sach la: ");
         for (int i = 0; i < a; i++) {
-            System.out.println( listDocGiaTypes.get(i).getIdDocGia());
+            System.out.println(listDocGiaTypes.get(i).getIdDocGia());
 
         }
+    }
+
+    public static int add(DocGiaType o) {
+        String sql = "insert into docgia values("
+                + o.getIdDocGia() + ", '"
+                + o.getTenDocGia() + "',' "
+                + o.getGioiTinhDocGia() + "', '"
+                + o.getNamSinhDocGia()+ "', '"
+                + o.getSdtDocGia() + "', '"
+                + o.getDiaChiDocGia() + "', '"
+                + o.getEmailDocGia() + "', '"
+                + o.getNgheNgiepDocGia() + "'"
+                + ");";
+        return interact(sql);
+    }
+    public static int interact(String sql) {
+        int result = -1;
+        try {
+            KetNoiQLTV ketNoiQLTV = new KetNoiQLTV();
+            Connection connection = ketNoiQLTV.getJDBCConnection();
+            Statement statement = connection.createStatement();
+            result = statement.executeUpdate(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
 }

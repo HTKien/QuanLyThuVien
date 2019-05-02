@@ -1,11 +1,14 @@
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -16,7 +19,6 @@ import javax.swing.table.DefaultTableModel;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author MyPC
@@ -26,24 +28,22 @@ public class NhanVien extends javax.swing.JFrame {
     /**
      * Creates new form NhanVien
      */
-    KetNoiQLTV ketNoiQLTV = null; 
-    Connection connection = null ;
-    
-    
+    KetNoiQLTV ketNoiQLTV = null;
+    Connection connection = null;
+
     public NhanVien() {
-        ketNoiQLTV = new KetNoiQLTV(); 
-        connection = ketNoiQLTV.getJDBCConnection(); 
-        
-        
-        
+        ketNoiQLTV = new KetNoiQLTV();
+        connection = ketNoiQLTV.getJDBCConnection();
+
         initComponents();
         this.setLocationRelativeTo(null);
         loadData();
-        
+
     }
+
     private void loadData() {
         bangnhanvien.removeAll();
-        String [] columns = {"Mã nhân viên", "Tên nhân viên","Giới tính","Năm sinh", "Số điện thoại","Địa chỉ", "Email", };
+        String[] columns = {"Mã nhân viên", "Tên nhân viên", "Giới tính", "Năm sinh", "Số điện thoại", "Địa chỉ", "Email",};
         DefaultTableModel model = new DefaultTableModel(columns, 0);
         String sql = "select * from nhanvien";
         Statement statement = null;
@@ -61,17 +61,16 @@ public class NhanVien extends javax.swing.JFrame {
                 vector.add(resultSet.getString("sdtNhanVien"));
                 vector.add(resultSet.getString("diaChiNhanVien"));
                 vector.add(resultSet.getString("emailNhanVien"));
-                
-                
+
                 model.addRow(vector);
             }
         } catch (Exception e) {
             e.printStackTrace();
-                               
+
         }
         bangnhanvien.setModel(model);
         bangnhanvien.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-          
+
             public void valueChanged(ListSelectionEvent e) {
                 if (bangnhanvien.getSelectedRow() >= 0) {
                     manhanvientt.setText(bangnhanvien.getValueAt(bangnhanvien.getSelectedRow(), 0).toString());
@@ -133,9 +132,6 @@ public class NhanVien extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         gioitinhtt = new javax.swing.JComboBox();
         jButton10 = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        bangnhanvien = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
@@ -143,6 +139,8 @@ public class NhanVien extends javax.swing.JFrame {
         jButton9 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        bangnhanvien = new javax.swing.JTable();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -429,26 +427,6 @@ public class NhanVien extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        bangnhanvien.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        bangnhanvien.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                bangnhanvienMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(bangnhanvien);
-
-        jScrollPane2.setViewportView(jScrollPane1);
-
         jButton2.setBackground(new java.awt.Color(102, 102, 102));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/arrow-back-icon.png"))); // NOI18N
         jButton2.setText("Quay lại");
@@ -471,6 +449,11 @@ public class NhanVien extends javax.swing.JFrame {
 
         jButton8.setBackground(new java.awt.Color(102, 102, 102));
         jButton8.setText("Thêm vào 1 file ");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         jButton9.setBackground(new java.awt.Color(102, 102, 102));
         jButton9.setText("Xuất ra 1 file ");
@@ -505,7 +488,7 @@ public class NhanVien extends javax.swing.JFrame {
                 .addComponent(jButton8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addComponent(jButton11)
                 .addContainerGap())
         );
@@ -518,28 +501,46 @@ public class NhanVien extends javax.swing.JFrame {
             }
         });
 
+        bangnhanvien.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        bangnhanvien.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bangnhanvienMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(bangnhanvien);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addComponent(jButton2)
+                .addGap(224, 224, 224)
+                .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(262, 262, 262)
+                .addComponent(jButton3))
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jButton2)
-                .addGap(226, 226, 226)
-                .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(260, 260, 260)
-                .addComponent(jButton3))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -553,17 +554,14 @@ public class NhanVien extends javax.swing.JFrame {
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton2)
-                            .addComponent(jButton4)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton2)
+                        .addComponent(jButton4))
+                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING)))
         );
 
         pack();
@@ -571,22 +569,22 @@ public class NhanVien extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-       new TrangChu().setVisible(true );
-               this.dispose();
+        new TrangChu().setVisible(true);
+        this.dispose();
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        if(manhanvienchon.isSelected()){
+        if (manhanvienchon.isSelected()) {
             timKiemTheoMa();
-        }else if(tennhanvienchon.isSelected()){
+        } else if (tennhanvienchon.isSelected()) {
             timKiemTheoTenNhanVien();
-        }else if(gioitinhchon.isSelected()){
+        } else if (gioitinhchon.isSelected()) {
             timKiemTheoGioiTinhNhanVien();
-        } else if(namsinhchon.isSelected()){
+        } else if (namsinhchon.isSelected()) {
             timKiemTheoNamSinhNhanVien();
-        } else if(diachichon.isSelected()){
+        } else if (diachichon.isSelected()) {
             timKiemTheoDiaChiNhanVien();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -616,14 +614,9 @@ public class NhanVien extends javax.swing.JFrame {
                 Logger.getLogger(Sach.class.getName()).log(Level.SEVERE, null, ex);
             }
             loadData();
-                JOptionPane.showMessageDialog(this, "Xóa nhân viên thành công!");
+            JOptionPane.showMessageDialog(this, "Xóa nhân viên thành công!");
         }
     }//GEN-LAST:event_jButton7ActionPerformed
-
-    private void bangnhanvienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bangnhanvienMouseClicked
-        // TODO add your handling code here:
-      
-    }//GEN-LAST:event_bangnhanvienMouseClicked
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         try {
@@ -634,7 +627,7 @@ public class NhanVien extends javax.swing.JFrame {
         }
         loadData();
         JOptionPane.showMessageDialog(this, "Sửa nhân viên thành công!");
-        
+
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
@@ -652,21 +645,57 @@ public class NhanVien extends javax.swing.JFrame {
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         // TODO add your handling code here:
         new ThongKeNhanVien().setVisible(true);
-                this.dispose();
+        this.dispose();
 
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-         int chose = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn đăng xuất không?", "Xác nhận", 0);
+        int chose = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn đăng xuất không?", "Xác nhận", 0);
         if (chose == 0) {
-            
-               new Menu().setVisible(true );
-        this.dispose();
-            
-            
+
+            new Menu().setVisible(true);
+            this.dispose();
+
         }
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void bangnhanvienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bangnhanvienMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_bangnhanvienMouseClicked
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        JFileChooser jFileChooser = new JFileChooser();
+        if (jFileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File file = jFileChooser.getSelectedFile();
+            String type = file.getName().substring(file.getName().lastIndexOf(".") + 1);
+            System.out.println(type);
+
+            if (type.equals("xls") || type.equals("xlsx")) {
+                try {
+                    ArrayList<NhanVienType> list = ExcelHelper.readNhanViens(file); 
+                    int re = -1;
+                    for (NhanVienType o : list) {
+                        re = NhanVienType.add(o);
+                        if (re != 1) {
+                            break;
+                        }
+                    }
+                    if (re == 1) {
+                        loadData();
+                        JOptionPane.showMessageDialog(null, "Thêm thành công");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Thêm thất bại");
+                    }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Thêm thất bại");
+                    Logger.getLogger(DocGia.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton8ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -740,7 +769,6 @@ public class NhanVien extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JRadioButton manhanvienchon;
     private javax.swing.JTextField manhanvientt;
     private javax.swing.JRadioButton namsinhchon;
@@ -776,8 +804,6 @@ public class NhanVien extends javax.swing.JFrame {
                 vector.add(resultSet.getString("diaChiNhanVien"));
                 vector.add(resultSet.getString("emailNhanVien"));
 
-                
-
                 model.addRow(vector);
             }
         } catch (Exception e) {
@@ -793,7 +819,7 @@ public class NhanVien extends javax.swing.JFrame {
         String tenNhapVao = timkiem.getText();
         String[] columns = {"Mã nhân viên", "Tên nhân viên", "Giới tính", "Năm sinh", "Số điện thoại", "Địa chỉ", "Email"};
         DefaultTableModel model = new DefaultTableModel(columns, 0);
-        String sql = "select * from nhanvien where tenNhanVien='" + tenNhapVao+"'";
+        String sql = "select * from nhanvien where tenNhanVien='" + tenNhapVao + "'";
         Statement statement = null;
         ResultSet resultSet = null;
         try {
@@ -809,8 +835,6 @@ public class NhanVien extends javax.swing.JFrame {
                 vector.add(resultSet.getString("sdtNhanVien"));
                 vector.add(resultSet.getString("diaChiNhanVien"));
                 vector.add(resultSet.getString("emailNhanVien"));
-
-                
 
                 model.addRow(vector);
             }
@@ -819,7 +843,7 @@ public class NhanVien extends javax.swing.JFrame {
 
         }
         bangnhanvien.setModel(model);
-        
+
     }
 
     private void timKiemTheoGioiTinhNhanVien() {
@@ -827,7 +851,7 @@ public class NhanVien extends javax.swing.JFrame {
         String gioiTinhNhapVao = timkiem.getText();
         String[] columns = {"Mã nhân viên", "Tên nhân viên", "Giới tính", "Năm sinh", "Số điện thoại", "Địa chỉ", "Email"};
         DefaultTableModel model = new DefaultTableModel(columns, 0);
-        String sql = "select * from nhanvien where gioiTinhNhanVien='" + gioiTinhNhapVao+"'";
+        String sql = "select * from nhanvien where gioiTinhNhanVien='" + gioiTinhNhapVao + "'";
         Statement statement = null;
         ResultSet resultSet = null;
         try {
@@ -843,8 +867,6 @@ public class NhanVien extends javax.swing.JFrame {
                 vector.add(resultSet.getString("sdtNhanVien"));
                 vector.add(resultSet.getString("diaChiNhanVien"));
                 vector.add(resultSet.getString("emailNhanVien"));
-
-                
 
                 model.addRow(vector);
             }
@@ -860,7 +882,7 @@ public class NhanVien extends javax.swing.JFrame {
         String namSinhNhapVao = timkiem.getText();
         String[] columns = {"Mã nhân viên", "Tên nhân viên", "Giới tính", "Năm sinh", "Số điện thoại", "Địa chỉ", "Email"};
         DefaultTableModel model = new DefaultTableModel(columns, 0);
-        String sql = "select * from nhanvien where namSinhNhanVien='" + namSinhNhapVao+"'";
+        String sql = "select * from nhanvien where namSinhNhanVien='" + namSinhNhapVao + "'";
         Statement statement = null;
         ResultSet resultSet = null;
         try {
@@ -876,8 +898,6 @@ public class NhanVien extends javax.swing.JFrame {
                 vector.add(resultSet.getString("sdtNhanVien"));
                 vector.add(resultSet.getString("diaChiNhanVien"));
                 vector.add(resultSet.getString("emailNhanVien"));
-
-                
 
                 model.addRow(vector);
             }
@@ -893,7 +913,7 @@ public class NhanVien extends javax.swing.JFrame {
         String diaChiNhapVao = timkiem.getText();
         String[] columns = {"Mã nhân viên", "Tên nhân viên", "Giới tính", "Năm sinh", "Số điện thoại", "Địa chỉ", "Email"};
         DefaultTableModel model = new DefaultTableModel(columns, 0);
-        String sql = "select * from nhanvien where diaChiNhanVien='" + diaChiNhapVao+"'";
+        String sql = "select * from nhanvien where diaChiNhanVien='" + diaChiNhapVao + "'";
         Statement statement = null;
         ResultSet resultSet = null;
         try {
@@ -909,8 +929,6 @@ public class NhanVien extends javax.swing.JFrame {
                 vector.add(resultSet.getString("sdtNhanVien"));
                 vector.add(resultSet.getString("diaChiNhanVien"));
                 vector.add(resultSet.getString("emailNhanVien"));
-
-                
 
                 model.addRow(vector);
             }
@@ -931,8 +949,8 @@ public class NhanVien extends javax.swing.JFrame {
         String tenNhanVien = "";
         tenNhanVien = tennhanvientt.getText();
         //doc gioi tinh:
-        String gioiTinhNhanVien="";
-        gioiTinhNhanVien= gioitinhtt.getSelectedItem().toString();
+        String gioiTinhNhanVien = "";
+        gioiTinhNhanVien = gioitinhtt.getSelectedItem().toString();
         //doc the loai 
         String namSinhNhanVien = "";
         namSinhNhanVien = namsinhtt.getText();
@@ -946,9 +964,7 @@ public class NhanVien extends javax.swing.JFrame {
         String emailNhanVien = "";
         emailNhanVien = emailtt.getText();
 
-        
-
-        String sql1 = "insert into quan_ly_thu_vien.nhanvien (idNhanVien, tenNhanVien, gioiTinhNhanVien, namSinhNhanVien, sdtNhanVien, diaChiNhanVien, emailNhanVien) values ('" + idNhanVien + "','" + tenNhanVien + "', '" + gioiTinhNhanVien + "', '" + namSinhNhanVien + "', '" + sdtNhanVien + "', '" + diaChiNhanVien + "',' " + emailNhanVien +  "');";
+        String sql1 = "insert into quan_ly_thu_vien.nhanvien (idNhanVien, tenNhanVien, gioiTinhNhanVien, namSinhNhanVien, sdtNhanVien, diaChiNhanVien, emailNhanVien) values ('" + idNhanVien + "','" + tenNhanVien + "', '" + gioiTinhNhanVien + "', '" + namSinhNhanVien + "', '" + sdtNhanVien + "', '" + diaChiNhanVien + "',' " + emailNhanVien + "');";
         Statement statement = null;
         ResultSet resultSet = null;
 
@@ -961,17 +977,13 @@ public class NhanVien extends javax.swing.JFrame {
         sId = manhanvientt.getText();
         int idNhanVien = Integer.parseInt(sId);
 
-
-
-        String sql1 = "delete from quan_ly_thu_vien.nhanvien where idNhanVien = "+idNhanVien;
+        String sql1 = "delete from quan_ly_thu_vien.nhanvien where idNhanVien = " + idNhanVien;
         Statement statement = null;
         ResultSet resultSet = null;
 
         statement = connection.createStatement();
         statement.executeUpdate(sql1);
     }
-
-    
 
     private void suaNhanVien() throws SQLException {
         //doc id
@@ -983,8 +995,8 @@ public class NhanVien extends javax.swing.JFrame {
         String tenNhanVien = "";
         tenNhanVien = tennhanvientt.getText();
         //doc gioi tinh:
-        String gioiTinhNhanVien="";
-        gioiTinhNhanVien= gioitinhtt.getSelectedItem().toString();
+        String gioiTinhNhanVien = "";
+        gioiTinhNhanVien = gioitinhtt.getSelectedItem().toString();
         //doc the loai 
         String namSinhNhanVien = "";
         namSinhNhanVien = namsinhtt.getText();
@@ -998,8 +1010,7 @@ public class NhanVien extends javax.swing.JFrame {
         String emailNhanVien = "";
         emailNhanVien = emailtt.getText();
 
-        
-        String sql1 = "update  nhanvien set   tenNhanVien='"+tenNhanVien+"', gioiTinhNhanVien='"+gioiTinhNhanVien+"',namSinhNhanVien='"+namSinhNhanVien+"',sdtNhanVien='"+  sdtNhanVien+"',diaChiNhanVien='"+ diaChiNhanVien+"',emailNhanVien='"+emailNhanVien+"'   where idNhanVien='"+idNhanVien+"';";
+        String sql1 = "update  nhanvien set   tenNhanVien='" + tenNhanVien + "', gioiTinhNhanVien='" + gioiTinhNhanVien + "',namSinhNhanVien='" + namSinhNhanVien + "',sdtNhanVien='" + sdtNhanVien + "',diaChiNhanVien='" + diaChiNhanVien + "',emailNhanVien='" + emailNhanVien + "'   where idNhanVien='" + idNhanVien + "';";
 
         Statement statement = null;
         ResultSet resultSet = null;
@@ -1008,5 +1019,4 @@ public class NhanVien extends javax.swing.JFrame {
         statement.executeUpdate(sql1);
     }
 
-    
 }

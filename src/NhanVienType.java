@@ -131,5 +131,29 @@ public class NhanVienType {
 
         }
     }
+    public static int add(NhanVienType o) {
+        String sql = "insert into nhanvien values("
+                + o.getIdNhanVien()+ ", '"
+                + o.getTenNhanVien()+ "',' "
+                + o.getGioiTinhNhanVien()+ "', '"
+                + o.getNamSinhNhanVien()+ "', '"
+                + o.getSdtNhanVien()+ "', '"
+                + o.getDiaChiNhanVien()+ "', '"
+                + o.getEmailNhanVien()+ "'"
+                + ");";
+        return interact(sql);
+    }
+    public static int interact(String sql) {
+        int result = -1;
+        try {
+            KetNoiQLTV ketNoiQLTV = new KetNoiQLTV();
+            Connection connection = ketNoiQLTV.getJDBCConnection();
+            Statement statement = connection.createStatement();
+            result = statement.executeUpdate(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 
 }

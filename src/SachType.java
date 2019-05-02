@@ -10,7 +10,6 @@ import java.util.ArrayList;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author hantr
@@ -18,7 +17,6 @@ import java.util.ArrayList;
 public class SachType {
 
     //thuoc tinh: 
-
     private int idSach;
     private String tenSach;
     private String theLoaiSach;
@@ -130,10 +128,38 @@ public class SachType {
         return list;
 
     }
+
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        ArrayList<SachType> listSachTypes= new ArrayList<>(); 
-        listSachTypes= getList(); 
-                
-        System.out.println("Tong so sach trong thu vien  la : "+listSachTypes.size());
+        ArrayList<SachType> listSachTypes = new ArrayList<>();
+        listSachTypes = getList();
+
+        System.out.println("Tong so sach trong thu vien  la : " + listSachTypes.size());
+    }
+
+    public static int add(SachType o) {
+        String sql = "insert into sach values("
+                + o.getIdSach() + ", '"
+                + o.getTenSach() + "',' "
+                + o.getTheLoaiSach() + "', '"
+                + o.getNamXuatBanSach() + "', '"
+                + o.getNhaXuatBanSach() + "', '"
+                + o.getTenTacGia() + "', '"
+                + o.getGiaTien() + "', '"
+                + o.getSoLuong()+ "'"
+                + ");";
+        return interact(sql);
+    }
+
+    public static int interact(String sql) {
+        int result = -1;
+        try {
+            KetNoiQLTV ketNoiQLTV = new KetNoiQLTV();
+            Connection connection = ketNoiQLTV.getJDBCConnection();
+            Statement statement = connection.createStatement();
+            result = statement.executeUpdate(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }

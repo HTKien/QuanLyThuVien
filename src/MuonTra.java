@@ -1,4 +1,5 @@
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ButtonModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -26,7 +28,7 @@ import javax.swing.table.DefaultTableModel;
  * @author MyPC
  */
 public class MuonTra extends javax.swing.JFrame {
-    
+
     KetNoiQLTV ketNoiQLTV = null;
     Connection connection = null;
     ArrayList<NhanVienType> listNhanVien = new ArrayList<>();
@@ -38,7 +40,7 @@ public class MuonTra extends javax.swing.JFrame {
     public MuonTra() throws ClassNotFoundException, SQLException {
         listNhanVien = NhanVienType.getList();
         listDocGia = DocGiaType.getList();
-        
+
         ketNoiQLTV = new KetNoiQLTV();
         connection = ketNoiQLTV.getJDBCConnection();
         initComponents();
@@ -483,6 +485,11 @@ public class MuonTra extends javax.swing.JFrame {
 
         jButton9.setBackground(new java.awt.Color(102, 102, 102));
         jButton9.setText("Thêm vào 1 file ");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
 
         jButton10.setBackground(new java.awt.Color(102, 102, 102));
         jButton10.setText("Xuất ra 1 file ");
@@ -606,7 +613,7 @@ public class MuonTra extends javax.swing.JFrame {
         // TODO add your handling code here:
         mamuontratt.setText("");
         tennhanvientt.setText("");
-        
+
         tendocgiatt.setText("");
         ngaymuontt.setDate(null);
         ngayhentratt.setDate(null);
@@ -622,7 +629,7 @@ public class MuonTra extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
+
         try {
             // TODO add your handling code here:
             suaMuonTra();
@@ -653,7 +660,7 @@ public class MuonTra extends javax.swing.JFrame {
         // TODO add your handling code here:
         new ThongKeMuonTra().setVisible(true);
         this.dispose();
-        
+
 
     }//GEN-LAST:event_jButton11ActionPerformed
 
@@ -661,10 +668,10 @@ public class MuonTra extends javax.swing.JFrame {
         // TODO add your handling code here:
         int chose = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn đăng xuất không?", "Xác nhận", 0);
         if (chose == 0) {
-            
+
             new Menu().setVisible(true);
             this.dispose();
-            
+
         }
     }//GEN-LAST:event_jButton8ActionPerformed
 
@@ -705,7 +712,7 @@ public class MuonTra extends javax.swing.JFrame {
         DefaultComboBoxModel model = new DefaultComboBoxModel();
         for (int i = 0; i < listMuonTra.size(); i++) {
             model.addElement(listMuonTra.get(i).getIdMuonTra());
-            
+
         }
         mamuontratimkiem.setModel(model);
     }//GEN-LAST:event_mamuontrachonActionPerformed
@@ -742,10 +749,10 @@ public class MuonTra extends javax.swing.JFrame {
         DefaultComboBoxModel model = new DefaultComboBoxModel();
         for (int i = 0; i < listDocGia.size(); i++) {
             model.addElement(listDocGia.get(i).getIdDocGia());
-            
+
         }
         madocgiatimkiem.setModel(model);
-        
+
 
     }//GEN-LAST:event_madocgiachonActionPerformed
 
@@ -780,7 +787,7 @@ public class MuonTra extends javax.swing.JFrame {
         DefaultComboBoxModel model = new DefaultComboBoxModel();
         for (int i = 0; i < listNhanVien.size(); i++) {
             model.addElement(listNhanVien.get(i).getIdNhanVien());
-            
+
         }
         manhanvientiemkiem.setModel(model);
 
@@ -823,7 +830,7 @@ public class MuonTra extends javax.swing.JFrame {
                 tennhanvientt.setText(listNhanVien.get(i).getTenNhanVien());
             }
         }
-        
+
 
     }//GEN-LAST:event_manhanvienttIActionPerformed
 
@@ -834,6 +841,37 @@ public class MuonTra extends javax.swing.JFrame {
     private void manhanvientiemkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manhanvientiemkiemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_manhanvientiemkiemActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+        JFileChooser jFileChooser = new JFileChooser();
+        if (jFileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File file = jFileChooser.getSelectedFile();
+            String type = file.getName().substring(file.getName().lastIndexOf(".") + 1);
+
+            if (type.equals("xls") || type.equals("xlsx")) {
+                try {
+                    ArrayList<MuonTraType> list = ExcelHelper.readMuonTras(file); 
+                    int re = -1;
+                    for (MuonTraType o : list) {
+                        re = MuonTraType.add(o);
+                        if (re != 1) {
+                            break;
+                        }
+                    }
+                    if (re == 1) {
+                        loadData();
+                        JOptionPane.showMessageDialog(null, "Thêm thành công");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Thêm thất bại");
+                    }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Thêm thất bại");
+                    Logger.getLogger(DocGia.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }//GEN-LAST:event_jButton9ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -926,7 +964,7 @@ public class MuonTra extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void loadData() {
-        
+
         bangmuontra.removeAll();
         String[] columns = {"Mã mượn trả", "Mã nhân viên", "Mã độc giả", "Ngày mượn ", "Ngày hẹn trả", "Tiền cọc"};
         DefaultTableModel model = new DefaultTableModel(columns, 0);
@@ -945,30 +983,30 @@ public class MuonTra extends javax.swing.JFrame {
                 vector.add(resultSet.getDate("ngayMuon"));
                 vector.add(resultSet.getDate("ngayHenTra"));
                 vector.add(resultSet.getDouble("tienCoc"));
-                
+
                 model.addRow(vector);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            
+
         }
         bangmuontra.setModel(model);
         bangmuontra.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            
+
             public void valueChanged(ListSelectionEvent e) {
                 if (bangmuontra.getSelectedRow() >= 0) {
                     mamuontratt.setText(bangmuontra.getValueAt(bangmuontra.getSelectedRow(), 0).toString());
                     //ma nhan vien : 
                     String maNhanVientableString = bangmuontra.getValueAt(bangmuontra.getSelectedRow(), 1).toString();
-                    int maNhanVientableInt = Integer.parseInt(maNhanVientableString);                    
+                    int maNhanVientableInt = Integer.parseInt(maNhanVientableString);
                     for (int i = 0; i < listNhanVien.size(); i++) {
                         if (maNhanVientableInt == listNhanVien.get(i).getIdNhanVien()) {
                             manhanvienttI.setSelectedIndex(i);
                         }
                     }
                     //ma doc gia: 
-                    String maDocGiatableString = bangmuontra.getValueAt(bangmuontra.getSelectedRow(), 2).toString(); 
-                    int maDocGiatableInt  = Integer.parseInt(maDocGiatableString);                    
+                    String maDocGiatableString = bangmuontra.getValueAt(bangmuontra.getSelectedRow(), 2).toString();
+                    int maDocGiatableInt = Integer.parseInt(maDocGiatableString);
                     for (int i = 0; i < listDocGia.size(); i++) {
                         if (maDocGiatableInt == listDocGia.get(i).getIdDocGia()) {
                             madocgiattI.setSelectedIndex(i);
@@ -977,15 +1015,15 @@ public class MuonTra extends javax.swing.JFrame {
                     ngaymuontt.setDate((Date) bangmuontra.getValueAt(bangmuontra.getSelectedRow(), 3));
                     ngayhentratt.setDate((Date) bangmuontra.getValueAt(bangmuontra.getSelectedRow(), 4));
                     tiencoctt.setText(bangmuontra.getValueAt(bangmuontra.getSelectedRow(), 5).toString());
-                    
+
                 }
             }
-            
+
         });
-        
+
     }
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    
+
     private void themMuonTra() throws SQLException {
         //doc id muon tra
         String sidMuonTra = "";
@@ -994,7 +1032,7 @@ public class MuonTra extends javax.swing.JFrame {
 
         //doc id nhan vien 
         String sidNhanVien = "";
-        sidNhanVien =  manhanvienttI.getSelectedItem().toString();
+        sidNhanVien = manhanvienttI.getSelectedItem().toString();
         int idNhanVien = Integer.parseInt(sidNhanVien);
         //doc id doc gia
         String sidDocGia = "";
@@ -1013,14 +1051,14 @@ public class MuonTra extends javax.swing.JFrame {
         stienCoc = tiencoctt.getText();
         Double tienCoc;
         tienCoc = Double.parseDouble(stienCoc);
-        
+
         String sql1 = "insert into quan_ly_thu_vien.muon_tra (idMuonTra, idNhanVien, idDocGia, ngayMuon, ngayHenTra, tienCoc) values ('" + idMuonTra + "','" + idNhanVien + "', '" + idDocGia + "', '" + ngayMuon + "', '" + ngayHenTra + "', '" + tienCoc + "');";
         Statement statement = null;
-        
+
         statement = connection.createStatement();
         statement.executeUpdate(sql1);
     }
-    
+
     private void suaMuonTra() throws SQLException {
         //doc id muon tra
         String sidMuonTra = "";
@@ -1029,48 +1067,48 @@ public class MuonTra extends javax.swing.JFrame {
 
         //doc id nhan vien 
         String sidNhanVien = "";
-        sidNhanVien =  manhanvienttI.getSelectedItem().toString();
+        sidNhanVien = manhanvienttI.getSelectedItem().toString();
         int idNhanVien = Integer.parseInt(sidNhanVien);
         //doc id doc gia
         String sidDocGia = "";
         sidDocGia = madocgiattI.getSelectedItem().toString();
         int idDocGia = Integer.parseInt(sidDocGia);
-        
+
         String ngayMuon = dateFormat.format(ngaymuontt.getDate());
-        
+
         String ngayHenTra = dateFormat.format(ngayhentratt.getDate());
-        
+
         String stienCoc = tiencoctt.getText();
-        
+
         Double tienCoc = Double.parseDouble(stienCoc);
-        
+
         String sql1 = "update  muon_tra set   idNhanVien='" + idNhanVien + "', idDocGia='" + idDocGia + "',ngayMuon='" + ngayMuon + "',ngayHenTra='" + ngayHenTra + "',tienCoc='" + tienCoc + "'   where idMuonTra='" + idMuonTra + "';";
-        
+
         Statement statement = null;
-        
+
         statement = connection.createStatement();
         statement.executeUpdate(sql1);
-        
+
     }
-    
+
     public void xoaMuonTra() throws SQLException {
         String sId = "";
         sId = mamuontratt.getText();
         int idMuonTra = Integer.parseInt(sId);
-        
+
         String sql1 = "delete from muon_tra where idMuonTra = " + idMuonTra;
         Statement statement = null;
-        
+
         statement = connection.createStatement();
         statement.executeUpdate(sql1);
     }
-    
+
     private void timKiemTheoMaMT() {
         bangmuontra.removeAll();
         String sidMuonTra = mamuontratimkiem.getSelectedItem().toString();
         int idMuonTra = Integer.parseInt(sidMuonTra);
         String[] columns = {"Mã mượn trả", "Mã nhân viên", "Mã độc giả", "Ngày mượn", "Ngày hẹn trả", "Tiền cọc"};
-        
+
         DefaultTableModel model = new DefaultTableModel(columns, 0);
         String sql = " select * from muon_tra where idMuonTra ='" + idMuonTra + "'; ";
         Statement statement = null;
@@ -1086,30 +1124,30 @@ public class MuonTra extends javax.swing.JFrame {
                 vector.add(resultSet.getDate("ngayMuon"));
                 vector.add(resultSet.getDate("ngayHenTra"));
                 vector.add(resultSet.getDouble("tienCoc"));
-                
+
                 model.addRow(vector);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            
+
         }
         bangmuontra.setModel(model);
         bangmuontra.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            
+
             public void valueChanged(ListSelectionEvent e) {
                 if (bangmuontra.getSelectedRow() >= 0) {
                     mamuontratt.setText(bangmuontra.getValueAt(bangmuontra.getSelectedRow(), 0).toString());
                     //ma nhan vien : 
                     String maNhanVientableString = bangmuontra.getValueAt(bangmuontra.getSelectedRow(), 1).toString();
-                    int maNhanVientableInt = Integer.parseInt(maNhanVientableString);                    
+                    int maNhanVientableInt = Integer.parseInt(maNhanVientableString);
                     for (int i = 0; i < listNhanVien.size(); i++) {
                         if (maNhanVientableInt == listNhanVien.get(i).getIdNhanVien()) {
                             manhanvienttI.setSelectedIndex(i);
                         }
                     }
                     //ma doc gia: 
-                    String maDocGiatableString = bangmuontra.getValueAt(bangmuontra.getSelectedRow(), 2).toString(); 
-                    int maDocGiatableInt  = Integer.parseInt(maDocGiatableString);                    
+                    String maDocGiatableString = bangmuontra.getValueAt(bangmuontra.getSelectedRow(), 2).toString();
+                    int maDocGiatableInt = Integer.parseInt(maDocGiatableString);
                     for (int i = 0; i < listDocGia.size(); i++) {
                         if (maDocGiatableInt == listDocGia.get(i).getIdDocGia()) {
                             madocgiattI.setSelectedIndex(i);
@@ -1118,20 +1156,20 @@ public class MuonTra extends javax.swing.JFrame {
                     ngaymuontt.setDate((Date) bangmuontra.getValueAt(bangmuontra.getSelectedRow(), 3));
                     ngayhentratt.setDate((Date) bangmuontra.getValueAt(bangmuontra.getSelectedRow(), 4));
                     tiencoctt.setText(bangmuontra.getValueAt(bangmuontra.getSelectedRow(), 5).toString());
-                    
+
                 }
             }
-            
+
         });
-        
+
     }
-    
+
     private void timKiemTheoMaDocGia() {
         bangmuontra.removeAll();
         String sidDocGia = madocgiatimkiem.getSelectedItem().toString();
         int idDocGia = Integer.parseInt(sidDocGia);
         String[] columns = {"Mã mượn trả", "Mã nhân viên", "Mã độc giả", "Ngày mượn", "Ngày hẹn trả", "Tiền cọc"};
-        
+
         DefaultTableModel model = new DefaultTableModel(columns, 0);
         String sql = " select * from muon_tra where idDocGia ='" + idDocGia + "'; ";
         Statement statement = null;
@@ -1147,30 +1185,30 @@ public class MuonTra extends javax.swing.JFrame {
                 vector.add(resultSet.getDate("ngayMuon"));
                 vector.add(resultSet.getDate("ngayHenTra"));
                 vector.add(resultSet.getDouble("tienCoc"));
-                
+
                 model.addRow(vector);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            
+
         }
         bangmuontra.setModel(model);
         bangmuontra.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            
+
             public void valueChanged(ListSelectionEvent e) {
                 if (bangmuontra.getSelectedRow() >= 0) {
                     mamuontratt.setText(bangmuontra.getValueAt(bangmuontra.getSelectedRow(), 0).toString());
                     //ma nhan vien : 
                     String maNhanVientableString = bangmuontra.getValueAt(bangmuontra.getSelectedRow(), 1).toString();
-                    int maNhanVientableInt = Integer.parseInt(maNhanVientableString);                    
+                    int maNhanVientableInt = Integer.parseInt(maNhanVientableString);
                     for (int i = 0; i < listNhanVien.size(); i++) {
                         if (maNhanVientableInt == listNhanVien.get(i).getIdNhanVien()) {
                             manhanvienttI.setSelectedIndex(i);
                         }
                     }
                     //ma doc gia: 
-                    String maDocGiatableString = bangmuontra.getValueAt(bangmuontra.getSelectedRow(), 2).toString(); 
-                    int maDocGiatableInt  = Integer.parseInt(maDocGiatableString);                    
+                    String maDocGiatableString = bangmuontra.getValueAt(bangmuontra.getSelectedRow(), 2).toString();
+                    int maDocGiatableInt = Integer.parseInt(maDocGiatableString);
                     for (int i = 0; i < listDocGia.size(); i++) {
                         if (maDocGiatableInt == listDocGia.get(i).getIdDocGia()) {
                             madocgiattI.setSelectedIndex(i);
@@ -1179,19 +1217,19 @@ public class MuonTra extends javax.swing.JFrame {
                     ngaymuontt.setDate((Date) bangmuontra.getValueAt(bangmuontra.getSelectedRow(), 3));
                     ngayhentratt.setDate((Date) bangmuontra.getValueAt(bangmuontra.getSelectedRow(), 4));
                     tiencoctt.setText(bangmuontra.getValueAt(bangmuontra.getSelectedRow(), 5).toString());
-                    
+
                 }
             }
-            
+
         });
     }
-    
+
     private void timKiemTheoMaNhanVien() {
         bangmuontra.removeAll();
         String sidNhanVien = manhanvientiemkiem.getSelectedItem().toString();
         int idNhanVien = Integer.parseInt(sidNhanVien);
         String[] columns = {"Mã mượn trả", "Mã nhân viên", "Mã độc giả", "Ngày mượn", "Ngày hẹn trả", "Tiền cọc"};
-        
+
         DefaultTableModel model = new DefaultTableModel(columns, 0);
         String sql = " select * from muon_tra where idNhanVien ='" + idNhanVien + "'; ";
         Statement statement = null;
@@ -1207,30 +1245,30 @@ public class MuonTra extends javax.swing.JFrame {
                 vector.add(resultSet.getDate("ngayMuon"));
                 vector.add(resultSet.getDate("ngayHenTra"));
                 vector.add(resultSet.getDouble("tienCoc"));
-                
+
                 model.addRow(vector);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            
+
         }
         bangmuontra.setModel(model);
         bangmuontra.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            
+
             public void valueChanged(ListSelectionEvent e) {
                 if (bangmuontra.getSelectedRow() >= 0) {
                     mamuontratt.setText(bangmuontra.getValueAt(bangmuontra.getSelectedRow(), 0).toString());
                     //ma nhan vien : 
                     String maNhanVientableString = bangmuontra.getValueAt(bangmuontra.getSelectedRow(), 1).toString();
-                    int maNhanVientableInt = Integer.parseInt(maNhanVientableString);                    
+                    int maNhanVientableInt = Integer.parseInt(maNhanVientableString);
                     for (int i = 0; i < listNhanVien.size(); i++) {
                         if (maNhanVientableInt == listNhanVien.get(i).getIdNhanVien()) {
                             manhanvienttI.setSelectedIndex(i);
                         }
                     }
                     //ma doc gia: 
-                    String maDocGiatableString = bangmuontra.getValueAt(bangmuontra.getSelectedRow(), 2).toString(); 
-                    int maDocGiatableInt  = Integer.parseInt(maDocGiatableString);                    
+                    String maDocGiatableString = bangmuontra.getValueAt(bangmuontra.getSelectedRow(), 2).toString();
+                    int maDocGiatableInt = Integer.parseInt(maDocGiatableString);
                     for (int i = 0; i < listDocGia.size(); i++) {
                         if (maDocGiatableInt == listDocGia.get(i).getIdDocGia()) {
                             madocgiattI.setSelectedIndex(i);
@@ -1239,72 +1277,72 @@ public class MuonTra extends javax.swing.JFrame {
                     ngaymuontt.setDate((Date) bangmuontra.getValueAt(bangmuontra.getSelectedRow(), 3));
                     ngayhentratt.setDate((Date) bangmuontra.getValueAt(bangmuontra.getSelectedRow(), 4));
                     tiencoctt.setText(bangmuontra.getValueAt(bangmuontra.getSelectedRow(), 5).toString());
-                    
+
                 }
             }
-            
+
         });
     }
-    
+
     public static int docMaMuonTra() {
         int maMuonTraDoc = 0;
         maMuonTraDoc = Integer.parseInt(mamuontratt.getText());
-        
+
         return maMuonTraDoc;
     }
-    
+
     public static int docMaNhanVien() {
         int maNhanVienDoc = Integer.parseInt(manhanvienttI.getSelectedItem().toString());
-        
+
         return maNhanVienDoc;
     }
-    
+
     public static int docMaDocGia() {
         int maDocGiaDoc = Integer.parseInt(madocgiattI.getSelectedItem().toString());
-        
+
         return maDocGiaDoc;
     }
-    
+
     public static String docNgayMuon() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        
+
         String ngayMuon = dateFormat.format(ngaymuontt.getDate());
-        
+
         return ngayMuon;
     }
-    
+
     public static String docNgayHenTra() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        
+
         String ngayHenTra = dateFormat.format(ngayhentratt.getDate());
         return ngayHenTra;
     }
-    
+
     public static Double docTienCoc() {
-        
+
         Double tienCoc = Double.parseDouble(tiencoctt.getText());
         return tienCoc;
     }
-    
+
     public void comboboxmaDG() {
-        
+
         DefaultComboBoxModel model = new DefaultComboBoxModel();
         for (int i = 0; i < listDocGia.size(); i++) {
             model.addElement(listDocGia.get(i).getIdDocGia());
-            
+
         }
         madocgiattI.setModel(model);
-        
+
     }
-    
+
     public void comboboxmaNV() {
-        
+
         DefaultComboBoxModel model = new DefaultComboBoxModel();
         for (int i = 0; i < listNhanVien.size(); i++) {
             model.addElement(listNhanVien.get(i).getIdNhanVien());
-            
+
         }
         manhanvienttI.setModel(model);
     }
-    
+
 }
