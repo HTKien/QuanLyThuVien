@@ -1,8 +1,11 @@
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -235,8 +238,14 @@ public class ThongKeSach extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-        new Sach().setVisible(true);
+        try {
+            // TODO add your handling code here:
+            new Sach().setVisible(true);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ThongKeSach.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ThongKeSach.class.getName()).log(Level.SEVERE, null, ex);
+        }
                 this.dispose();
 
     }//GEN-LAST:event_jButton3ActionPerformed

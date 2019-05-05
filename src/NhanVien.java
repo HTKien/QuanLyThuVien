@@ -1,5 +1,6 @@
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,8 +31,10 @@ public class NhanVien extends javax.swing.JFrame {
      */
     KetNoiQLTV ketNoiQLTV = null;
     Connection connection = null;
+    ArrayList<NhanVienType> listNhanVien ;
 
-    public NhanVien() {
+    public NhanVien() throws ClassNotFoundException, SQLException {
+        listNhanVien = NhanVienType.getList() ;
         ketNoiQLTV = new KetNoiQLTV();
         connection = ketNoiQLTV.getJDBCConnection();
 
@@ -457,6 +460,11 @@ public class NhanVien extends javax.swing.JFrame {
 
         jButton9.setBackground(new java.awt.Color(102, 102, 102));
         jButton9.setText("Xuất ra 1 file ");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
 
         jButton11.setBackground(new java.awt.Color(102, 102, 102));
         jButton11.setText("Thống kê ");
@@ -697,6 +705,24 @@ public class NhanVien extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton8ActionPerformed
 
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+        JFileChooser jFileChooser = new JFileChooser();
+        if (jFileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File file = jFileChooser.getSelectedFile();
+
+            try {
+                WordHelper.writeNV(file, listNhanVien, "THÔNG TIN NHÂN VIÊN");
+                JOptionPane.showMessageDialog(null, "Xuất file thành công");
+
+            } catch (IOException ex) {
+                Logger.getLogger(DocGia.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Xuất file thất bại!");
+            }
+
+        }
+    }//GEN-LAST:event_jButton9ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -727,7 +753,13 @@ public class NhanVien extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NhanVien().setVisible(true);
+                try {
+                    new NhanVien().setVisible(true);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(NhanVien.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(NhanVien.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

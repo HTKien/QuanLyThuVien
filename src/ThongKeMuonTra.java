@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -296,7 +297,7 @@ public class ThongKeMuonTra extends javax.swing.JFrame {
 
     private void thongKeTheoNhanVien() {
         bangthongke.removeAll();
-        String[] columns = {"Mã nhân viên", "Tên nhân viên","Số lượng hóa đơn" };
+        String[] columns = {"Mã nhân viên", "Tên nhân viên","Số lượng hóa đơn", "Tổng tiền nhận cọc" };
         DefaultTableModel model = new DefaultTableModel(columns, 0);
         String sql = "SELECT COUNT(idNhanVien), idNhanVien FROM muon_tra GROUP BY idNhanVien;";
         Statement statement = null;
@@ -312,6 +313,8 @@ public class ThongKeMuonTra extends javax.swing.JFrame {
                 
                 vector.add(getTenNhanVien(resultSet.getInt("idNhanVien"))); 
                 vector.add(resultSet.getInt("COUNT(idNhanVien)"));
+                vector.add(getTongTienCocNV(resultSet.getInt("idNhanVien"))); 
+                
 
 
 
@@ -326,7 +329,7 @@ public class ThongKeMuonTra extends javax.swing.JFrame {
 
     private void thongKeTheoNgayMuon() {
         bangthongke.removeAll();
-        String[] columns = {"Ngày mượn", "Số lượng hóa đơn"};
+        String[] columns = {"Ngày mượn", "Số lượng hóa đơn","Tổng tiền cọc"};
         DefaultTableModel model = new DefaultTableModel(columns, 0);
         String sql = "SELECT COUNT(idMuonTra), ngayMuon FROM muon_tra GROUP BY ngayMuon ORDER BY ngayMuon DESC;";
         Statement statement = null;
@@ -339,6 +342,7 @@ public class ThongKeMuonTra extends javax.swing.JFrame {
                 Vector vector = new Vector();
                 vector.add(resultSet.getString("ngayMuon"));
                 vector.add(resultSet.getInt("COUNT(idMuonTra)"));
+                vector.add(getTongTienCocTheoNgayMuon(resultSet.getDate("ngayMuon"))); 
 
 
 
@@ -370,10 +374,30 @@ public class ThongKeMuonTra extends javax.swing.JFrame {
 
         return tenNhanVien;
     }
+    public   Double  getTongTienCocNV(int idNhanVien) {
+
+        Double tongTienCoc = 0D;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String sql = "select sum(tienCoc) from muon_tra where idNhanVien =' " + idNhanVien + "'; ";
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                tongTienCoc = resultSet.getDouble("sum(tienCoc)");
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+
+        return tongTienCoc;
+    }
 
     private void thongKeTheoDocGia() {
         bangthongke.removeAll();
-        String[] columns = {"Mã độc giả", "Tên độc giả","Số lượng hóa đơn" };
+        String[] columns = {"Mã độc giả", "Tên độc giả","Số lượng hóa đơn", "Tổng tiền đặt cọc" };
         DefaultTableModel model = new DefaultTableModel(columns, 0);
         String sql = "SELECT COUNT(idDocGia), idDocGia FROM muon_tra GROUP BY idDocGia;";
         Statement statement = null;
@@ -389,6 +413,7 @@ public class ThongKeMuonTra extends javax.swing.JFrame {
                 
                 vector.add(getTenDocGia(resultSet.getInt("idDocGia"))); 
                 vector.add(resultSet.getInt("COUNT(idDocGia)"));
+                vector.add(getTongTienCocDG(resultSet.getInt("idDocGia"))); 
 
 
 
@@ -446,5 +471,44 @@ public class ThongKeMuonTra extends javax.swing.JFrame {
             e.printStackTrace();
         }
         bangthongke.setModel(model);
+    }
+
+    private Double getTongTienCocDG(int idDocGia) {
+        Double tongTienCoc = 0D;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String sql = "select sum(tienCoc) from muon_tra where idDocGia =' " + idDocGia + "'; ";
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                tongTienCoc = resultSet.getDouble("sum(tienCoc)");
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+
+        return tongTienCoc;
+    }
+    private Double getTongTienCocTheoNgayMuon(Date ngayMuon) {
+        Double tongTienCoc = 0D;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String sql = "select sum(tienCoc) from muon_tra where ngayMuon =' " + ngayMuon + "'; ";
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                tongTienCoc = resultSet.getDouble("sum(tienCoc)");
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+
+        return tongTienCoc;
     }
 }

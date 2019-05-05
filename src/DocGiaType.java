@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -28,7 +29,7 @@ public class DocGiaType {
     private String ngheNgiepDocGia;
     //cac phuong thuc khoi tao : 
 
-    public DocGiaType(int idDocGia, String tenDocGia, String gioiTinhDocGia, String namSinhDocGia, String sdtDocGia, String diaChiDocGia, String emailDocGia, String string6) {
+    public DocGiaType(int idDocGia, String tenDocGia, String gioiTinhDocGia, String namSinhDocGia, String sdtDocGia, String diaChiDocGia, String emailDocGia, String ngheNgiepDocGia) {
         this.idDocGia = idDocGia;
         this.tenDocGia = tenDocGia;
         this.gioiTinhDocGia = gioiTinhDocGia;
@@ -36,6 +37,10 @@ public class DocGiaType {
         this.sdtDocGia = sdtDocGia;
         this.diaChiDocGia = diaChiDocGia;
         this.emailDocGia = emailDocGia;
+        this.ngheNgiepDocGia = ngheNgiepDocGia;
+    }
+
+    public DocGiaType() {
     }
 
     public int getIdDocGia() {
@@ -102,8 +107,6 @@ public class DocGiaType {
         this.ngheNgiepDocGia = ngheNgiepDocGia;
     }
 
-    public DocGiaType() {
-    }
 
     //hàm để load dữ liệu lên một  arraylist: 
     public static ArrayList<DocGiaType> getList() throws ClassNotFoundException, SQLException {
@@ -123,7 +126,6 @@ public class DocGiaType {
                     resultSet.getString("diaChiDocGia"),
                     resultSet.getString("emailDocGia"),
                     resultSet.getString("ngheNghiepDocGia")));
-
         }
         connection.close();
         return list;

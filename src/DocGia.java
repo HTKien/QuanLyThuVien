@@ -37,7 +37,10 @@ public class DocGia extends javax.swing.JFrame {
     /**
      * Creates new form DocGia
      */
-    public DocGia() {
+    ArrayList<DocGiaType> listDocGia;
+
+    public DocGia() throws ClassNotFoundException, SQLException {
+        listDocGia = DocGiaType.getList();
         ketNoiQLTV = new KetNoiQLTV();
         connection = ketNoiQLTV.getJDBCConnection();
         initComponents();
@@ -489,6 +492,11 @@ public class DocGia extends javax.swing.JFrame {
 
         jButton9.setBackground(new java.awt.Color(102, 102, 102));
         jButton9.setText("Xuất ra 1 file ");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
 
         jButton6.setBackground(new java.awt.Color(102, 102, 102));
         jButton6.setText("Thống kê ");
@@ -679,11 +687,11 @@ public class DocGia extends javax.swing.JFrame {
         if (jFileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             File file = jFileChooser.getSelectedFile();
             String type = file.getName().substring(file.getName().lastIndexOf(".") + 1);
-                    System.out.println(type);
+            System.out.println(type);
 
             if (type.equals("xls") || type.equals("xlsx")) {
                 try {
-                    ArrayList<DocGiaType> list = ExcelHelper.readDocGias(file); 
+                    ArrayList<DocGiaType> list = ExcelHelper.readDocGias(file);
                     int re = -1;
                     for (DocGiaType o : list) {
                         re = DocGiaType.add(o);
@@ -728,6 +736,26 @@ public class DocGia extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton11ActionPerformed
 
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+
+        JFileChooser jFileChooser = new JFileChooser();
+        if (jFileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File file = jFileChooser.getSelectedFile();
+
+            try {
+                WordHelper.writeDG(file, listDocGia, "THÔNG TIN ĐỘC GIẢ");
+                JOptionPane.showMessageDialog(null, "Xuất file thành công");
+
+            } catch (IOException ex) {
+                Logger.getLogger(DocGia.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Xuất file thất bại!");
+            }
+
+        }
+
+    }//GEN-LAST:event_jButton9ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -758,7 +786,13 @@ public class DocGia extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DocGia().setVisible(true);
+                try {
+                    new DocGia().setVisible(true);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(DocGia.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(DocGia.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

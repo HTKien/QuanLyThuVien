@@ -2,6 +2,7 @@
 
 import java.awt.Color;
 import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.JDBCType;
 import java.sql.ResultSet;
@@ -33,12 +34,14 @@ public class Sach extends javax.swing.JFrame {
 
     KetNoiQLTV ketNoiQLTV = null;
     Connection connection = null;
+    ArrayList<SachType> listSach ;
 
     /**
      * Creates new form Sach
      */
     //phương thức Sach: 
-    public Sach() {
+    public Sach() throws ClassNotFoundException, SQLException {
+        listSach= SachType.getList() ;
         ketNoiQLTV = new KetNoiQLTV();
         connection = ketNoiQLTV.getJDBCConnection();
         initComponents();
@@ -435,6 +438,11 @@ public class Sach extends javax.swing.JFrame {
 
         jButton9.setBackground(new java.awt.Color(102, 102, 102));
         jButton9.setText("Xuất ra 1 file ");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
 
         jButton10.setBackground(new java.awt.Color(102, 102, 102));
         jButton10.setText("Thống kê ");
@@ -685,6 +693,27 @@ public class Sach extends javax.swing.JFrame {
         }        // TODO add your handling code here:
     }//GEN-LAST:event_jButton8ActionPerformed
 
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+        JFileChooser jFileChooser = new JFileChooser();
+        if (jFileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File file = jFileChooser.getSelectedFile();
+
+            
+            
+            
+            try {
+                WordHelper.writeSach(file, listSach, "THÔNG TIN SÁCH");
+                JOptionPane.showMessageDialog(null, "Xuất file thành công");
+
+            } catch (IOException ex) {
+                Logger.getLogger(DocGia.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Xuất file thất bại!");
+            }
+
+        }
+    }//GEN-LAST:event_jButton9ActionPerformed
+
     /**
      *
      * @param args the command line arguments
@@ -717,7 +746,14 @@ public class Sach extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Sach sach = new Sach();
+                Sach sach = null;
+                try {
+                    sach = new Sach();
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Sach.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Sach.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
                 sach.setVisible(true);
             }

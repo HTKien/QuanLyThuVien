@@ -12,7 +12,11 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
+import org.apache.poi.xwpf.usermodel.XWPFTableCell;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTJc;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTTblPr;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.STJc;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -35,6 +39,26 @@ public class WordHelper {
         }
         out.close();
     }
+    public static void writeNV(File file, ArrayList<NhanVienType> list, String tittle) throws FileNotFoundException, IOException {
+        FileOutputStream out;
+        try (XWPFDocument document = loadHeader(tittle)) {
+            createTableNV(document, list);
+            loadFooter(document);
+            out = new FileOutputStream(file);
+            document.write(out);//ghi lại
+        }
+        out.close();
+    }
+    public static void writeSach(File file, ArrayList<SachType> list, String tittle) throws FileNotFoundException, IOException {
+        FileOutputStream out;
+        try (XWPFDocument document = loadHeader(tittle)) {
+            createTableSach(document, list);
+            loadFooter(document);
+            out = new FileOutputStream(file);
+            document.write(out);//ghi lại
+        }
+        out.close();
+    }
 
     private static XWPFDocument loadHeader(String tittle) throws FileNotFoundException, IOException {
         FileInputStream fis = new FileInputStream(new File("C:\\Users\\hantr\\Documents\\tittle.docx"));
@@ -47,7 +71,7 @@ public class WordHelper {
         paragraphTittle.setAlignment(ParagraphAlignment.CENTER);
         XWPFRun runTittle = paragraphTittle.createRun();
         runTittle.setBold(true);
-        runTittle.setItalic(true);
+        //runTittle.setItalic(true);
         runTittle.setFontFamily("Times New Roman");//set Kiểu chữ
         runTittle.setFontSize(16);//set size text
         runTittle.setColor("000000");// set color text
@@ -64,16 +88,16 @@ public class WordHelper {
         //get first row - viết tittle
         XWPFTableRow tittleRow = table.getRow(0);
         format(tittleRow.getCell(0), "TT", true);
-        tittleRow.getCell(0).getCTTc().addNewTcPr().addNewTcW().setW(BigInteger.valueOf(1000)); // set chiều rộng
+        tittleRow.getCell(0).getCTTc().addNewTcPr().addNewTcW().setW(BigInteger.valueOf(500)); // set chiều rộng
 
-        createNewCell(tittleRow, "Mã", 1000, 1);
-        createNewCell(tittleRow, "Tên độc giả", 2500, 2);
-        createNewCell(tittleRow, "Giới tính", 1000, 3);
-        createNewCell(tittleRow, "Năm sinh", 1000, 4);
-        createNewCell(tittleRow, "Số điện thoại", 1000, 5);
-        createNewCell(tittleRow, "Địa chỉ", 2500, 6);
+        createNewCell(tittleRow, "Mã", 100, 1);
+        createNewCell(tittleRow, "Tên độc giả", 1700, 2);
+        createNewCell(tittleRow, "Giới tính", 300, 3);
+        createNewCell(tittleRow, "Năm sinh", 300, 4);
+        createNewCell(tittleRow, "Số điện thoại", 800, 5);
+        createNewCell(tittleRow, "Địa chỉ", 1000, 6);
         createNewCell(tittleRow, "Email", 2500, 7);
-        createNewCell(tittleRow, "Nghề nghiệp", 2500, 8);
+        createNewCell(tittleRow, "Nghề nghiệp", 1500, 8);
 
         // đọc dữ liệu
         for (int i = 0; i < list.size(); i++) {
@@ -84,11 +108,77 @@ public class WordHelper {
             format(row.getCell(2), o.getTenDocGia() + "", false);
             format(row.getCell(3), o.getGioiTinhDocGia() + "", false);
             format(row.getCell(4), o.getNamSinhDocGia() + "", false);
-            format(row.getCell(4), o.getSdtDocGia() + "", false);
-            format(row.getCell(4), o.getDiaChiDocGia() + "", false);
-            format(row.getCell(4), o.getEmailDocGia() + "", false);
-            format(row.getCell(4), o.getNgheNgiepDocGia() + "", false);
+            format(row.getCell(5), o.getSdtDocGia() + "", false);
+            format(row.getCell(6), o.getDiaChiDocGia() + "", false);
+            format(row.getCell(7), o.getEmailDocGia() + "", false);
+            format(row.getCell(8), o.getNgheNgiepDocGia() + "", false);
 
+        }
+    }
+    private static void createTableNV(XWPFDocument document, ArrayList<NhanVienType> list) {
+        // tạo bảng 
+        XWPFTable table = document.createTable();
+        setTableAlign(table, ParagraphAlignment.CENTER);
+        // khi tạo 1 bảng mới thì bảng chỉ có 1 dòng và 1 cột -> row 0, col 0
+        //get first row - viết tittle
+        XWPFTableRow tittleRow = table.getRow(0);
+        format(tittleRow.getCell(0), "TT", true);
+        tittleRow.getCell(0).getCTTc().addNewTcPr().addNewTcW().setW(BigInteger.valueOf(1000)); // set chiều rộng
+
+        createNewCell(tittleRow, "Mã", 100, 1);
+        createNewCell(tittleRow, "Tên nhân viên", 1700, 2);
+        createNewCell(tittleRow, "Giới tính", 300, 3);
+        createNewCell(tittleRow, "Năm sinh", 300, 4);
+        createNewCell(tittleRow, "Số điện thoại", 800, 5);
+        createNewCell(tittleRow, "Địa chỉ", 1000, 6);
+        createNewCell(tittleRow, "Email", 2500, 7);
+
+        // đọc dữ liệu
+        for (int i = 0; i < list.size(); i++) {
+            NhanVienType o = list.get(i);
+            XWPFTableRow row = table.createRow();// tạo dòng mới
+            format(row.getCell(0), (i + 1) + "", false);
+            format(row.getCell(1), o.getIdNhanVien()+ "", false);
+            format(row.getCell(2), o.getTenNhanVien() + "", false);
+            format(row.getCell(3), o.getGioiTinhNhanVien()+ "", false);
+            format(row.getCell(4), o.getNamSinhNhanVien()+ "", false);
+            format(row.getCell(5), o.getSdtNhanVien()+ "", false);
+            format(row.getCell(6), o.getDiaChiNhanVien() + "", false);
+            format(row.getCell(7), o.getEmailNhanVien() + "", false);
+        }
+    }
+    private static void createTableSach(XWPFDocument document, ArrayList<SachType> list) {
+        // tạo bảng 
+        XWPFTable table = document.createTable();
+        setTableAlign(table, ParagraphAlignment.CENTER);
+        // khi tạo 1 bảng mới thì bảng chỉ có 1 dòng và 1 cột -> row 0, col 0
+        //get first row - viết tittle
+        XWPFTableRow tittleRow = table.getRow(0);
+        format(tittleRow.getCell(0), "TT", true);
+        tittleRow.getCell(0).getCTTc().addNewTcPr().addNewTcW().setW(BigInteger.valueOf(300)); // set chiều rộng
+
+        createNewCell(tittleRow, "Mã", 300, 1);
+        createNewCell(tittleRow, "Tên sách", 2500, 2);
+        createNewCell(tittleRow, "Thể loại sách", 2500, 3);
+        createNewCell(tittleRow, "Năm xuất bản", 2500, 4);
+        createNewCell(tittleRow, "Nhà xuất bản", 2500, 5);
+        createNewCell(tittleRow, "Tên tác giả", 2500, 6);
+        createNewCell(tittleRow, "Giá tiền", 2500, 7);
+        createNewCell(tittleRow, "Số lượng", 300, 8);
+
+        // đọc dữ liệu
+        for (int i = 0; i < list.size(); i++) {
+            SachType o = list.get(i);
+            XWPFTableRow row = table.createRow();// tạo dòng mới
+            format(row.getCell(0), (i + 1) + "", false);
+            format(row.getCell(1), o.getIdSach()+ "", false);
+            format(row.getCell(2), o.getTenSach()+ "", false);
+            format(row.getCell(3), o.getTheLoaiSach()+ "", false);
+            format(row.getCell(4), o.getNamXuatBanSach()+ "", false);
+            format(row.getCell(5), o.getNhaXuatBanSach()+ "", false);
+            format(row.getCell(6), o.getTenTacGia()+ "", false);
+            format(row.getCell(7), o.getGiaTien()+ "", false);
+            format(row.getCell(8), o.getSoLuong() + "", false);
         }
     }
     private static void loadFooter(XWPFDocument document) {
@@ -112,6 +202,31 @@ public class WordHelper {
         runF2.setColor("000000");// set color text
         runF2.setText("                   (Ký và ghi rõ họ tên)                                            "
                 + "                         (Ký và ghi rõ họ tên)");// set content text
+    }
+    private static void format(XWPFTableCell cell, String s, boolean b) {
+        cell.setVerticalAlignment(XWPFTableCell.XWPFVertAlign.CENTER);// chính giữa theo chiều cao
+        XWPFParagraph p = cell.getParagraphs().get(0);//lấy doạn văn bản
+        p.setIndentationLeft(10);// tương đượng padding left
+        p.setIndentationRight(10);// tương đượng padding right
+        p.setAlignment(ParagraphAlignment.CENTER);// căn giữa văn bản
+        XWPFRun r = p.createRun();// nội dung
+        r.setBold(b);
+        r.setFontFamily("Times New Roman");//set Kiểu chữ
+        r.setFontSize(11);//set size text
+        r.setColor("000000");// set color text
+        r.setText(s);// set content text
+    }
+    private static void createNewCell(XWPFTableRow tittleRow, String s, int i, int stt) {
+        tittleRow.addNewTableCell();// tạo cell mới
+        format(tittleRow.getCell(stt), s, true);
+        tittleRow.getCell(stt).getCTTc().addNewTcPr().addNewTcW().setW(BigInteger.valueOf(i));
+    }
+
+    public static void setTableAlign(XWPFTable table, ParagraphAlignment align) {
+        CTTblPr tblPr = table.getCTTbl().getTblPr();
+        CTJc jc = (tblPr.isSetJc() ? tblPr.getJc() : tblPr.addNewJc());
+        STJc.Enum en = STJc.Enum.forInt(align.getValue());
+        jc.setVal(en);
     }
 
 }

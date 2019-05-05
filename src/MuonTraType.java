@@ -3,6 +3,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -115,11 +116,11 @@ public class MuonTraType {
 
     public static int add(MuonTraType o) {
         String sql = "insert into muon_tra values("
-                + o.getIdMuonTra()+ ","
-                + o.getIdNhanVien()+ ", "
-                + o.getIdDocGia()+ ", '"
-                + o.getNgayMuon()+ "', '"
-                + o.getNgayHenTra() + "', '"
+                + o.getIdMuonTra() + ","
+                + o.getIdNhanVien() + ", "
+                + o.getIdDocGia() + ", '"
+                + new SimpleDateFormat("yyyy-MM-dd").format(o.getNgayMuon()) + "', '"
+                + new SimpleDateFormat("yyyy-MM-dd").format(o.getNgayHenTra()) + "', '"
                 + o.getTienCoc() + "'"
                 + ");";
         return interact(sql);

@@ -268,7 +268,14 @@ public class TrangChu extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Sach sach = new Sach();
+        Sach sach = null;
+        try {
+            sach = new Sach();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(TrangChu.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(TrangChu.class.getName()).log(Level.SEVERE, null, ex);
+        }
         sach.setVisible(true);
         this.dispose();
 
@@ -276,7 +283,14 @@ public class TrangChu extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        DocGia docgia = new DocGia()   ;
+        DocGia docgia = null   ;
+        try {
+            docgia = new DocGia();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(TrangChu.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(TrangChu.class.getName()).log(Level.SEVERE, null, ex);
+        }
         docgia.setVisible(true);
                 this.dispose();
 
@@ -284,7 +298,14 @@ public class TrangChu extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        NhanVien nhanvien = new NhanVien();
+        NhanVien nhanvien = null;
+        try {
+            nhanvien = new NhanVien();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(TrangChu.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(TrangChu.class.getName()).log(Level.SEVERE, null, ex);
+        }
         nhanvien.setVisible(true );
                 this.dispose();
 
