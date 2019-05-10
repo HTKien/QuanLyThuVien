@@ -1,11 +1,13 @@
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+
 public class KetNoiQLTV {
-    
+
     public static Connection getJDBCConnection(){
         final String url ="jdbc:mysql://localhost:3306/quan_ly_thu_vien?useUnicode=true&characterEncoding=utf-8"; 
-        final String password="12345678"; 
+        final String password="175065539"; 
         final String user = "root"; 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver"); 

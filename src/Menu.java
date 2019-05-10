@@ -16,22 +16,21 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author MyPC
+ * @author hantr
  */
 public class Menu extends javax.swing.JFrame {
 
     /**
      * Creates new form Menu
      */
-    KetNoiQLTV ketNoiQLTV = null ;
-    Connection connection = null ;
+     KetNoiQLTV ketNoiQLTV = null;
+    Connection connection = null;
     public Menu() {
-        
         ketNoiQLTV = new KetNoiQLTV();
-        connection = ketNoiQLTV.getJDBCConnection(); 
+        connection = ketNoiQLTV.getJDBCConnection();
         initComponents();
-        this.setLocationRelativeTo(null);
-       
+                this.setLocationRelativeTo(null);
+
     }
 
     /**
@@ -123,6 +122,8 @@ public class Menu extends javax.swing.JFrame {
         jLabel5.setText("Mật khẩu: ");
 
         jButton5.setBackground(new java.awt.Color(102, 102, 102));
+        jButton5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/login.png"))); // NOI18N
         jButton5.setText("Đăng nhập ");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -139,28 +140,21 @@ public class Menu extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(passworddn)
+                    .addComponent(emaildn, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel5))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel4))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGap(44, 44, 44)
-                                .addComponent(jButton5)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(passworddn)
-                            .addComponent(emaildn, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
-                                .addComponent(jRadioButton1)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jRadioButton1, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(jButton5)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -212,6 +206,8 @@ public class Menu extends javax.swing.JFrame {
         jLabel14.setText("Nhập lại mật khẩu: ");
 
         jButton7.setBackground(new java.awt.Color(102, 102, 102));
+        jButton7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dangki.png"))); // NOI18N
         jButton7.setText("Đăng ký");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -227,10 +223,6 @@ public class Menu extends javax.swing.JFrame {
         dangkiLayout.setHorizontalGroup(
             dangkiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dangkiLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(154, 154, 154))
             .addGroup(dangkiLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(dangkiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -246,6 +238,10 @@ public class Menu extends javax.swing.JFrame {
                             .addComponent(passdklai)))
                     .addComponent(jLabel6))
                 .addContainerGap(66, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dangkiLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(140, 140, 140))
         );
         dangkiLayout.setVerticalGroup(
             dangkiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -265,9 +261,9 @@ public class Menu extends javax.swing.JFrame {
                 .addGroup(dangkiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
                     .addComponent(passdklai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(jButton7)
-                .addGap(0, 10, Short.MAX_VALUE))
+                .addGap(22, 22, 22))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -288,7 +284,7 @@ public class Menu extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(dangki, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -339,7 +335,8 @@ public class Menu extends javax.swing.JFrame {
             if (rs.next() && !emaildn.getText().equals("") && !passworddn.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "Đăng nhập thành công!");
                 new TrangChu().setVisible(true);
-                        this.dispose();
+                this.dispose();
+                
 
             } else {
                 JOptionPane.showMessageDialog(this, "Sai Username hoặc mật khẩu!\nĐăng nhập thất bại!");
@@ -348,7 +345,6 @@ public class Menu extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -356,13 +352,12 @@ public class Menu extends javax.swing.JFrame {
         String a = emaildk.getText();
         String b = passdk.getText();
         String c = passdklai.getText();
-        if(a.equals("")||b.equals("")||c.equals("")){
+        if (a.equals("") || b.equals("") || c.equals("")) {
             JOptionPane.showMessageDialog(this, "Bạn chưa nhập đầy đủ thông tin đăng kí!");
         }
-        if (b.equals(c)&&!b.equals("")) {
-            String sql = "insert into  user(userName, password ) values ('" + a + "','" + b + "')";
+        if (b.equals(c) && !b.equals("")) {
+            String sql = "insert  into  user(userName, password ) values ('" + a + "','" + b + "')";
             Statement statement = null;
-            ResultSet resultSet = null;
 
             try {
                 statement = connection.createStatement();
@@ -376,7 +371,7 @@ public class Menu extends javax.swing.JFrame {
             passdk.setText("");
             passdklai.setText("");
 
-        } else if(!b.equals(c)) {
+        } else if (!b.equals(c)) {
             JOptionPane.showMessageDialog(this, "Bạn nhập mật khẩu xác minh chưa đúng!");
         }
     }//GEN-LAST:event_jButton7ActionPerformed
@@ -414,7 +409,6 @@ public class Menu extends javax.swing.JFrame {
                 new Menu().setVisible(true);
             }
         });
-        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

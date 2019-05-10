@@ -75,6 +75,8 @@ public class PhieuMuonTra extends javax.swing.JFrame {
         bangphieu = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jLabel13 = new javax.swing.JLabel();
+        sosachtra = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("HÀN TRUNG KIÊN 20162220");
@@ -110,6 +112,24 @@ public class PhieuMuonTra extends javax.swing.JFrame {
             }
         });
 
+        tiencoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tiencocActionPerformed(evt);
+            }
+        });
+
+        tongtienphat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tongtienphatActionPerformed(evt);
+            }
+        });
+
+        sosachmuon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sosachmuonActionPerformed(evt);
+            }
+        });
+
         bangphieu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -124,6 +144,7 @@ public class PhieuMuonTra extends javax.swing.JFrame {
         jScrollPane1.setViewportView(bangphieu);
 
         jButton1.setBackground(new java.awt.Color(102, 102, 102));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/arrow-back-icon.png"))); // NOI18N
         jButton1.setText("Quay lại ");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -132,7 +153,10 @@ public class PhieuMuonTra extends javax.swing.JFrame {
         });
 
         jButton2.setBackground(new java.awt.Color(102, 102, 102));
-        jButton2.setText("In phiếu ");
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Word-icon.png"))); // NOI18N
+        jButton2.setText("Xuất phiếu");
+
+        jLabel13.setText("Số sách trả: ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -146,7 +170,15 @@ public class PhieuMuonTra extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(46, 46, 46)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(tendocgia, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                                    .addComponent(tennhanvien)
+                                    .addComponent(ngayhentra)
+                                    .addComponent(sosachtra)
+                                    .addComponent(tongtienphat)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
@@ -154,30 +186,36 @@ public class PhieuMuonTra extends javax.swing.JFrame {
                                     .addComponent(jLabel5)
                                     .addComponent(jLabel7)
                                     .addComponent(jLabel9)
-                                    .addComponent(jLabel11))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(mamuontra)
-                                    .addComponent(madocgia)
-                                    .addComponent(manhanvien)
-                                    .addComponent(ngaymuon)
-                                    .addComponent(tiencoc)
-                                    .addComponent(tongtienphat, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE))
+                                    .addComponent(jLabel12)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(5, 5, 5)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(20, 20, 20)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(madocgia, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+                                                .addComponent(mamuontra, javax.swing.GroupLayout.Alignment.TRAILING))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(12, 12, 12)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(tienno, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+                                                    .addComponent(tiencoc, javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addComponent(sosachmuon, javax.swing.GroupLayout.Alignment.TRAILING)))))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(ngaymuon, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(manhanvien, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGap(41, 41, 41)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel6)
                                     .addComponent(jLabel8)
-                                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(46, 46, 46)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(tendocgia)
-                            .addComponent(tennhanvien)
-                            .addComponent(ngayhentra)
-                            .addComponent(tienno, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                            .addComponent(sosachmuon))))
-                .addContainerGap(49, Short.MAX_VALUE))
+                                    .addComponent(jLabel13)
+                                    .addComponent(jLabel11))
+                                .addGap(164, 164, 164)))))
+                .addContainerGap(22, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -212,19 +250,23 @@ public class PhieuMuonTra extends javax.swing.JFrame {
                     .addComponent(ngayhentra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
                     .addComponent(jLabel10)
-                    .addComponent(tiencoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(sosachmuon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(sosachmuon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13)
+                    .addComponent(sosachtra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tiencoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9)
                     .addComponent(jLabel11)
+                    .addComponent(tongtienphat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(tongtienphat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tienno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addGap(54, 54, 54)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)))
@@ -248,6 +290,18 @@ public class PhieuMuonTra extends javax.swing.JFrame {
     private void mamuontraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mamuontraActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_mamuontraActionPerformed
+
+    private void tiencocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tiencocActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tiencocActionPerformed
+
+    private void sosachmuonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sosachmuonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sosachmuonActionPerformed
+
+    private void tongtienphatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tongtienphatActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tongtienphatActionPerformed
 
     /**
      * @param args the command line arguments
@@ -292,6 +346,7 @@ public class PhieuMuonTra extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -307,6 +362,7 @@ public class PhieuMuonTra extends javax.swing.JFrame {
     private javax.swing.JTextField ngayhentra;
     private javax.swing.JTextField ngaymuon;
     private javax.swing.JTextField sosachmuon;
+    private javax.swing.JTextField sosachtra;
     private javax.swing.JTextField tendocgia;
     private javax.swing.JTextField tennhanvien;
     private javax.swing.JTextField tiencoc;
@@ -326,6 +382,7 @@ public class PhieuMuonTra extends javax.swing.JFrame {
         sosachmuon.setText("" + docSoSachMuon());
         tongtienphat.setText("" + docTongTienPhat());
         tienno.setText("" + (docTongTienPhat()-MuonTra.docTienCoc()));
+        sosachtra.setText(""+docSoSachTra());
         loadBangPhieu();
 
     }
@@ -372,7 +429,26 @@ public class PhieuMuonTra extends javax.swing.JFrame {
 
     public int docSoSachMuon() {
         int soSachMuon = 0;
-        String sql = "SELECT COUNT(idSach) FROM chitietmuontra where idMuonTra ='" + MuonTra.docMaMuonTra() + "' GROUP BY idMuonTra;";
+        String sql = "SELECT COUNT(idSach) FROM chitietmuontra where idMuonTra ='" + MuonTra.docMaMuonTra() + "' and ngayTra is null ;";
+        Statement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+
+                soSachMuon = resultSet.getInt("COUNT(idSach)");
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+        return soSachMuon;
+    }
+    public int docSoSachTra() {
+        int soSachMuon = 0;
+        String sql = "SELECT COUNT(idSach) FROM chitietmuontra where idMuonTra ='" + MuonTra.docMaMuonTra() + "' and ngayTra is not null ;";
         Statement statement = null;
         ResultSet resultSet = null;
         try {

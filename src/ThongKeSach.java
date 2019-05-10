@@ -53,7 +53,6 @@ public class ThongKeSach extends javax.swing.JFrame {
         nhaxbchon = new javax.swing.JRadioButton();
         tacgiachon = new javax.swing.JRadioButton();
         tienchon = new javax.swing.JRadioButton();
-        jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         bangtk = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
@@ -77,7 +76,7 @@ public class ThongKeSach extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(259, 259, 259)
+                .addGap(274, 274, 274)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -91,32 +90,49 @@ public class ThongKeSach extends javax.swing.JFrame {
 
         buttonGroup1.add(tensachchon);
         tensachchon.setText("Tên sách ");
+        tensachchon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tensachchonActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(theloaichon);
         theloaichon.setText("Thể loại ");
+        theloaichon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                theloaichonActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(namxbchon);
         namxbchon.setText("Năm xuất bản ");
+        namxbchon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                namxbchonActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(nhaxbchon);
         nhaxbchon.setText("Nhà xuất bản ");
+        nhaxbchon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nhaxbchonActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(tacgiachon);
         tacgiachon.setText("Tác giả");
+        tacgiachon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tacgiachonActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(tienchon);
         tienchon.setText("Giá tiền");
         tienchon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tienchonActionPerformed(evt);
-            }
-        });
-
-        jButton2.setBackground(new java.awt.Color(102, 102, 102));
-        jButton2.setText("THỐNG KÊ");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
             }
         });
 
@@ -134,6 +150,7 @@ public class ThongKeSach extends javax.swing.JFrame {
         jScrollPane1.setViewportView(bangtk);
 
         jButton3.setBackground(new java.awt.Color(102, 102, 102));
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/arrow-back-icon.png"))); // NOI18N
         jButton3.setText("Quay lại ");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -142,9 +159,11 @@ public class ThongKeSach extends javax.swing.JFrame {
         });
 
         jButton4.setBackground(new java.awt.Color(102, 102, 102));
-        jButton4.setText("Xuất file thống kê");
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Word-icon.png"))); // NOI18N
+        jButton4.setText("Xuất file");
 
         jButton6.setBackground(new java.awt.Color(102, 102, 102));
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logout3.png"))); // NOI18N
         jButton6.setText("Đăng xuất ");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -172,20 +191,15 @@ public class ThongKeSach extends javax.swing.JFrame {
                 .addComponent(tienchon)
                 .addGap(49, 49, 49))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(281, 281, 281)
-                        .addComponent(jButton2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(145, 145, 145)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addComponent(jButton3)
                 .addGap(212, 212, 212)
                 .addComponent(jButton4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton6))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(153, 153, 153)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -199,9 +213,7 @@ public class ThongKeSach extends javax.swing.JFrame {
                     .addComponent(nhaxbchon)
                     .addComponent(tacgiachon)
                     .addComponent(tienchon))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(41, 41, 41)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -214,28 +226,8 @@ public class ThongKeSach extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tienchonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tienchonActionPerformed
-        // TODO add your handling code here:
+        tkTheoTien();        // TODO add your handling code here:
     }//GEN-LAST:event_tienchonActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        if(tensachchon.isSelected()){
-            
-           thongKeTheoTen(); 
-        } else if(theloaichon.isSelected()){
-            thongKeTheoTheLoai(); 
-        }else if(namxbchon.isSelected()){
-            tkTheoNamXB();
-            
-        }else if(nhaxbchon.isSelected()){
-            tkTheoNhaXB();
-        }else if(tacgiachon.isSelected()){
-            tkTheoTG();
-        }else if(tienchon.isSelected()){
-            tkTheoTien();
-            
-        }
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         try {
@@ -261,6 +253,26 @@ public class ThongKeSach extends javax.swing.JFrame {
             
         }
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void tensachchonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tensachchonActionPerformed
+        thongKeTheoTen();        // TODO add your handling code here:
+    }//GEN-LAST:event_tensachchonActionPerformed
+
+    private void theloaichonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_theloaichonActionPerformed
+        thongKeTheoTheLoai();        // TODO add your handling code here:
+    }//GEN-LAST:event_theloaichonActionPerformed
+
+    private void namxbchonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namxbchonActionPerformed
+        tkTheoNamXB();        // TODO add your handling code here:
+    }//GEN-LAST:event_namxbchonActionPerformed
+
+    private void nhaxbchonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nhaxbchonActionPerformed
+        tkTheoNhaXB();        // TODO add your handling code here:
+    }//GEN-LAST:event_nhaxbchonActionPerformed
+
+    private void tacgiachonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tacgiachonActionPerformed
+        tkTheoTG();        // TODO add your handling code here:
+    }//GEN-LAST:event_tacgiachonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -301,7 +313,6 @@ public class ThongKeSach extends javax.swing.JFrame {
     private javax.swing.JTable bangtk;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;

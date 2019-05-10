@@ -126,6 +126,7 @@ public class ThongKeMuonTra extends javax.swing.JFrame {
         jScrollPane1.setViewportView(bangthongke);
 
         jButton2.setBackground(new java.awt.Color(102, 102, 102));
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/arrow-back-icon.png"))); // NOI18N
         jButton2.setText("Quay lại ");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -134,9 +135,11 @@ public class ThongKeMuonTra extends javax.swing.JFrame {
         });
 
         jButton3.setBackground(new java.awt.Color(102, 102, 102));
-        jButton3.setText("Xuất file thống kê");
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Word-icon.png"))); // NOI18N
+        jButton3.setText("Xuất file");
 
         jButton4.setBackground(new java.awt.Color(102, 102, 102));
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logout3.png"))); // NOI18N
         jButton4.setText("Đăng xuất ");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -155,18 +158,13 @@ public class ThongKeMuonTra extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(nhanvienchon)
-                        .addGap(61, 61, 61)
-                        .addComponent(docgiachon)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
-                        .addComponent(ngaymuonchon)
-                        .addGap(68, 68, 68)
-                        .addComponent(thangmuonchon)))
+                .addComponent(nhanvienchon)
+                .addGap(61, 61, 61)
+                .addComponent(docgiachon)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                .addComponent(ngaymuonchon)
+                .addGap(68, 68, 68)
+                .addComponent(thangmuonchon)
                 .addGap(58, 58, 58)
                 .addComponent(nammuonchon)
                 .addGap(41, 41, 41))
@@ -176,6 +174,10 @@ public class ThongKeMuonTra extends javax.swing.JFrame {
                 .addComponent(jButton3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton4))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,14 +206,14 @@ public class ThongKeMuonTra extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        if(nhanvienchon.isSelected()){
+        if (nhanvienchon.isSelected()) {
             thongKeTheoNhanVien();
-        }else if(docgiachon.isSelected()){
-            thongKeTheoDocGia(); 
-        } else if(ngaymuonchon.isSelected()){
+        } else if (docgiachon.isSelected()) {
+            thongKeTheoDocGia();
+        } else if (ngaymuonchon.isSelected()) {
             thongKeTheoNgayMuon();
-        }else if(thangmuonchon.isSelected()){
-            thongKeTheoThang(); 
+        } else if (thangmuonchon.isSelected()) {
+            thongKeTheoThang();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -224,18 +226,17 @@ public class ThongKeMuonTra extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(ThongKeMuonTra.class.getName()).log(Level.SEVERE, null, ex);
         }
-                this.dispose();
+        this.dispose();
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-  int chose = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn đăng xuất không?", "Xác nhận", 0);
+        int chose = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn đăng xuất không?", "Xác nhận", 0);
         if (chose == 0) {
-            
-               new Menu().setVisible(true );
-        this.dispose();
-            
-            
+
+            new Menu().setVisible(true);
+            this.dispose();
+
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -297,7 +298,7 @@ public class ThongKeMuonTra extends javax.swing.JFrame {
 
     private void thongKeTheoNhanVien() {
         bangthongke.removeAll();
-        String[] columns = {"Mã nhân viên", "Tên nhân viên","Số lượng hóa đơn", "Tổng tiền nhận cọc" };
+        String[] columns = {"Mã nhân viên", "Tên nhân viên", "Số lượng hóa đơn", "Tổng tiền nhận cọc", "Tổng tiền nhận phạt"};
         DefaultTableModel model = new DefaultTableModel(columns, 0);
         String sql = "SELECT COUNT(idNhanVien), idNhanVien FROM muon_tra GROUP BY idNhanVien;";
         Statement statement = null;
@@ -309,14 +310,12 @@ public class ThongKeMuonTra extends javax.swing.JFrame {
             resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
                 Vector vector = new Vector();
-                vector.add(resultSet.getInt("idNhanVien")); 
-                
-                vector.add(getTenNhanVien(resultSet.getInt("idNhanVien"))); 
+                vector.add(resultSet.getInt("idNhanVien"));
+
+                vector.add(getTenNhanVien(resultSet.getInt("idNhanVien")));
                 vector.add(resultSet.getInt("COUNT(idNhanVien)"));
-                vector.add(getTongTienCocNV(resultSet.getInt("idNhanVien"))); 
-                
-
-
+                vector.add(getTongTienCocNV(resultSet.getInt("idNhanVien")));
+                vector.add(getTongTienPhatNV(resultSet.getInt("idNhanVien")));
 
                 model.addRow(vector);
             }
@@ -329,7 +328,7 @@ public class ThongKeMuonTra extends javax.swing.JFrame {
 
     private void thongKeTheoNgayMuon() {
         bangthongke.removeAll();
-        String[] columns = {"Ngày mượn", "Số lượng hóa đơn","Tổng tiền cọc"};
+        String[] columns = {"Ngày mượn", "Số lượng hóa đơn", "Tổng tiền cọc", "Tổng tiền phạt"};
         DefaultTableModel model = new DefaultTableModel(columns, 0);
         String sql = "SELECT COUNT(idMuonTra), ngayMuon FROM muon_tra GROUP BY ngayMuon ORDER BY ngayMuon DESC;";
         Statement statement = null;
@@ -342,9 +341,8 @@ public class ThongKeMuonTra extends javax.swing.JFrame {
                 Vector vector = new Vector();
                 vector.add(resultSet.getString("ngayMuon"));
                 vector.add(resultSet.getInt("COUNT(idMuonTra)"));
-                vector.add(getTongTienCocTheoNgayMuon(resultSet.getDate("ngayMuon"))); 
-
-
+                vector.add(getTongTienCocTheoNgayMuon(resultSet.getDate("ngayMuon")));
+                vector.add(getTongTienPhatTheoNgay(resultSet.getDate("ngayMuon")));
 
                 model.addRow(vector);
             }
@@ -352,9 +350,30 @@ public class ThongKeMuonTra extends javax.swing.JFrame {
             e.printStackTrace();
         }
         bangthongke.setModel(model);
-        
+
     }
-    public  String getTenNhanVien(int idNhanVien) {
+    private double getTongTienPhatTheoNgay(Date ngayMuon) {
+        double tongTienPhat =0D; 
+        String sql = "SELECT  sum(tienPhat)  FROM quan_ly_thu_vien.muon_tra inner join chitietmuontra on muon_tra.idMuonTra= chitietmuontra.idMuonTra  where ngayMuon='"+ngayMuon+"';";
+        Statement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                tongTienPhat=resultSet.getDouble("sum(tienPhat)");
+               
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return tongTienPhat; 
+
+    }
+
+    public String getTenNhanVien(int idNhanVien) {
 
         String tenNhanVien = "";
         Statement statement = null;
@@ -374,7 +393,8 @@ public class ThongKeMuonTra extends javax.swing.JFrame {
 
         return tenNhanVien;
     }
-    public   Double  getTongTienCocNV(int idNhanVien) {
+
+    public Double getTongTienCocNV(int idNhanVien) {
 
         Double tongTienCoc = 0D;
         Statement statement = null;
@@ -395,9 +415,51 @@ public class ThongKeMuonTra extends javax.swing.JFrame {
         return tongTienCoc;
     }
 
+    public Double getTongTienPhatNV(int idNhanVien) {
+
+        Double tongTienCoc = 0D;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String sql = "SELECT  muon_tra.idNhanVien ,  sum(tienPhat)   FROM muon_tra INNER JOIN chitietmuontra ON muon_tra.idMuonTra=chitietmuontra.idMuonTra where idNhanVien=" + idNhanVien + " ;";
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                tongTienCoc = resultSet.getDouble("sum(tienPhat)");
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+
+        return tongTienCoc;
+    }
+
+    public Double getTongTienPhatDG(int idDocGia) {
+
+        Double tongTienPhat = 0D;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String sql = "SELECT    sum(tienPhat)   FROM muon_tra INNER JOIN chitietmuontra ON muon_tra.idMuonTra=chitietmuontra.idMuonTra where idDocGia=" + idDocGia + " ;";
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                tongTienPhat = resultSet.getDouble("sum(tienPhat)");
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+
+        return tongTienPhat;
+    }
+
     private void thongKeTheoDocGia() {
         bangthongke.removeAll();
-        String[] columns = {"Mã độc giả", "Tên độc giả","Số lượng hóa đơn", "Tổng tiền đặt cọc" };
+        String[] columns = {"Mã độc giả", "Tên độc giả", "Số lượng hóa đơn", "Tổng tiền đặt cọc", "Tổng tiền nộp phạt"};
         DefaultTableModel model = new DefaultTableModel(columns, 0);
         String sql = "SELECT COUNT(idDocGia), idDocGia FROM muon_tra GROUP BY idDocGia;";
         Statement statement = null;
@@ -409,13 +471,12 @@ public class ThongKeMuonTra extends javax.swing.JFrame {
             resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
                 Vector vector = new Vector();
-                vector.add(resultSet.getInt("idDocGia")); 
-                
-                vector.add(getTenDocGia(resultSet.getInt("idDocGia"))); 
+                vector.add(resultSet.getInt("idDocGia"));
+
+                vector.add(getTenDocGia(resultSet.getInt("idDocGia")));
                 vector.add(resultSet.getInt("COUNT(idDocGia)"));
-                vector.add(getTongTienCocDG(resultSet.getInt("idDocGia"))); 
-
-
+                vector.add(getTongTienCocDG(resultSet.getInt("idDocGia")));
+                vector.add(getTongTienPhatDG(resultSet.getInt("idDocGia")));
 
                 model.addRow(vector);
             }
@@ -425,7 +486,8 @@ public class ThongKeMuonTra extends javax.swing.JFrame {
         bangthongke.setModel(model);
 
     }
-    public  String getTenDocGia(int idDocGia) {
+
+    public String getTenDocGia(int idDocGia) {
 
         String tenDocGia = "";
         Statement statement = null;
@@ -463,8 +525,6 @@ public class ThongKeMuonTra extends javax.swing.JFrame {
                 vector.add(resultSet.getString("ngayMuon"));
                 vector.add(resultSet.getInt("count(idMuonTra)"));
 
-
-
                 model.addRow(vector);
             }
         } catch (Exception e) {
@@ -492,6 +552,7 @@ public class ThongKeMuonTra extends javax.swing.JFrame {
 
         return tongTienCoc;
     }
+
     private Double getTongTienCocTheoNgayMuon(Date ngayMuon) {
         Double tongTienCoc = 0D;
         Statement statement = null;

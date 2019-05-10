@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.scene.control.Cell;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
@@ -221,6 +220,7 @@ public class DocGia extends javax.swing.JFrame {
         nghenghiepchon.setText("Nghề nghiệp");
 
         jButton1.setBackground(new java.awt.Color(102, 102, 102));
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Search-icon.png"))); // NOI18N
         jButton1.setText("Tìm kiếm ");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -321,6 +321,7 @@ public class DocGia extends javax.swing.JFrame {
         jLabel11.setText("Nghề nghiệp:");
 
         jButton2.setBackground(new java.awt.Color(102, 102, 102));
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Insert-image-icon (1).png"))); // NOI18N
         jButton2.setText("Thêm");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -330,6 +331,7 @@ public class DocGia extends javax.swing.JFrame {
         });
 
         jButton3.setBackground(new java.awt.Color(102, 102, 102));
+        jButton3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Actions-document-edit-icon.png"))); // NOI18N
         jButton3.setText("Sửa");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -339,6 +341,7 @@ public class DocGia extends javax.swing.JFrame {
         });
 
         jButton4.setBackground(new java.awt.Color(102, 102, 102));
+        jButton4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Error-icon.png"))); // NOI18N
         jButton4.setText("Xóa");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -350,6 +353,8 @@ public class DocGia extends javax.swing.JFrame {
         gioitinhtt.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nam", "Nữ" }));
 
         jButton10.setBackground(new java.awt.Color(102, 102, 102));
+        jButton10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/reset.png"))); // NOI18N
         jButton10.setText("Reset ");
         jButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -450,7 +455,7 @@ public class DocGia extends javax.swing.JFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(322, 322, 322)
+                .addGap(353, 353, 353)
                 .addComponent(jLabel3)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -463,6 +468,7 @@ public class DocGia extends javax.swing.JFrame {
         );
 
         jButton5.setBackground(new java.awt.Color(102, 102, 102));
+        jButton5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/arrow-back-icon.png"))); // NOI18N
         jButton5.setText("Quay lại");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -472,6 +478,7 @@ public class DocGia extends javax.swing.JFrame {
         });
 
         jButton7.setBackground(new java.awt.Color(102, 102, 102));
+        jButton7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Programming-Show-Property-icon.png"))); // NOI18N
         jButton7.setText("Hiển thị toàn bộ độc giả ");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
@@ -483,7 +490,9 @@ public class DocGia extends javax.swing.JFrame {
         jPanel6.setBackground(new java.awt.Color(204, 204, 204));
 
         jButton8.setBackground(new java.awt.Color(102, 102, 102));
-        jButton8.setText("Thêm vào 1 file ");
+        jButton8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/themfile.png"))); // NOI18N
+        jButton8.setText("Thêm file  ");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton8ActionPerformed(evt);
@@ -491,7 +500,9 @@ public class DocGia extends javax.swing.JFrame {
         });
 
         jButton9.setBackground(new java.awt.Color(102, 102, 102));
-        jButton9.setText("Xuất ra 1 file ");
+        jButton9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Word-icon.png"))); // NOI18N
+        jButton9.setText("Xuất file");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton9ActionPerformed(evt);
@@ -499,6 +510,8 @@ public class DocGia extends javax.swing.JFrame {
         });
 
         jButton6.setBackground(new java.awt.Color(102, 102, 102));
+        jButton6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/thongke.png"))); // NOI18N
         jButton6.setText("Thống kê ");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -521,8 +534,8 @@ public class DocGia extends javax.swing.JFrame {
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
-                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -531,6 +544,8 @@ public class DocGia extends javax.swing.JFrame {
         );
 
         jButton11.setBackground(new java.awt.Color(102, 102, 102));
+        jButton11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logout3.png"))); // NOI18N
         jButton11.setText("Đăng xuất ");
         jButton11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -557,9 +572,9 @@ public class DocGia extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jButton5)
-                .addGap(234, 234, 234)
+                .addGap(264, 264, 264)
                 .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(281, 281, 281)
+                .addGap(251, 251, 251)
                 .addComponent(jButton11))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -590,10 +605,10 @@ public class DocGia extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton11)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton5)
-                        .addComponent(jButton7))))
+                        .addComponent(jButton11)
+                        .addComponent(jButton7))
+                    .addComponent(jButton5)))
         );
 
         pack();
@@ -719,6 +734,8 @@ public class DocGia extends javax.swing.JFrame {
             // TODO add your handling code here:
             new ThongKeDocGia().setVisible(true);
         } catch (SQLException ex) {
+            Logger.getLogger(DocGia.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(DocGia.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.dispose();

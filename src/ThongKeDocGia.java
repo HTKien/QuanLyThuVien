@@ -1,4 +1,6 @@
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -23,12 +26,23 @@ public class ThongKeDocGia extends javax.swing.JFrame {
 
     KetNoiQLTV ketNoiQLTV = null;
     Connection connection = null;
+    ArrayList<ThongKeDocGiaTheoTenType> listTheoTen = new ArrayList<>();
+    ArrayList<ThongKeDocGiaTheoGioiTinh> listTheoGioiTinh = new ArrayList<>();
+    ArrayList<ThongKeDocGiaTheoNamSinh> listTheoNamSinh = new ArrayList<>();
+        ArrayList<ThongKeDocGiaTheoDiaChi> listTheoDiaChi = new ArrayList<>();
+    ArrayList<ThongKeDocGiaTheoNgheNghiep> listTheoNgheNghiep = new ArrayList<>();
 
-    public ThongKeDocGia() throws SQLException {
-         ketNoiQLTV = new KetNoiQLTV();
+
+    public ThongKeDocGia() throws SQLException, ClassNotFoundException {
+        ketNoiQLTV = new KetNoiQLTV();
         connection = ketNoiQLTV.getJDBCConnection();
         initComponents();
         this.setLocationRelativeTo(null);
+        listTheoTen = ThongKeDocGiaTheoTenType.getList();
+        listTheoGioiTinh = ThongKeDocGiaTheoGioiTinh.getList();
+        listTheoNamSinh = ThongKeDocGiaTheoNamSinh.getList();
+        listTheoDiaChi=ThongKeDocGiaTheoDiaChi.getList(); 
+        listTheoNgheNghiep = ThongKeDocGiaTheoNgheNghiep.getList(); 
     }
 
     /**
@@ -50,7 +64,6 @@ public class ThongKeDocGia extends javax.swing.JFrame {
         namsinhchon = new javax.swing.JRadioButton();
         diachichon = new javax.swing.JRadioButton();
         nghechon = new javax.swing.JRadioButton();
-        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         bangthongke = new javax.swing.JTable();
@@ -72,42 +85,61 @@ public class ThongKeDocGia extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(263, 263, 263)
+                .addGap(272, 272, 272)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         buttonGroup1.add(tenchon);
         tenchon.setText("Tên độc giả");
+        tenchon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tenchonActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(gtchon);
         gtchon.setText("Giới tính");
+        gtchon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gtchonActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(namsinhchon);
         namsinhchon.setText("Năm sinh ");
+        namsinhchon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                namsinhchonActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(diachichon);
         diachichon.setText("Địa chỉ ");
+        diachichon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                diachichonActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(nghechon);
         nghechon.setText("Nghề nghiệp");
-
-        jButton1.setBackground(new java.awt.Color(102, 102, 102));
-        jButton1.setText("THỐNG KÊ ");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        nghechon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                nghechonActionPerformed(evt);
             }
         });
 
         jButton2.setBackground(new java.awt.Color(102, 102, 102));
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/arrow-back-icon.png"))); // NOI18N
         jButton2.setText("Quay lại ");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -129,9 +161,18 @@ public class ThongKeDocGia extends javax.swing.JFrame {
         jScrollPane1.setViewportView(bangthongke);
 
         jButton3.setBackground(new java.awt.Color(102, 102, 102));
-        jButton3.setText("Xuất file thống kê");
+        jButton3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Word-icon.png"))); // NOI18N
+        jButton3.setText("Xuất file");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setBackground(new java.awt.Color(102, 102, 102));
+        jButton4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logout3.png"))); // NOI18N
         jButton4.setText("Đăng xuất");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -157,19 +198,14 @@ public class ThongKeDocGia extends javax.swing.JFrame {
                 .addComponent(nghechon)
                 .addGap(44, 44, 44))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(305, 305, 305)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(130, 130, 130)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(130, 130, 130)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jButton2)
-                .addGap(228, 228, 228)
-                .addComponent(jButton3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton3)
+                .addGap(179, 179, 179)
                 .addComponent(jButton4))
         );
         layout.setVerticalGroup(
@@ -183,11 +219,9 @@ public class ThongKeDocGia extends javax.swing.JFrame {
                     .addComponent(namsinhchon)
                     .addComponent(diachichon)
                     .addComponent(nghechon))
-                .addGap(9, 9, 9)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(38, 38, 38)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton3)
@@ -198,38 +232,134 @@ public class ThongKeDocGia extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        new DocGia().setVisible(true);
-                this.dispose();
+        try {
+            // TODO add your handling code here:
+            new DocGia().setVisible(true);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ThongKeDocGia.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ThongKeDocGia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.dispose();
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        if(tenchon.isSelected()){
-                    thongKeTheoTen();
-
-        }else if(gtchon.isSelected()){
-            thongKeTheoGioiTinh(); 
-        }else if(namsinhchon.isSelected()){
-            thongKeTheoNamSinh(); 
-        } else if(diachichon.isSelected()){
-            thongKeTheoDiaChi(); 
-        }else if(nghechon.isSelected()){
-            thongKeTheoNgheNghiep(); 
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-  int chose = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn đăng xuất không?", "Xác nhận", 0);
+        int chose = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn đăng xuất không?", "Xác nhận", 0);
         if (chose == 0) {
-            
-               new Menu().setVisible(true );
-        this.dispose();
-            
-            
+
+            new Menu().setVisible(true);
+            this.dispose();
+
         }
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void tenchonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tenchonActionPerformed
+        // TODO add your handling code here:
+        thongKeTheoTen();
+    }//GEN-LAST:event_tenchonActionPerformed
+
+    private void gtchonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gtchonActionPerformed
+        // TODO add your handling code here:
+        thongKeTheoGioiTinh();
+    }//GEN-LAST:event_gtchonActionPerformed
+
+    private void namsinhchonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namsinhchonActionPerformed
+        // TODO add your handling code here:
+        thongKeTheoNamSinh();
+    }//GEN-LAST:event_namsinhchonActionPerformed
+
+    private void diachichonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diachichonActionPerformed
+        // TODO add your handling code here:
+        thongKeTheoDiaChi();
+    }//GEN-LAST:event_diachichonActionPerformed
+
+    private void nghechonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nghechonActionPerformed
+        // TODO add your handling code here:
+        thongKeTheoNgheNghiep();
+    }//GEN-LAST:event_nghechonActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        if (tenchon.isSelected()) {
+            JFileChooser jFileChooser = new JFileChooser();
+            if (jFileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+                File file = jFileChooser.getSelectedFile();
+
+                try {
+                    WordHelper.writeDGtheoTen(file, listTheoTen, "THỐNG KẾ ĐỘC GIẢ THEO TÊN");
+                    JOptionPane.showMessageDialog(null, "Xuất file thành công");
+
+                } catch (IOException ex) {
+                    Logger.getLogger(ThongKeDocGia.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(this, "Xuất file thất bại!");
+                }
+
+            }
+        } else if (gtchon.isSelected()) {
+            JFileChooser jFileChooser = new JFileChooser();
+            if (jFileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+                File file = jFileChooser.getSelectedFile();
+
+                try {
+                    WordHelper.writeDGtheoGioiTinh(file, listTheoGioiTinh, "THỐNG KẾ ĐỘC GIẢ THEO GIỚI TÍNH");
+                    JOptionPane.showMessageDialog(null, "Xuất file thành công");
+
+                } catch (IOException ex) {
+                    Logger.getLogger(ThongKeDocGia.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(this, "Xuất file thất bại!");
+                }
+
+            }
+        } else if (namsinhchon.isSelected()) {
+            JFileChooser jFileChooser = new JFileChooser();
+            if (jFileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+                File file = jFileChooser.getSelectedFile();
+
+                try {
+                    WordHelper.writeDGtheoNamSinh(file, listTheoNamSinh, "THỐNG KẾ ĐỘC GIẢ THEO NĂM SINH  ");
+                    JOptionPane.showMessageDialog(null, "Xuất file thành công");
+
+                } catch (IOException ex) {
+                    Logger.getLogger(ThongKeDocGia.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(this, "Xuất file thất bại!");
+                }
+
+            }
+        } else if (diachichon.isSelected()) {
+            JFileChooser jFileChooser = new JFileChooser();
+            if (jFileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+                File file = jFileChooser.getSelectedFile();
+
+                try {
+                    WordHelper.writeDGtheoDiaChi(file, listTheoDiaChi, "THỐNG KẾ ĐỘC GIẢ THEO ĐỊA CHỈ");
+                    JOptionPane.showMessageDialog(null, "Xuất file thành công");
+
+                } catch (IOException ex) {
+                    Logger.getLogger(ThongKeDocGia.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(this, "Xuất file thất bại!");
+                }
+
+            }
+        } else if (nghechon.isSelected()) {
+            JFileChooser jFileChooser = new JFileChooser();
+            if (jFileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+                File file = jFileChooser.getSelectedFile();
+
+                try {
+                    WordHelper.writeDGtheoNgheNghiep(file, listTheoNgheNghiep, "THỐNG KẾ ĐỘC GIẢ THEO NGHỀ NGHIỆP");
+                    JOptionPane.showMessageDialog(null, "Xuất file thành công");
+
+                } catch (IOException ex) {
+                    Logger.getLogger(ThongKeDocGia.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(this, "Xuất file thất bại!");
+                }
+
+            }
+        }
+
+
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -262,7 +392,11 @@ public class ThongKeDocGia extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new ThongKeDocGia().setVisible(true);
+                    try {
+                        new ThongKeDocGia().setVisible(true);
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(ThongKeDocGia.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 } catch (SQLException ex) {
                     Logger.getLogger(ThongKeDocGia.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -275,7 +409,6 @@ public class ThongKeDocGia extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JRadioButton diachichon;
     private javax.swing.JRadioButton gtchon;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -293,7 +426,7 @@ public class ThongKeDocGia extends javax.swing.JFrame {
         bangthongke.removeAll();
         String[] columns = {"Tên độc giả", "Số lượng độc  giả"};
         DefaultTableModel model = new DefaultTableModel(columns, 0);
-        String sql = "SELECT COUNT(idDocGia), tenDocGia FROM docgia GROUP BY tenDocGia;";
+        String sql = "SELECT COUNT(idDocGia), tenDocGia FROM docgia GROUP BY tenDocGia ORDER BY COUNT(idDocGia) DESC;";
         Statement statement = null;
         ResultSet resultSet = null;
 
@@ -317,7 +450,7 @@ public class ThongKeDocGia extends javax.swing.JFrame {
         bangthongke.removeAll();
         String[] columns = {"Giới tính", "Số lượng độc giả"};
         DefaultTableModel model = new DefaultTableModel(columns, 0);
-        String sql = "SELECT COUNT(idDocGia), gioiTinhDocGia FROM docgia GROUP BY gioiTinhDocGia;";
+        String sql = "SELECT COUNT(idDocGia), gioiTinhDocGia FROM docgia GROUP BY gioiTinhDocGia ORDER BY COUNT(idDocGia) DESC;";
         Statement statement = null;
         ResultSet resultSet = null;
 
@@ -341,7 +474,7 @@ public class ThongKeDocGia extends javax.swing.JFrame {
         bangthongke.removeAll();
         String[] columns = {"Năm sinh", "Số lượng độc giả"};
         DefaultTableModel model = new DefaultTableModel(columns, 0);
-        String sql = "SELECT COUNT(idDocGia), namSinhDocGia FROM docgia GROUP BY namSinhDocGia;";
+        String sql = "SELECT COUNT(idDocGia), namSinhDocGia FROM docgia GROUP BY namSinhDocGia ORDER BY namSinhDocGia;";
         Statement statement = null;
         ResultSet resultSet = null;
 
@@ -365,7 +498,7 @@ public class ThongKeDocGia extends javax.swing.JFrame {
         bangthongke.removeAll();
         String[] columns = {"Địa chỉ", "Số lượng độc giả"};
         DefaultTableModel model = new DefaultTableModel(columns, 0);
-        String sql = "SELECT COUNT(idDocGia), diaChiDocGia FROM docgia GROUP BY diaChiDocGia;";
+        String sql = "SELECT COUNT(idDocGia), diaChiDocGia FROM docgia GROUP BY diaChiDocGia ORDER BY COUNT(idDocGia) DESC;";
         Statement statement = null;
         ResultSet resultSet = null;
 
@@ -389,7 +522,7 @@ public class ThongKeDocGia extends javax.swing.JFrame {
         bangthongke.removeAll();
         String[] columns = {"Nghề nghiệp", "Số lượng độc giả"};
         DefaultTableModel model = new DefaultTableModel(columns, 0);
-        String sql = "SELECT COUNT(idDocGia), ngheNghiepDocGia FROM docgia GROUP BY ngheNghiepDocGia;";
+        String sql = "SELECT COUNT(idDocGia), ngheNghiepDocGia FROM docgia GROUP BY ngheNghiepDocGia ORDER BY COUNT(idDocGia) DESC;";
         Statement statement = null;
         ResultSet resultSet = null;
 
