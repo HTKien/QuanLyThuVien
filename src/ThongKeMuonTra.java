@@ -33,16 +33,20 @@ public class ThongKeMuonTra extends javax.swing.JFrame {
      */
     KetNoiQLTV ketNoiQLTV = null;
     Connection connection = null;
-    ArrayList<ThongKeMuonTraTye1> listMuonTraTheoNhanVien ; 
-    
+    ArrayList<ThongKeMuonTraTye1> listMuonTraTheoNhanVien;
+    ArrayList<ThongKeMuonTraType2> listMuonTraTheoDocGia;
+    ArrayList<ThongKeMuonTraType3> listMuonTraTheoNgay;
+    ArrayList<ThongKeTheoNamType> listMuonTraTheoNam;
 
     public ThongKeMuonTra() throws ClassNotFoundException, SQLException {
         ketNoiQLTV = new KetNoiQLTV();
         connection = ketNoiQLTV.getJDBCConnection();
         initComponents();
         this.setLocationRelativeTo(null);
-        listMuonTraTheoNhanVien= ThongKeMuonTraTye1.getList();
-        
+        listMuonTraTheoNhanVien = ThongKeMuonTraTye1.getList();
+        listMuonTraTheoDocGia = ThongKeMuonTraType2.getList();
+        listMuonTraTheoNgay = ThongKeMuonTraType3.getList();
+        listMuonTraTheoNam = ThongKeTheoNamType.getList();
     }
 
     /**
@@ -283,13 +287,58 @@ public class ThongKeMuonTra extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        if(nhanvienchon.isSelected()){
-             JFileChooser jFileChooser = new JFileChooser();
+        if (nhanvienchon.isSelected()) {
+            JFileChooser jFileChooser = new JFileChooser();
             if (jFileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
                 File file = jFileChooser.getSelectedFile();
 
                 try {
-                    WordHelper.writeMuonTraTheoNhanVien(file, listMuonTraTheoNhanVien , "THỐNG KÊ MƯỢN TRẢ THEO NHÂN VIÊN");
+                    WordHelper.writeMuonTraTheoNhanVien(file, listMuonTraTheoNhanVien, "THỐNG KÊ MƯỢN TRẢ THEO NHÂN VIÊN");
+                    JOptionPane.showMessageDialog(null, "Xuất file thành công");
+
+                } catch (IOException ex) {
+                    Logger.getLogger(ThongKeMuonTra.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(this, "Xuất file thất bại!");
+                }
+
+            }
+        } else if (docgiachon.isSelected()) {
+            JFileChooser jFileChooser = new JFileChooser();
+            if (jFileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+                File file = jFileChooser.getSelectedFile();
+
+                try {
+                    WordHelper.writeMuonTraTheoDocGia(file, listMuonTraTheoDocGia, "THỐNG KÊ MƯỢN TRẢ THEO ĐỘC GIẢ");
+                    JOptionPane.showMessageDialog(null, "Xuất file thành công");
+
+                } catch (IOException ex) {
+                    Logger.getLogger(ThongKeMuonTra.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(this, "Xuất file thất bại!");
+                }
+
+            }
+        } else if (ngaymuonchon.isSelected()) {
+            JFileChooser jFileChooser = new JFileChooser();
+            if (jFileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+                File file = jFileChooser.getSelectedFile();
+
+                try {
+                    WordHelper.writeMuonTraTheoNgay(file, listMuonTraTheoNgay, "THỐNG KÊ MƯỢN TRẢ THEO NGÀY");
+                    JOptionPane.showMessageDialog(null, "Xuất file thành công");
+
+                } catch (IOException ex) {
+                    Logger.getLogger(ThongKeMuonTra.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(this, "Xuất file thất bại!");
+                }
+
+            }
+        } else if (nammuonchon.isSelected()) {
+            JFileChooser jFileChooser = new JFileChooser();
+            if (jFileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+                File file = jFileChooser.getSelectedFile();
+
+                try {
+                    WordHelper.writeMuonTraTheoNam(file, listMuonTraTheoNam, "THỐNG KÊ MƯỢN TRẢ THEO NĂM");
                     JOptionPane.showMessageDialog(null, "Xuất file thành công");
 
                 } catch (IOException ex) {
@@ -404,7 +453,7 @@ public class ThongKeMuonTra extends javax.swing.JFrame {
             resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
                 Vector vector = new Vector();
-                vector.add(resultSet.getString("ngayMuon"));
+                vector.add(resultSet.getDate("ngayMuon"));
                 vector.add(resultSet.getInt("COUNT(idMuonTra)"));
                 vector.add(getTongTienCocTheoNgayMuon(resultSet.getDate("ngayMuon")));
                 vector.add(getTongTienPhatTheoNgay(resultSet.getDate("ngayMuon")));
@@ -459,7 +508,7 @@ public class ThongKeMuonTra extends javax.swing.JFrame {
         return tenNhanVien;
     }
 
-    public Double getTongTienCocNV(int idNhanVien) {
+    public double getTongTienCocNV(int idNhanVien) {
 
         Double tongTienCoc = 0D;
         Statement statement = null;
@@ -552,7 +601,7 @@ public class ThongKeMuonTra extends javax.swing.JFrame {
 
     }
 
-    public  void thongKeTheoNam() {
+    public void thongKeTheoNam() {
         bangthongke.removeAll();
         String[] columns = {"Năm", "Số lượng hóa đơn", "Tổng tiền cọc ", "Tổng tiền phạt"};
         DefaultTableModel model = new DefaultTableModel(columns, 0);
@@ -686,12 +735,13 @@ public class ThongKeMuonTra extends javax.swing.JFrame {
 
         return nam;
     }
-    public  double getTienPhatTheoNam(String a){
-        Double tienPhat =0D; 
-        
+
+    public double getTienPhatTheoNam(String a) {
+        Double tienPhat = 0D;
+
         Statement statement = null;
         ResultSet resultSet = null;
-        String sql = "SELECT  sum(tienPhat) FROM muon_tra inner join chitietmuontra on muon_tra.idMuonTra = chitietmuontra.idMuonTra where year(ngayMuon)='"+a+"';";
+        String sql = "SELECT  sum(tienPhat) FROM muon_tra inner join chitietmuontra on muon_tra.idMuonTra = chitietmuontra.idMuonTra where year(ngayMuon)='" + a + "';";
         try {
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sql);
@@ -703,8 +753,8 @@ public class ThongKeMuonTra extends javax.swing.JFrame {
             e.printStackTrace();
 
         }
-        
-        return tienPhat; 
+
+        return tienPhat;
     }
 
 }

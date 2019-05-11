@@ -15,24 +15,24 @@ import java.util.ArrayList;
  *
  * @author hantr
  */
-public class ThongKeDocGiaTheoNgheNghiep {
-    private String ngheNghiep ;
-    private int soLuong ;
+public class ThongKeDocGiaType {
+    private String thuocTinh; 
+    private int soLuong; 
 
-    public ThongKeDocGiaTheoNgheNghiep() {
+    public ThongKeDocGiaType() {
     }
 
-    public ThongKeDocGiaTheoNgheNghiep(String ngheNghiep, int soLuong) {
-        this.ngheNghiep = ngheNghiep;
+    public ThongKeDocGiaType(String thuocTinh, int soLuong) {
+        this.thuocTinh = thuocTinh;
         this.soLuong = soLuong;
     }
 
-    public String getNgheNghiep() {
-        return ngheNghiep;
+    public String getThuocTinh() {
+        return thuocTinh;
     }
 
-    public void setNgheNghiep(String ngheNghiep) {
-        this.ngheNghiep = ngheNghiep;
+    public void setThuocTinh(String thuocTinh) {
+        this.thuocTinh = thuocTinh;
     }
 
     public int getSoLuong() {
@@ -42,17 +42,17 @@ public class ThongKeDocGiaTheoNgheNghiep {
     public void setSoLuong(int soLuong) {
         this.soLuong = soLuong;
     }
-    public static ArrayList<ThongKeDocGiaTheoNgheNghiep> getList() throws ClassNotFoundException, SQLException {
-        String sql = "SELECT COUNT(idDocGia), ngheNghiepDocGia FROM docgia GROUP BY ngheNghiepDocGia ORDER BY COUNT(idDocGia) DESC;";
+    public static ArrayList<ThongKeDocGiaType> getList(String tieuChi) throws ClassNotFoundException, SQLException {
+        String sql = "SELECT COUNT(idDocGia), "+tieuChi+"  FROM docgia GROUP BY  "+tieuChi+"   ORDER BY COUNT(idDocGia) DESC;";
 
-        ArrayList<ThongKeDocGiaTheoNgheNghiep> list = new ArrayList<>();
+        ArrayList<ThongKeDocGiaType> list = new ArrayList<>();
         KetNoiQLTV ketNoiQLTV = new KetNoiQLTV();
         Connection connection = ketNoiQLTV.getJDBCConnection();
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(sql);
         while (resultSet.next()) {
-            list.add(new ThongKeDocGiaTheoNgheNghiep(
-                    resultSet.getString("ngheNghiepDocGia"),
+            list.add(new ThongKeDocGiaType(
+                    resultSet.getString(""+tieuChi),
                     resultSet.getInt("COUNT(idDocGia)")
             ));
         }

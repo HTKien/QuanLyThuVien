@@ -26,11 +26,8 @@ public class ThongKeDocGia extends javax.swing.JFrame {
 
     KetNoiQLTV ketNoiQLTV = null;
     Connection connection = null;
-    ArrayList<ThongKeDocGiaTheoTenType> listTheoTen = new ArrayList<>();
-    ArrayList<ThongKeDocGiaTheoGioiTinh> listTheoGioiTinh = new ArrayList<>();
-    ArrayList<ThongKeDocGiaTheoNamSinh> listTheoNamSinh = new ArrayList<>();
-        ArrayList<ThongKeDocGiaTheoDiaChi> listTheoDiaChi = new ArrayList<>();
-    ArrayList<ThongKeDocGiaTheoNgheNghiep> listTheoNgheNghiep = new ArrayList<>();
+    ArrayList<ThongKeDocGiaType> listThongKe = new ArrayList<>();
+   
 
 
     public ThongKeDocGia() throws SQLException, ClassNotFoundException {
@@ -38,11 +35,7 @@ public class ThongKeDocGia extends javax.swing.JFrame {
         connection = ketNoiQLTV.getJDBCConnection();
         initComponents();
         this.setLocationRelativeTo(null);
-        listTheoTen = ThongKeDocGiaTheoTenType.getList();
-        listTheoGioiTinh = ThongKeDocGiaTheoGioiTinh.getList();
-        listTheoNamSinh = ThongKeDocGiaTheoNamSinh.getList();
-        listTheoDiaChi=ThongKeDocGiaTheoDiaChi.getList(); 
-        listTheoNgheNghiep = ThongKeDocGiaTheoNgheNghiep.getList(); 
+       
     }
 
     /**
@@ -282,12 +275,20 @@ public class ThongKeDocGia extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         if (tenchon.isSelected()) {
+            try { 
+                listThongKe = ThongKeDocGiaType.getList("tenDocGia");
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ThongKeDocGia.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(ThongKeDocGia.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
             JFileChooser jFileChooser = new JFileChooser();
             if (jFileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
                 File file = jFileChooser.getSelectedFile();
 
                 try {
-                    WordHelper.writeDGtheoTen(file, listTheoTen, "THỐNG KẾ ĐỘC GIẢ THEO TÊN");
+                    WordHelper.writeDGtheoTen(file, listThongKe, "THỐNG KẾ ĐỘC GIẢ THEO TÊN");
                     JOptionPane.showMessageDialog(null, "Xuất file thành công");
 
                 } catch (IOException ex) {
@@ -297,12 +298,20 @@ public class ThongKeDocGia extends javax.swing.JFrame {
 
             }
         } else if (gtchon.isSelected()) {
+            try { 
+                listThongKe = ThongKeDocGiaType.getList("gioiTinhDocGia");
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ThongKeDocGia.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(ThongKeDocGia.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
             JFileChooser jFileChooser = new JFileChooser();
             if (jFileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
                 File file = jFileChooser.getSelectedFile();
 
                 try {
-                    WordHelper.writeDGtheoGioiTinh(file, listTheoGioiTinh, "THỐNG KẾ ĐỘC GIẢ THEO GIỚI TÍNH");
+                    WordHelper.writeDGtheoGioiTinh(file, listThongKe, "THỐNG KẾ ĐỘC GIẢ THEO GIỚI TÍNH");
                     JOptionPane.showMessageDialog(null, "Xuất file thành công");
 
                 } catch (IOException ex) {
@@ -312,12 +321,20 @@ public class ThongKeDocGia extends javax.swing.JFrame {
 
             }
         } else if (namsinhchon.isSelected()) {
+            try { 
+                listThongKe = ThongKeDocGiaType.getList("namSinhDocGia");
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ThongKeDocGia.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(ThongKeDocGia.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
             JFileChooser jFileChooser = new JFileChooser();
             if (jFileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
                 File file = jFileChooser.getSelectedFile();
 
                 try {
-                    WordHelper.writeDGtheoNamSinh(file, listTheoNamSinh, "THỐNG KẾ ĐỘC GIẢ THEO NĂM SINH  ");
+                    WordHelper.writeDGtheoNamSinh(file, listThongKe, "THỐNG KẾ ĐỘC GIẢ THEO NĂM SINH");
                     JOptionPane.showMessageDialog(null, "Xuất file thành công");
 
                 } catch (IOException ex) {
@@ -327,12 +344,20 @@ public class ThongKeDocGia extends javax.swing.JFrame {
 
             }
         } else if (diachichon.isSelected()) {
+            try { 
+                listThongKe = ThongKeDocGiaType.getList("diaChiDocGia");
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ThongKeDocGia.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(ThongKeDocGia.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
             JFileChooser jFileChooser = new JFileChooser();
             if (jFileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
                 File file = jFileChooser.getSelectedFile();
 
                 try {
-                    WordHelper.writeDGtheoDiaChi(file, listTheoDiaChi, "THỐNG KẾ ĐỘC GIẢ THEO ĐỊA CHỈ");
+                    WordHelper.writeDGtheoDiaChi(file, listThongKe, "THỐNG KẾ ĐỘC GIẢ THEO ĐỊA CHỈ");
                     JOptionPane.showMessageDialog(null, "Xuất file thành công");
 
                 } catch (IOException ex) {
@@ -342,12 +367,20 @@ public class ThongKeDocGia extends javax.swing.JFrame {
 
             }
         } else if (nghechon.isSelected()) {
+            try { 
+                listThongKe = ThongKeDocGiaType.getList("ngheNghiepDocGia");
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ThongKeDocGia.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(ThongKeDocGia.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
             JFileChooser jFileChooser = new JFileChooser();
             if (jFileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
                 File file = jFileChooser.getSelectedFile();
 
                 try {
-                    WordHelper.writeDGtheoNgheNghiep(file, listTheoNgheNghiep, "THỐNG KẾ ĐỘC GIẢ THEO NGHỀ NGHIỆP");
+                    WordHelper.writeDGtheoNgheNghiep(file, listThongKe, "THỐNG KẾ ĐỘC GIẢ THEO NGHỀ NGHIỆP");
                     JOptionPane.showMessageDialog(null, "Xuất file thành công");
 
                 } catch (IOException ex) {
