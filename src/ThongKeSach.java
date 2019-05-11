@@ -1,11 +1,15 @@
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -14,7 +18,6 @@ import javax.swing.table.DefaultTableModel;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author hantr
@@ -26,6 +29,8 @@ public class ThongKeSach extends javax.swing.JFrame {
      */
     KetNoiQLTV ketNoiQLTV = null;
     Connection connection = null;
+    ArrayList<ThongKeSachType> listThongKe = new ArrayList<>();
+
     public ThongKeSach() {
         ketNoiQLTV = new KetNoiQLTV();
         connection = ketNoiQLTV.getJDBCConnection();
@@ -161,6 +166,11 @@ public class ThongKeSach extends javax.swing.JFrame {
         jButton4.setBackground(new java.awt.Color(102, 102, 102));
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Word-icon.png"))); // NOI18N
         jButton4.setText("Xuất file");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton6.setBackground(new java.awt.Color(102, 102, 102));
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logout3.png"))); // NOI18N
@@ -238,19 +248,18 @@ public class ThongKeSach extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(ThongKeSach.class.getName()).log(Level.SEVERE, null, ex);
         }
-                this.dispose();
+        this.dispose();
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-         int chose = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn đăng xuất không?", "Xác nhận", 0);
+        int chose = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn đăng xuất không?", "Xác nhận", 0);
         if (chose == 0) {
-            
-               new Menu().setVisible(true );
-        this.dispose();
-            
-            
+
+            new Menu().setVisible(true);
+            this.dispose();
+
         }
     }//GEN-LAST:event_jButton6ActionPerformed
 
@@ -273,6 +282,156 @@ public class ThongKeSach extends javax.swing.JFrame {
     private void tacgiachonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tacgiachonActionPerformed
         tkTheoTG();        // TODO add your handling code here:
     }//GEN-LAST:event_tacgiachonActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        if (tensachchon.isSelected()) {
+            try {
+                listThongKe = ThongKeSachType.getList("tenSach");
+
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ThongKeSach.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(ThongKeSach.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            JFileChooser jFileChooser = new JFileChooser();
+            if (jFileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+                File file = jFileChooser.getSelectedFile();
+
+                try {
+                    WordHelper.writeSachTheoTen(file, listThongKe, "THỐNG KẾ SÁCH THEO TÊN");
+                    JOptionPane.showMessageDialog(null, "Xuất file thành công");
+
+                } catch (IOException ex) {
+                    Logger.getLogger(ThongKeSach.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(this, "Xuất file thất bại!");
+                }
+
+            }
+        }else if (theloaichon.isSelected()){
+             try {
+                listThongKe = ThongKeSachType.getList("theLoaiSach");
+
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ThongKeSach.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(ThongKeSach.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            JFileChooser jFileChooser = new JFileChooser();
+            if (jFileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+                File file = jFileChooser.getSelectedFile();
+
+                try {
+                    WordHelper.writeSachTheoTheLoai(file, listThongKe, "THỐNG KẾ SÁCH THEO THỂ LOẠI");
+                    JOptionPane.showMessageDialog(null, "Xuất file thành công");
+
+                } catch (IOException ex) {
+                    Logger.getLogger(ThongKeSach.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(this, "Xuất file thất bại!");
+                }
+
+            }
+        }else if(namxbchon.isSelected()){
+            try {
+                listThongKe = ThongKeSachType.getList("namXuatBanSach");
+
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ThongKeSach.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(ThongKeSach.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            JFileChooser jFileChooser = new JFileChooser();
+            if (jFileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+                File file = jFileChooser.getSelectedFile();
+
+                try {
+                    WordHelper.writeSachTheoNamXuatBan(file, listThongKe, "THỐNG KẾ SÁCH THEO NĂM XUẤT BẢN");
+                    JOptionPane.showMessageDialog(null, "Xuất file thành công");
+
+                } catch (IOException ex) {
+                    Logger.getLogger(ThongKeSach.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(this, "Xuất file thất bại!");
+                }
+
+            }
+        }else if(nhaxbchon.isSelected()){
+            try {
+                listThongKe = ThongKeSachType.getList("nhaXuatBanSach");
+
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ThongKeSach.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(ThongKeSach.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            JFileChooser jFileChooser = new JFileChooser();
+            if (jFileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+                File file = jFileChooser.getSelectedFile();
+
+                try {
+                    WordHelper.writeSachTheoNhaXuatBan(file, listThongKe, "THỐNG KẾ SÁCH THEO NHÀ XUẤT BẢN");
+                    JOptionPane.showMessageDialog(null, "Xuất file thành công");
+
+                } catch (IOException ex) {
+                    Logger.getLogger(ThongKeSach.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(this, "Xuất file thất bại!");
+                }
+
+            }
+            
+        }else if(tacgiachon.isSelected()){
+            try {
+                listThongKe = ThongKeSachType.getList("tenTacGia");
+
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ThongKeSach.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(ThongKeSach.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            JFileChooser jFileChooser = new JFileChooser();
+            if (jFileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+                File file = jFileChooser.getSelectedFile();
+
+                try {
+                    WordHelper.writeSachTheoTacGia(file, listThongKe, "THỐNG KẾ SÁCH THEO TÁC GIẢ");
+                    JOptionPane.showMessageDialog(null, "Xuất file thành công");
+
+                } catch (IOException ex) {
+                    Logger.getLogger(ThongKeSach.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(this, "Xuất file thất bại!");
+                }
+
+            }
+        }else if(tienchon.isSelected()){
+            try {
+                listThongKe = ThongKeSachType.getList("giaTien");
+
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ThongKeSach.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(ThongKeSach.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            JFileChooser jFileChooser = new JFileChooser();
+            if (jFileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+                File file = jFileChooser.getSelectedFile();
+
+                try {
+                    WordHelper.writeSachTheoGiaTien(file, listThongKe, "THỐNG KẾ SÁCH THEO GIÁ TIỀN");
+                    JOptionPane.showMessageDialog(null, "Xuất file thành công");
+
+                } catch (IOException ex) {
+                    Logger.getLogger(ThongKeSach.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(this, "Xuất file thất bại!");
+                }
+
+            }
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments

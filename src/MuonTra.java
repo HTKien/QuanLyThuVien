@@ -692,8 +692,14 @@ public class MuonTra extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        // TODO add your handling code here:
-        new ThongKeMuonTra().setVisible(true);
+        try {
+            // TODO add your handling code here:
+            new ThongKeMuonTra().setVisible(true);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MuonTra.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(MuonTra.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.dispose();
 
 

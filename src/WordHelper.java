@@ -61,47 +61,129 @@ public class WordHelper {
         }
         out.close();
     }
+
     public static void writeNVtheoTen(File file, ArrayList<ThongKeNhanVienType> list, String tittle) throws FileNotFoundException, IOException {
         FileOutputStream out;
         try (XWPFDocument document = loadHeader(tittle)) {
-            createTableNV(document, list,"Tên nhân viên");
+            createTableNV(document, list, "Tên nhân viên");
             loadFooter(document);
             out = new FileOutputStream(file);
             document.write(out);//ghi lại
         }
         out.close();
     }
+
+    public static void writeSachTheoTen(File file, ArrayList<ThongKeSachType> list, String tittle) throws FileNotFoundException, IOException {
+        FileOutputStream out;
+        try (XWPFDocument document = loadHeader(tittle)) {
+            createTableSach(document, list, "Tên sách");
+            loadFooter(document);
+            out = new FileOutputStream(file);
+            document.write(out);//ghi lại
+        }
+        out.close();
+    }
+
+    public static void writeSachTheoTheLoai(File file, ArrayList<ThongKeSachType> list, String tittle) throws FileNotFoundException, IOException {
+        FileOutputStream out;
+        try (XWPFDocument document = loadHeader(tittle)) {
+            createTableSach(document, list, "Thể loại sách");
+            loadFooter(document);
+            out = new FileOutputStream(file);
+            document.write(out);//ghi lại
+        }
+        out.close();
+    }
+
+    public static void writeSachTheoNamXuatBan(File file, ArrayList<ThongKeSachType> list, String tittle) throws FileNotFoundException, IOException {
+        FileOutputStream out;
+        try (XWPFDocument document = loadHeader(tittle)) {
+            createTableSach(document, list, "Năm xuất bản");
+            loadFooter(document);
+            out = new FileOutputStream(file);
+            document.write(out);//ghi lại
+        }
+        out.close();
+    }
+
+    public static void writeSachTheoNhaXuatBan(File file, ArrayList<ThongKeSachType> list, String tittle) throws FileNotFoundException, IOException {
+        FileOutputStream out;
+        try (XWPFDocument document = loadHeader(tittle)) {
+            createTableSach(document, list, "Nhà xuất bản");
+            loadFooter(document);
+            out = new FileOutputStream(file);
+            document.write(out);//ghi lại
+        }
+        out.close();
+    }
+
+    public static void writeSachTheoTacGia(File file, ArrayList<ThongKeSachType> list, String tittle) throws FileNotFoundException, IOException {
+        FileOutputStream out;
+        try (XWPFDocument document = loadHeader(tittle)) {
+            createTableSach(document, list, "Tác giả");
+            loadFooter(document);
+            out = new FileOutputStream(file);
+            document.write(out);//ghi lại
+        }
+        out.close();
+    }
+
+    public static void writeMuonTraTheoNhanVien(File file, ArrayList<ThongKeMuonTraTye1> list, String tittle) throws FileNotFoundException, IOException {
+        FileOutputStream out;
+        try (XWPFDocument document = loadHeader(tittle)) {
+            createTableMuonTraTheoNhanVien(document, list);
+            loadFooter(document);
+            out = new FileOutputStream(file);
+            document.write(out);//ghi lại
+        }
+        out.close();
+    }
+
+    public static void writeSachTheoGiaTien(File file, ArrayList<ThongKeSachType> list, String tittle) throws FileNotFoundException, IOException {
+        FileOutputStream out;
+        try (XWPFDocument document = loadHeader(tittle)) {
+            createTableSach(document, list, "Giá tiền");
+            loadFooter(document);
+            out = new FileOutputStream(file);
+            document.write(out);//ghi lại
+        }
+        out.close();
+    }
+
     public static void writeNVtheoGioiTinh(File file, ArrayList<ThongKeNhanVienType> list, String tittle) throws FileNotFoundException, IOException {
         FileOutputStream out;
         try (XWPFDocument document = loadHeader(tittle)) {
-            createTableNV(document, list,"Giới tính");
+            createTableNV(document, list, "Giới tính");
             loadFooter(document);
             out = new FileOutputStream(file);
             document.write(out);//ghi lại
         }
         out.close();
     }
+
     public static void writeNVtheoNamSinh(File file, ArrayList<ThongKeNhanVienType> list, String tittle) throws FileNotFoundException, IOException {
         FileOutputStream out;
         try (XWPFDocument document = loadHeader(tittle)) {
-            createTableNV(document, list,"Năm sinh");
+            createTableNV(document, list, "Năm sinh");
             loadFooter(document);
             out = new FileOutputStream(file);
             document.write(out);//ghi lại
         }
         out.close();
     }
+
     public static void writeNVtheoDiaChi(File file, ArrayList<ThongKeNhanVienType> list, String tittle) throws FileNotFoundException, IOException {
         FileOutputStream out;
         try (XWPFDocument document = loadHeader(tittle)) {
-            createTableNV(document, list,"Địa chỉ");
+            createTableNV(document, list, "Địa chỉ");
             loadFooter(document);
             out = new FileOutputStream(file);
             document.write(out);//ghi lại
         }
         out.close();
     }
-     public static void writeDGtheoDiaChi(File file, ArrayList<ThongKeDocGiaTheoDiaChi> list, String tittle) throws FileNotFoundException, IOException {
+
+    public static void writeDGtheoDiaChi(File file, ArrayList<ThongKeDocGiaTheoDiaChi> list, String tittle) throws FileNotFoundException, IOException {
         FileOutputStream out;
         try (XWPFDocument document = loadHeader(tittle)) {
             createTableDGtheoDiaChi(document, list);
@@ -111,7 +193,8 @@ public class WordHelper {
         }
         out.close();
     }
-      public static void writeDGtheoNgheNghiep(File file, ArrayList<ThongKeDocGiaTheoNgheNghiep> list, String tittle) throws FileNotFoundException, IOException {
+
+    public static void writeDGtheoNgheNghiep(File file, ArrayList<ThongKeDocGiaTheoNgheNghiep> list, String tittle) throws FileNotFoundException, IOException {
         FileOutputStream out;
         try (XWPFDocument document = loadHeader(tittle)) {
             createTableDGtheoNgheNghiep(document, list);
@@ -242,7 +325,8 @@ public class WordHelper {
 
         }
     }
-    private static void createTableNV(XWPFDocument document, ArrayList<ThongKeNhanVienType> list,String tieuChi) {
+
+    private static void createTableNV(XWPFDocument document, ArrayList<ThongKeNhanVienType> list, String tieuChi) {
         // tạo bảng 
         XWPFTable table = document.createTable();
         setTableAlign(table, ParagraphAlignment.CENTER);
@@ -251,7 +335,7 @@ public class WordHelper {
         XWPFTableRow tittleRow = table.getRow(0);
         format(tittleRow.getCell(0), "TT", true);
         tittleRow.getCell(0).getCTTc().addNewTcPr().addNewTcW().setW(BigInteger.valueOf(500)); // set chiều rộng
-        createNewCell(tittleRow, ""+tieuChi, 1700, 1);
+        createNewCell(tittleRow, "" + tieuChi, 1700, 1);
         createNewCell(tittleRow, "Số lượng", 1000, 2);
 
         // đọc dữ liệu
@@ -259,11 +343,64 @@ public class WordHelper {
             ThongKeNhanVienType o = list.get(i);
             XWPFTableRow row = table.createRow();// tạo dòng mới
             format(row.getCell(0), (i + 1) + "", false);
-            format(row.getCell(1), o.getThuocTinh()+ "", false);
+            format(row.getCell(1), o.getThuocTinh() + "", false);
             format(row.getCell(2), o.getSoLuong() + "", false);
 
         }
     }
+
+    private static void createTableSach(XWPFDocument document, ArrayList<ThongKeSachType> list, String tieuChi) {
+        // tạo bảng 
+        XWPFTable table = document.createTable();
+        setTableAlign(table, ParagraphAlignment.CENTER);
+        // khi tạo 1 bảng mới thì bảng chỉ có 1 dòng và 1 cột -> row 0, col 0
+        //get first row - viết tittle
+        XWPFTableRow tittleRow = table.getRow(0);
+        format(tittleRow.getCell(0), "TT", true);
+        tittleRow.getCell(0).getCTTc().addNewTcPr().addNewTcW().setW(BigInteger.valueOf(500)); // set chiều rộng
+        createNewCell(tittleRow, "" + tieuChi, 1700, 1);
+        createNewCell(tittleRow, "Số lượng", 1000, 2);
+
+        // đọc dữ liệu
+        for (int i = 0; i < list.size(); i++) {
+            ThongKeSachType o = list.get(i);
+            XWPFTableRow row = table.createRow();// tạo dòng mới
+            format(row.getCell(0), (i + 1) + "", false);
+            format(row.getCell(1), o.getThuocTinh() + "", false);
+            format(row.getCell(2), o.getSoLuong() + "", false);
+
+        }
+    }
+
+    private static void createTableMuonTraTheoNhanVien(XWPFDocument document, ArrayList<ThongKeMuonTraTye1> list) {
+        // tạo bảng 
+        XWPFTable table = document.createTable();
+        setTableAlign(table, ParagraphAlignment.CENTER);
+        // khi tạo 1 bảng mới thì bảng chỉ có 1 dòng và 1 cột -> row 0, col 0
+        //get first row - viết tittle
+        XWPFTableRow tittleRow = table.getRow(0);
+        format(tittleRow.getCell(0), "TT", true);
+        tittleRow.getCell(0).getCTTc().addNewTcPr().addNewTcW().setW(BigInteger.valueOf(500)); // set chiều rộng
+        createNewCell(tittleRow, "Mã nhân viên", 1700, 1);
+        createNewCell(tittleRow, "Tên nhân viên", 1000, 2);
+        createNewCell(tittleRow, "Số lượng hóa đơn", 1700, 3);
+        createNewCell(tittleRow, "Tổng tiền cọc", 1700, 4);
+        createNewCell(tittleRow, "Tổng tiền phạt", 1700, 5);
+
+        // đọc dữ liệu
+        for (int i = 0; i < list.size(); i++) {
+            ThongKeMuonTraTye1 o = list.get(i);
+            XWPFTableRow row = table.createRow();// tạo dòng mới
+            format(row.getCell(0), (i + 1) + "", false);
+            format(row.getCell(1), o.getIdNhanVien() + "", false);
+            format(row.getCell(2), o.getTenNhanVien() + "", false);
+            format(row.getCell(3), o.getSoLuong() + "", false);
+            format(row.getCell(4), o.getTienCoc() + "", false);
+            format(row.getCell(5), o.getTienPhat() + "", false);
+
+        }
+    }
+
     private static void createTableDGtheoDiaChi(XWPFDocument document, ArrayList<ThongKeDocGiaTheoDiaChi> list) {
         // tạo bảng 
         XWPFTable table = document.createTable();
@@ -281,11 +418,12 @@ public class WordHelper {
             ThongKeDocGiaTheoDiaChi o = list.get(i);
             XWPFTableRow row = table.createRow();// tạo dòng mới
             format(row.getCell(0), (i + 1) + "", false);
-            format(row.getCell(1), o.getDiaChi()+ "", false);
+            format(row.getCell(1), o.getDiaChi() + "", false);
             format(row.getCell(2), o.getSoLuong() + "", false);
 
         }
     }
+
     private static void createTableDGtheoNgheNghiep(XWPFDocument document, ArrayList<ThongKeDocGiaTheoNgheNghiep> list) {
         // tạo bảng 
         XWPFTable table = document.createTable();
@@ -303,7 +441,7 @@ public class WordHelper {
             ThongKeDocGiaTheoNgheNghiep o = list.get(i);
             XWPFTableRow row = table.createRow();// tạo dòng mới
             format(row.getCell(0), (i + 1) + "", false);
-            format(row.getCell(1), o.getNgheNghiep()+ "", false);
+            format(row.getCell(1), o.getNgheNghiep() + "", false);
             format(row.getCell(2), o.getSoLuong() + "", false);
 
         }
@@ -349,7 +487,7 @@ public class WordHelper {
             ThongKeDocGiaTheoTenType o = list.get(i);
             XWPFTableRow row = table.createRow();// tạo dòng mới
             format(row.getCell(0), (i + 1) + "", false);
-            format(row.getCell(1), o.getTen()+ "", false);
+            format(row.getCell(1), o.getTen() + "", false);
             format(row.getCell(2), o.getSoLuong() + "", false);
 
         }
