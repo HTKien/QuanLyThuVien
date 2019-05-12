@@ -426,8 +426,14 @@ public class ChiTietMuonTra extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-        new PhieuMuonTra().setVisible(true);
+        try {
+            // TODO add your handling code here:
+            new PhieuMuonTra().setVisible(true);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ChiTietMuonTra.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ChiTietMuonTra.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
 

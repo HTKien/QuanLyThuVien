@@ -1,12 +1,16 @@
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -30,14 +34,18 @@ public class PhieuMuonTra extends javax.swing.JFrame {
 
     KetNoiQLTV ketNoiQLTV = null;
     Connection connection = null;
+    ArrayList<PhieuMuonTraType> listPhieu = new ArrayList<>(); 
+    
 
-    public PhieuMuonTra() {
+    public PhieuMuonTra() throws ClassNotFoundException, SQLException {
 
         ketNoiQLTV = new KetNoiQLTV();
         connection = ketNoiQLTV.getJDBCConnection();
         initComponents();
         this.setLocationRelativeTo(null);
         xemPhieuMuonTra();
+        listPhieu = PhieuMuonTraType.getList(); 
+                
     }
 
     /**
@@ -155,6 +163,11 @@ public class PhieuMuonTra extends javax.swing.JFrame {
         jButton2.setBackground(new java.awt.Color(102, 102, 102));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Word-icon.png"))); // NOI18N
         jButton2.setText("Xuất phiếu");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel13.setText("Số sách trả: ");
 
@@ -343,6 +356,22 @@ public class PhieuMuonTra extends javax.swing.JFrame {
         }                 // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+         JFileChooser jFileChooser = new JFileChooser();
+        if (jFileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File file = jFileChooser.getSelectedFile();
+
+            try {
+                WordHelper.writePhieuMuonTra(file, listPhieu);
+            } catch (IOException ex) {
+                Logger.getLogger(PhieuMuonTra.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            JOptionPane.showMessageDialog(null, "Xuất file thành công");
+
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -373,7 +402,13 @@ public class PhieuMuonTra extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PhieuMuonTra().setVisible(true);
+                try {
+                    new PhieuMuonTra().setVisible(true);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(PhieuMuonTra.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(PhieuMuonTra.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -429,14 +464,15 @@ public class PhieuMuonTra extends javax.swing.JFrame {
 
     }
 
-    public String truyVanTenDocGia() {
+    public static String truyVanTenDocGia() {
         String tenDocGia = "";
         String sql = "select tenDocGia from docgia where idDocGia='" + MuonTra.docMaDocGia() + "';";
-        Statement statement = null;
-        ResultSet resultSet = null;
+        
         try {
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(sql);
+            KetNoiQLTV ketNoiQLTV = new KetNoiQLTV();
+        Connection connection = ketNoiQLTV.getJDBCConnection();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
 
                 tenDocGia = resultSet.getString("tenDocGia");
@@ -449,14 +485,15 @@ public class PhieuMuonTra extends javax.swing.JFrame {
         return tenDocGia;
     }
 
-    public String truyVanTenNhanVien() {
+    public static String truyVanTenNhanVien() {
         String tenNhanVien = "";
         String sql = "select tenNhanVien from nhanvien where idNhanVien='" + MuonTra.docMaNhanVien() + "';";
-        Statement statement = null;
-        ResultSet resultSet = null;
+        
         try {
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(sql);
+            KetNoiQLTV ketNoiQLTV = new KetNoiQLTV();
+        Connection connection = ketNoiQLTV.getJDBCConnection();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
 
                 tenNhanVien = resultSet.getString("tenNhanVien");
@@ -469,14 +506,15 @@ public class PhieuMuonTra extends javax.swing.JFrame {
         return tenNhanVien;
     }
 
-    public int docSoSachMuon() {
+    public static int docSoSachMuon() {
         int soSachMuon = 0;
         String sql = "SELECT COUNT(idSach) FROM chitietmuontra where idMuonTra ='" + MuonTra.docMaMuonTra() + "' and ngayTra is null ;";
-        Statement statement = null;
-        ResultSet resultSet = null;
+       
         try {
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(sql);
+            KetNoiQLTV ketNoiQLTV = new KetNoiQLTV();
+        Connection connection = ketNoiQLTV.getJDBCConnection();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
 
                 soSachMuon = resultSet.getInt("COUNT(idSach)");
@@ -489,14 +527,15 @@ public class PhieuMuonTra extends javax.swing.JFrame {
         return soSachMuon;
     }
 
-    public int docSoSachTra() {
+    public static int docSoSachTra() {
         int soSachMuon = 0;
         String sql = "SELECT COUNT(idSach) FROM chitietmuontra where idMuonTra ='" + MuonTra.docMaMuonTra() + "' and ngayTra is not null ;";
-        Statement statement = null;
-        ResultSet resultSet = null;
+         
         try {
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(sql);
+            KetNoiQLTV ketNoiQLTV = new KetNoiQLTV();
+        Connection connection = ketNoiQLTV.getJDBCConnection();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
 
                 soSachMuon = resultSet.getInt("COUNT(idSach)");
@@ -509,14 +548,15 @@ public class PhieuMuonTra extends javax.swing.JFrame {
         return soSachMuon;
     }
 
-    public Double docTongTienPhat() {
+    public static double docTongTienPhat() {
         Double tongTienPhat = 0D;
         String sql = "SELECT SUM(tienPhat) FROM chitietmuontra where idMuonTra ='" + MuonTra.docMaMuonTra() + "' GROUP BY idMuonTra;";
-        Statement statement = null;
-        ResultSet resultSet = null;
+        
         try {
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(sql);
+            KetNoiQLTV ketNoiQLTV = new KetNoiQLTV();
+        Connection connection = ketNoiQLTV.getJDBCConnection();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
 
                 tongTienPhat = resultSet.getDouble("SUM(tienPhat)");

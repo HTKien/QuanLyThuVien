@@ -1361,7 +1361,7 @@ public class MuonTra extends javax.swing.JFrame {
     }
 
     public static String docNgayMuon() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         String ngayMuon = dateFormat.format(ngaymuontt.getDate());
 
@@ -1369,7 +1369,7 @@ public class MuonTra extends javax.swing.JFrame {
     }
 
     public static String docNgayHenTra() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         String ngayHenTra = dateFormat.format(ngayhentratt.getDate());
         return ngayHenTra;
